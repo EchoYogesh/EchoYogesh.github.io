@@ -329,8 +329,8 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   }
 
   const stamp = (d) =>
-    new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\\d{3}/, "");
-  const escapeText = (t) => String(t).replace(/([,;\\\\])/g, "\\\\$1").replace(/\\n/g, "\\\\n");
+    new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const escapeText = (t) => String(t).replace(/([,;\\])/g, "\\$1").replace(/\n/g, "\\n");
 
   // One calendar file holding all five functions.
   function calendarFile() {
@@ -358,7 +358,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     });
 
     lines.push("END:VCALENDAR");
-    return new Blob([lines.join("\\r\\n")], { type: "text/calendar;charset=utf-8" });
+    return new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" });
   }
 
   let calendarUrl = null;
@@ -409,7 +409,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
           reply.note ? `Note: ${reply.note}` : "",
         ]
           .filter(Boolean)
-          .join("\\n");
+          .join("\n");
 
         window.location.href =
           `mailto:${CONFIG.rsvpEmail}?subject=${encodeURIComponent(subject)}` +
