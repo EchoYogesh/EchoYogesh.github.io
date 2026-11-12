@@ -586,7 +586,7 @@ section[id] { scroll-margin-top: 4.5rem; }
   color: var(--ink-faint);
 }
 
-/* ── Agenda (three functions) ───────────────────────────────── */
+/* ── Agenda (the four functions) ────────────────────────────── */
 
 .agenda { list-style: none; margin: 0; padding: 0; }
 .agenda__row {
@@ -682,8 +682,9 @@ section[id] { scroll-margin-top: 4.5rem; }
   color: rgba(248, 244, 236, 0.55);
 }
 
-/* The order of events, without invented clock times */
-.schedule--sequence li { grid-template-columns: 1fr; }
+/* The order of events, without invented clock times.
+   Two classes so the phone rule for .schedule li can't squash it. */
+.schedule.schedule--sequence li { grid-template-columns: 1fr; }
 .schedule--sequence h3 { font-size: 1.24rem; }
 .schedule--sequence li p:last-child { max-width: 34rem; }
 
@@ -1269,6 +1270,7 @@ textarea.reveal { transform: none; }
   .countdown__cell + .countdown__cell::before { display: none; }
 
   .schedule li { grid-template-columns: 3.6rem 1fr; gap: 0.9rem; }
+  .schedule.schedule--sequence li { grid-template-columns: 1fr; }
 
   /* phones: put the function's date under its name */
   .tick { align-items: center; }
