@@ -1,9 +1,10 @@
-# Brijesh &amp; Sangeeta — wedding invitation site
+# Brijesh & Sangeeta — wedding invitation site
 
-One rich page: deep maroon, gold and cream, a Mughal arch and a floral sprig,
-script names, and the invitation set the traditional way — both sets of parents,
-the family, then the couple, then the four functions. No photographs: the
-ornament is drawn in CSS and inline SVG, so there is nothing to load.
+One rich page: cream and gold with deep maroon bands, a gold arch over the
+invitation card, a lit mandap with the couple walking in, a baraat of elephant,
+dhol and horse, a vidai at the bottom of the wedding day — and flower petals
+falling the whole way down. No photographs: every picture is drawn in inline
+SVG, so there is nothing to load.
 
 | Function | When | Time |
 | --- | --- | --- |
@@ -55,14 +56,28 @@ photographs yet). The nav, footer and structured data reflect that.
   **Tiro Devanagari Hindi** for the Hindi lines.
 - The palette in `:root`: `--cream` and `--cream-2` (paper), `--maroon`,
   `--maroon-deep` (the dark bands), `--gold`, `--gold-light`, and warm brown ink.
-- The hero sits inside a hand-drawn ogee arch (inline SVG) with a floral sprig in
-  each top corner; the arch strokes itself in on load. Dividers are a gold hairline
-  with a small cut-gem diamond. Cards are cream panels inside a doubled gold frame.
+- The hero is a cream card framed in gold, with an arch springing from the frame
+  sides, a lotus and “॥ श्री गणेशाय नमः ॥” at the top, the names in Great Vibes,
+  a three-part date bar (Sunday · 31 January 2027 · Jhaliyahwa), and a warm
+  mandap scene: two lanterns, marigold strings, and Brijesh and Sangeeta, seen
+  from behind, walking into the mandap.
+- Laptops and desktops get their own layout: from 960 px wide the hero card opens
+  into two columns, the invitation text under its arch on the left and the lit
+  mandap beside it on the right. Phones keep the single centred card.
+- The two households are shown as two separate families, joined by an ampersand:
+  Shri Ram Abhilash Yadav & Smt. Anita Yadav, & Shri Brijendra Yadav & Smt.
+  Kalawati Devi.
+- The wedding day carries a baraat frieze — elephant with a flag, a dhol player,
+  a horse — and the Vidai row closes with the bride leaving, lamp in hand.
+- Flower petals fall across the whole page on a `<canvas id="petals">`: they drift,
+  they are pushed aside by the cursor, and on a tap or a finger-drag they scatter
+  from the point you touched, so the page feels like the flowers on the card.
 - Invitations and the reply card are bordered like printed cards; the four
-  functions are cream cards with a maroon date column.
-- Motion is quiet but present: the hero arrives in stages, the arch draws itself,
-  rules extend, sections rise on scroll, the countdown flashes softly each second.
-  Everything stops under `prefers-reduced-motion`.
+  functions are cream cards, each with its own drawing — haldi bowl, mehndi hand,
+  mandap, lantern.
+- Motion is quiet but present: the hero arrives in stages, rules extend, sections
+  rise on scroll, petals keep drifting, the countdown flashes softly each second.
+  Everything stops under `prefers-reduced-motion`, including the petals.
 - Print styles included: ⌘P / Ctrl+P gives a clean paper copy.
 
 ## If a time or date changes
