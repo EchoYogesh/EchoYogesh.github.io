@@ -11,6 +11,10 @@ const CONFIG = {
   // Countdown target: the baraat muhurat on Sunday 31 January 2027.
   weddingDate: "2027-01-31T16:00:00+05:30",
 
+  // Wedding Memories & Drive Configuration:
+  // Paste Brijesh's Google Drive or Google Photos link here:
+  photoDriveUrl: "https://photos.app.goo.gl/brijesh-sangeeta-wedding",
+
   // The five functions, used for the "add to calendar" file.
   events: [
     {
@@ -807,6 +811,16 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       patrika_label_rel: "रिश्ता या शहर",
       patrika_btn_cancel: "रद्द करें",
       patrika_btn_submit: "✦ आशीर्वाद समर्पित करें",
+      nav_memories: "एलबम",
+      memories_eyebrow: "स्मृतियां संजोएं",
+      memories_title: "विवाह स्मृतियां एवं फोटो एलबम",
+      memories_sub: "क्या आपने विवाह उत्सव के पावन पलों, बारात या रस्मों की तस्वीरें या वीडियो लिए हैं? क्यूआर कोड स्कैन करें या नीचे दिए बटन से अपनी तस्वीरें एलबम में साझा करें!",
+      memories_qr_label: "मोबाइल कैमरे से स्कैन करें",
+      memories_heading: "ब्रिजेश एवं संगीता का साझा फोटो एलबम",
+      memories_desc: "हल्दी, मंडप, बारात या फेरों के दौरान आपके द्वारा खींची गई सुंदर तस्वीरें और वीडियो हमारे इस साझा परिवार एलबम में अवश्य अपलोड करें!",
+      memories_upload_btn: "तस्वीरें एवं वीडियो अपलोड करें",
+      memories_view_btn: "विवाह एलबम देखें",
+      memories_note: "✦ सभी परिजनों व मित्रों के लिए खुला &middot; अपनी तस्वीरें मूल उच्च गुणवत्ता (Original Resolution) में अपलोड करें।",
       gifts_eyebrow: "शगुन एवं आशीष",
       gifts_title: "आपका स्नेह और आशीर्वाद ही सर्वोपरि है",
       shagun_title: "शगुन",
@@ -823,6 +837,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       nav_travel: "Travel",
       nav_rsvp: "Reply",
       nav_wishes: "Wishes",
+      nav_memories: "Album",
       nav_faq: "Questions",
       attire_eyebrow: "Dress code & palette",
       attire_title: "What to wear for each occasion",
@@ -851,6 +866,15 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       patrika_label_rel: "Relation or City",
       patrika_btn_cancel: "Cancel",
       patrika_btn_submit: "✦ Seal & Post on Wall",
+      memories_eyebrow: "Capture & Relive",
+      memories_title: "Wedding Memories & Album",
+      memories_sub: "Did you capture candid moments, selfies, or dance videos during the wedding? Scan the QR code or click below to upload your clicks to the family album, or browse official wedding photos!",
+      memories_qr_label: "Scan with Phone Camera",
+      memories_heading: "Brijesh & Sangeeta's Shared Album",
+      memories_desc: "Whether you took candids at the Tilak, selfies at the Mandap, or energetic videos in the Baraat, please share your memories with us!",
+      memories_upload_btn: "Upload Photos & Videos",
+      memories_view_btn: "View Wedding Album",
+      memories_note: "✦ Open for all guests &middot; Upload your original full-resolution photos directly.",
       gifts_eyebrow: "Shagun & Blessings",
       gifts_title: "Your blessings are enough",
       shagun_title: "Digital Shagun",
@@ -1146,5 +1170,238 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
         window.open(`https://wa.me/?text=${encodeURIComponent(waMsg)}`, "_blank");
       }
     });
+  }
+})();
+
+/* ── Wedding Memories & QR Code Generator ─────────────────────── */
+
+const QRGenerator = (function() {
+  const EXP = new Uint8Array(512);
+  const LOG = new Uint8Array(256);
+  let x = 1;
+  for (let i = 0; i < 255; i++) {
+    EXP[i] = x;
+    EXP[i + 255] = x;
+    LOG[x] = i;
+    x = (x << 1) ^ (x >= 128 ? 0x11d : 0);
+  }
+
+  function gfMul(x, y) {
+    return (x === 0 || y === 0) ? 0 : EXP[LOG[x] + LOG[y]];
+  }
+
+  function polyMul(p1, p2) {
+    const res = new Uint8Array(p1.length + p2.length - 1);
+    for (let i = 0; i < p1.length; i++) {
+      for (let j = 0; j < p2.length; j++) {
+        res[i + j] ^= gfMul(p1[i], p2[j]);
+      }
+    }
+    return res;
+  }
+
+  function rsGenPoly(n) {
+    let g = new Uint8Array([1]);
+    for (let i = 0; i < n; i++) {
+      g = polyMul(g, new Uint8Array([1, EXP[i]]));
+    }
+    return g;
+  }
+
+  function rsCompute(data, ecCount) {
+    const gen = rsGenPoly(ecCount);
+    const msg = new Uint8Array(data.length + ecCount);
+    msg.set(data);
+    for (let i = 0; i < data.length; i++) {
+      const coef = msg[i];
+      if (coef !== 0) {
+        for (let j = 0; j < gen.length; j++) {
+          msg[i + j] ^= gfMul(gen[j], coef);
+        }
+      }
+    }
+    return msg.subarray(data.length);
+  }
+
+  const VERSIONS = [
+    null,
+    { ver: 1, size: 21, dataCap: 19, ecCount: 7, align: [] },
+    { ver: 2, size: 25, dataCap: 34, ecCount: 10, align: [6, 18] },
+    { ver: 3, size: 29, dataCap: 55, ecCount: 15, align: [6, 22] },
+    { ver: 4, size: 33, dataCap: 80, ecCount: 20, align: [6, 26] },
+    { ver: 5, size: 37, dataCap: 108, ecCount: 26, align: [6, 30] },
+    { ver: 6, size: 41, dataCap: 136, ecCount: 28, align: [6, 34] },
+    { ver: 7, size: 45, dataCap: 156, ecCount: 30, align: [6, 22, 38] }
+  ];
+
+  function getVersion(len) {
+    for (let v = 1; v < VERSIONS.length; v++) {
+      if (len + 3 <= VERSIONS[v].dataCap) return VERSIONS[v];
+    }
+    return VERSIONS[VERSIONS.length - 1];
+  }
+
+  function encodeData(text, vInfo) {
+    const bytes = new TextEncoder().encode(text);
+    const bits = [];
+    function push(val, len) {
+      for (let i = len - 1; i >= 0; i--) bits.push((val >> i) & 1);
+    }
+    push(0b0100, 4);
+    push(bytes.length, 8);
+    for (let b of bytes) push(b, 8);
+    const padLen = vInfo.dataCap * 8;
+    while (bits.length < padLen && bits.length % 8 !== 0) bits.push(0);
+    while (bits.length < padLen && bits.length < padLen - 4) push(0, 4);
+
+    const dataBytes = new Uint8Array(vInfo.dataCap);
+    for (let i = 0; i < bits.length; i += 8) {
+      let b = 0;
+      for (let j = 0; j < 8; j++) b = (b << 1) | (bits[i + j] || 0);
+      dataBytes[i / 8] = b;
+    }
+    const padPatterns = [0xec, 0x11];
+    let pIdx = 0;
+    for (let i = Math.floor(bits.length / 8); i < vInfo.dataCap; i++) {
+      dataBytes[i] = padPatterns[pIdx++ % 2];
+    }
+    return dataBytes;
+  }
+
+  function createMatrix(vInfo, dataWithEc) {
+    const N = vInfo.size;
+    const matrix = Array.from({ length: N }, () => new Int8Array(N).fill(-1));
+
+    function placeFinder(row, col) {
+      for (let r = -1; r <= 7; r++) {
+        for (let c = -1; c <= 7; c++) {
+          const mr = row + r, mc = col + c;
+          if (mr < 0 || mr >= N || mc < 0 || mc >= N) continue;
+          if ((r >= 0 && r <= 6 && (c === 0 || c === 6)) ||
+              (c >= 0 && c <= 6 && (r === 0 || r === 6)) ||
+              (r >= 2 && r <= 4 && c >= 2 && c <= 4)) {
+            matrix[mr][mc] = 1;
+          } else {
+            matrix[mr][mc] = 0;
+          }
+        }
+      }
+    }
+    placeFinder(0, 0);
+    placeFinder(0, N - 7);
+    placeFinder(N - 7, 0);
+
+    for (let i = 8; i < N - 8; i++) {
+      if (matrix[6][i] === -1) matrix[6][i] = (i % 2 === 0 ? 1 : 0);
+      if (matrix[i][6] === -1) matrix[i][6] = (i % 2 === 0 ? 1 : 0);
+    }
+
+    if (vInfo.align.length > 0) {
+      for (let r of vInfo.align) {
+        for (let c of vInfo.align) {
+          if (matrix[r][c] !== -1) continue;
+          for (let dr = -2; dr <= 2; dr++) {
+            for (let dc = -2; dc <= 2; dc++) {
+              const d = Math.max(Math.abs(dr), Math.abs(dc));
+              matrix[r + dr][c + dc] = (d === 1 ? 0 : 1);
+            }
+          }
+        }
+      }
+    }
+
+    matrix[4 * vInfo.ver + 9][8] = 1;
+
+    for (let i = 0; i < 9; i++) {
+      if (matrix[8][i] === -1) matrix[8][i] = 0;
+      if (matrix[i][8] === -1) matrix[i][8] = 0;
+    }
+    for (let i = N - 8; i < N; i++) {
+      if (matrix[8][i] === -1) matrix[8][i] = 0;
+      if (matrix[i][8] === -1) matrix[i][8] = 0;
+    }
+
+    let bitIdx = 0;
+    const allBits = [];
+    for (let b of dataWithEc) {
+      for (let i = 7; i >= 0; i--) allBits.push((b >> i) & 1);
+    }
+
+    let right = N - 1;
+    let upward = true;
+    while (right > 0) {
+      if (right === 6) right--;
+      for (let vert = 0; vert < N; vert++) {
+        const r = upward ? (N - 1 - vert) : vert;
+        for (let c = right; c >= right - 1; c--) {
+          if (matrix[r][c] === -1) {
+            const val = bitIdx < allBits.length ? allBits[bitIdx++] : 0;
+            const mask = ((r + c) % 2 === 0) ? 1 : 0;
+            matrix[r][c] = val ^ mask;
+          }
+        }
+      }
+      upward = !upward;
+      right -= 2;
+    }
+
+    const fmtBits = [1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0];
+    const fmtPos1 = [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],[7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]];
+    for (let i = 0; i < 15; i++) {
+      matrix[fmtPos1[i][0]][fmtPos1[i][1]] = fmtBits[i];
+    }
+    for (let i = 0; i < 7; i++) matrix[N - 1 - i][8] = fmtBits[i];
+    for (let i = 7; i < 15; i++) matrix[8][N - 15 + i] = fmtBits[i];
+
+    return matrix;
+  }
+
+  function toSVG(text, size = 150) {
+    const vInfo = getVersion(new TextEncoder().encode(text).length);
+    const dataBytes = encodeData(text, vInfo);
+    const ecBytes = rsCompute(dataBytes, vInfo.ecCount);
+    const fullData = new Uint8Array(dataBytes.length + ecBytes.length);
+    fullData.set(dataBytes);
+    fullData.set(ecBytes, dataBytes.length);
+
+    const matrix = createMatrix(vInfo, fullData);
+    const N = matrix.length;
+    const margin = 2;
+    const total = N + margin * 2;
+
+    let path = "";
+    for (let r = 0; r < N; r++) {
+      for (let c = 0; c < N; c++) {
+        if (matrix[r][c] === 1) {
+          path += `M${c + margin},${r + margin}h1v1h-1z `;
+        }
+      }
+    }
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${total} ${total}" width="${size}" height="${size}" shape-rendering="crispEdges" aria-label="QR Code to Wedding Album">
+      <rect width="100%" height="100%" fill="#ffffff" />
+      <path d="${path}" fill="#3b1a17" />
+    </svg>`;
+  }
+
+  return { toSVG };
+})();
+
+(function initMemories() {
+  const qrBox = $("#memoriesQrBox");
+  const uploadBtn = $("#uploadPhotosBtn");
+  const viewBtn = $("#viewAlbumBtn");
+  const driveUrl = (CONFIG && CONFIG.photoDriveUrl) || "https://photos.app.goo.gl/brijesh-sangeeta-wedding";
+
+  if (uploadBtn) uploadBtn.href = driveUrl;
+  if (viewBtn) viewBtn.href = driveUrl;
+
+  if (qrBox && typeof QRGenerator !== "undefined") {
+    try {
+      const seal = qrBox.querySelector(".qr-center-seal");
+      qrBox.innerHTML = QRGenerator.toSVG(driveUrl, 150);
+      if (seal) qrBox.appendChild(seal);
+    } catch (err) {
+      console.warn("QR generator fallback:", err);
+    }
   }
 })();

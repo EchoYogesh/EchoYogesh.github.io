@@ -188,42 +188,74 @@ section[id] { scroll-margin-top: 4.2rem; }
 
 /* ── Buttons ────────────────────────────────────────────────── */
 
+/* ── Royal Luxury Master Button Styling ──────────────────────── */
+
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.9rem 1.7rem;
-  border: 1px solid var(--maroon);
-  background: var(--maroon);
-  color: var(--cream);
-  font-family: var(--body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.26em;
+  gap: 0.6rem;
+  padding: 0.82rem 1.8rem;
+  border-radius: 999px;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.4s var(--ease), color 0.4s var(--ease),
-              border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  white-space: nowrap;
 }
-.btn:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--cream);
-  box-shadow: 0 14px 26px -20px rgba(92, 18, 32, 0.9);
+
+/* Luxury shimmer sheen across buttons */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
 }
-.btn--solid { background: var(--maroon); border-color: var(--maroon); color: var(--cream); }
+.btn:hover::before {
+  left: 140%;
+}
+
+/* Primary Solid Button: Royal Imperial Velvet Maroon & 24K Gold */
+.btn--solid,
+.btn:not(.btn--line):not(.btn--copy):not(.btn--whatsapp):not(.royal-btn--gold) {
+  background: linear-gradient(135deg, #781c2b 0%, #54111d 50%, #3a0a13 100%);
+  color: #fffaf0 !important;
+  border: 1.5px solid #d4af37;
+  box-shadow: 0 8px 22px -5px rgba(62, 10, 20, 0.45), 0 0 0 3px rgba(176, 134, 58, 0.18);
+}
+.btn--solid:hover,
+.btn:not(.btn--line):not(.btn--copy):not(.btn--whatsapp):not(.royal-btn--gold):hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #8c2132 0%, #631523 50%, #480d18 100%);
+  border-color: #eedcc0;
+  box-shadow: 0 14px 30px -6px rgba(62, 10, 20, 0.6), 0 0 0 4px rgba(176, 134, 58, 0.35);
+  color: #ffffff !important;
+}
+
+/* Secondary Line Button: Raw Silk Ivory & Embossed Antique Gold */
 .btn--line {
-  background: transparent;
-  border-color: var(--gold-line);
-  color: var(--maroon);
+  background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 60%, #f6ecd6 100%);
+  color: #4a0c16 !important;
+  border: 1.5px solid #b0863a;
+  box-shadow: 0 6px 18px -4px rgba(176, 134, 58, 0.22), 0 0 0 2px rgba(176, 134, 58, 0.12);
 }
 .btn--line:hover {
-  background: transparent;
-  border-color: var(--gold);
-  color: var(--gold);
-  box-shadow: none;
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #b0863a 0%, #946f2c 100%);
+  color: #ffffff !important;
+  border-color: #dcc08a;
+  box-shadow: 0 12px 28px -5px rgba(176, 134, 58, 0.4), 0 0 0 4px rgba(176, 134, 58, 0.22);
 }
+
 .btn[hidden] { display: none; }
 
 /* ── Navigation ─────────────────────────────────────────────── */
@@ -287,13 +319,26 @@ section[id] { scroll-margin-top: 4.2rem; }
 .nav__links a:hover::after,
 .nav__links a.is-active::after { transform: scaleX(1); }
 .nav__links a.nav__cta {
-  color: var(--cream);
-  background: var(--maroon);
-  padding: 0.55rem 1.1rem;
-  border: 1px solid var(--maroon);
+  color: #fffaf0 !important;
+  background: linear-gradient(135deg, #781c2b 0%, #54111d 100%);
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  border: 1.2px solid #d4af37;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  box-shadow: 0 4px 14px rgba(62, 10, 20, 0.35);
+  transition: all 0.3s var(--ease);
 }
 .nav__links a.nav__cta::after { display: none; }
-.nav__links a.nav__cta:hover { color: var(--cream); background: var(--gold); border-color: var(--gold); }
+.nav__links a.nav__cta:hover {
+  transform: translateY(-1px);
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #b0863a 0%, #946f2c 100%);
+  border-color: #eedcc0;
+  box-shadow: 0 6px 18px rgba(176, 134, 58, 0.5);
+}
 
 .nav.is-stuck {
   background: rgba(253, 245, 230, 0.95);
@@ -532,7 +577,12 @@ section[id] { scroll-margin-top: 4.2rem; }
   justify-content: center;
   margin-top: 0.3rem;
 }
-.hero__actions .btn { padding: 0.8rem 1.3rem; font-size: 0.55rem; }
+.hero__actions .btn {
+  padding: 0.78rem 1.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+}
 
 /* ── Dates strip ────────────────────────────────────────────── */
 
@@ -2146,6 +2196,275 @@ body.has-envelope {
   margin-top: 0.25rem;
 }
 
+/* ── Wedding Memories & Shared Photo Album ───────────────────── */
+
+.memories-card {
+  background: var(--cream);
+  border: 1px solid var(--gold);
+  box-shadow: 0 16px 40px -10px rgba(59, 26, 23, 0.12), 0 0 0 4px var(--gold-soft);
+  padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1.2rem, 3.5vw, 2.2rem);
+  margin-top: 2.2rem;
+  position: relative;
+  text-align: left;
+}
+.memories-card::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--gold-line);
+  pointer-events: none;
+}
+
+.memories-card__inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.4rem, 3vw, 2.8rem);
+}
+
+.memories-qr-frame {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.memories-qr-box {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--gold);
+  box-shadow: 0 8px 24px -4px rgba(59, 26, 23, 0.15), 0 0 0 3px rgba(176, 134, 58, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 174px;
+  height: 174px;
+  position: relative;
+}
+.memories-qr-box svg {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 4px;
+}
+
+.memories-qr-label {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.65rem;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.memories-details {
+  flex: 1;
+  min-width: 260px;
+}
+
+.memories-heading {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  color: var(--maroon);
+  margin-bottom: 0.45rem;
+  line-height: 1.25;
+}
+
+.memories-desc {
+  font-size: 0.94rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+}
+
+.memories-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+
+/* ── Royal Luxury Memories Action Buttons ───────────────────── */
+
+.royal-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: var(--display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.35s var(--ease);
+}
+
+/* Primary: Royal Imperial Maroon & 24K Gold */
+.royal-btn--maroon {
+  background: linear-gradient(135deg, #781c2b 0%, #54111d 50%, #3a0a13 100%);
+  color: #fffaf0;
+  border: 1.5px solid #d4af37;
+  box-shadow: 0 10px 25px -5px rgba(62, 10, 20, 0.45), 0 0 0 3px rgba(176, 134, 58, 0.2);
+}
+.royal-btn--maroon::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+}
+.royal-btn--maroon:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #8c2132 0%, #631523 50%, #480d18 100%);
+  border-color: #eedcc0;
+  box-shadow: 0 14px 32px -6px rgba(62, 10, 20, 0.6), 0 0 0 4px rgba(176, 134, 58, 0.35);
+  color: #ffffff;
+}
+.royal-btn--maroon:hover::before {
+  left: 140%;
+}
+
+/* Secondary: Raw Silk Ivory & Embossed Gold */
+.royal-btn--gold {
+  background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 60%, #f6ecd6 100%);
+  color: #4a0c16;
+  border: 1.5px solid #b0863a;
+  box-shadow: 0 8px 20px -5px rgba(176, 134, 58, 0.25), 0 0 0 3px rgba(176, 134, 58, 0.12);
+}
+.royal-btn--gold::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(176, 134, 58, 0.18), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+}
+.royal-btn--gold:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #b0863a 0%, #946f2c 100%);
+  color: #ffffff;
+  border-color: #dcc08a;
+  box-shadow: 0 12px 28px -5px rgba(176, 134, 58, 0.45), 0 0 0 4px rgba(176, 134, 58, 0.25);
+}
+.royal-btn--gold:hover .royal-btn__badge {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.royal-btn--gold:hover::before {
+  left: 140%;
+}
+
+/* Elegant Icon Badge */
+.royal-btn__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(220, 192, 138, 0.4);
+  font-size: 0.95rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.royal-btn--maroon .royal-btn__badge {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 230, 170, 0.4);
+}
+
+.royal-btn__text {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.royal-btn__arrow {
+  font-family: var(--body);
+  font-size: 0.95rem;
+  transition: transform 0.3s var(--ease);
+}
+.royal-btn:hover .royal-btn__arrow {
+  transform: translateX(4px);
+}
+
+/* Bespoke QR Center Seal */
+.qr-center-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #7a1b2d 0%, #4a0c16 65%, #30060e 100%);
+  border: 1.8px solid #d4af37;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+.qr-seal-om {
+  font-family: var(--hindi);
+  color: #eedcc0;
+  font-size: 0.46rem;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+.qr-seal-monogram {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(220, 192, 138, 0.8);
+}
+
+.memories-note {
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin: 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .memories-card {
+    text-align: center;
+  }
+  .memories-card__inner {
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+  .memories-details {
+    min-width: auto;
+    width: 100%;
+  }
+  .memories-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .royal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ── Digital Shagun & Share ─────────────────────────────────── */
 
 .shagun-card {
@@ -2200,21 +2519,25 @@ body.has-envelope {
   user-select: all;
 }
 .btn--copy {
-  background: var(--gold);
-  color: var(--maroon-deep);
-  border: none;
-  font-size: 0.65rem;
+  background: linear-gradient(135deg, #d4af37 0%, #b0863a 100%);
+  color: #2b060d;
+  border: 1px solid #eedcc0;
+  font-family: var(--display);
+  font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-weight: 600;
-  padding: 0.4rem 0.8rem;
-  border-radius: 2px;
+  font-weight: 700;
+  padding: 0.45rem 1.15rem;
+  border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
 }
 .btn--copy:hover {
-  background: var(--gold-light);
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #e4cd93 0%, #c49948 100%);
+  box-shadow: 0 6px 16px rgba(176, 134, 58, 0.5);
 }
 
 .share-invite-bar {
