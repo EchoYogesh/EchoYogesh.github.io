@@ -1,1 +1,731 @@
-PASTE_INDEX_HTML_HERE
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#3a0913" />
+<title>Brijesh &amp; Sangeeta — 31 January 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Karla:wght@300;400;500&family=Tiro+Devanagari+Hindi&display=swap" />
+<link rel="stylesheet" href="styles.css?v=7" />
+</head>
+<body>
+
+<!-- Falling petals canvas (drawn by script.js) -->
+<canvas id="petals" class="petals" aria-hidden="true"></canvas>
+
+<a class="skip-link" href="#main">Skip to invitation</a>
+
+<nav class="nav" id="nav" aria-label="Primary">
+  <div class="nav__inner">
+    <a class="nav__mark" href="#top">Brijesh <i>&amp;</i> Sangeeta</a>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-label="Toggle menu">
+      <span class="nav__toggle-box"><i></i><i></i></span>
+    </button>
+    <div class="nav__links" id="navLinks">
+      <a href="#invitation">Invitation</a>
+      <a href="#functions">Functions</a>
+      <a href="#schedule">The day</a>
+      <a href="#travel">Travel</a>
+      <a href="#rsvp" class="nav__cta">RSVP</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__inner">
+    <article class="hero__card">
+      <!-- gold arch spanning the top of the card -->
+      <svg class="hero__arch" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="arch-outer" d="M 6 120 L 6 58 Q 6 6 200 6 Q 394 6 394 58 L 394 120" fill="none" />
+        <path class="arch-inner" d="M 16 120 L 16 62 Q 16 16 200 16 Q 384 16 384 62 L 384 120" fill="none" />
+      </svg>
+
+      <svg class="hero__ganesh" viewBox="0 0 40 40" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 20 36 C 12 36 8 30 9 24 C 10 19 14 16 20 16 C 26 16 30 19 31 24 C 32 30 28 36 20 36 Z" />
+          <path d="M 15 16 C 14 13 15 10 18 9 C 19 11 19 13 19 16" />
+          <path d="M 25 16 C 26 13 25 10 22 9 C 21 11 21 13 21 16" />
+          <circle cx="17" cy="22" r="0.7" fill="currentColor" />
+          <circle cx="23" cy="22" r="0.7" fill="currentColor" />
+          <path d="M 20 24 C 22 26 23 29 22 31" />
+          <path d="M 14 30 C 11 29 9 27 9 24" />
+          <path d="M 26 30 C 29 29 31 27 31 24" />
+        </g>
+      </svg>
+
+      <p class="hero__mantra" lang="hi">॥ श्री गणेशाय नमः ॥</p>
+
+      <div class="hero__lead">
+        <p class="hero__pre">With the blessings of our families</p>
+        <p class="hero__the">THE WEDDING OF</p>
+        <h1 class="hero__wedding" id="hero-title">Brijesh <span class="script">weds</span> Sangeeta</h1>
+
+        <div class="hero__names">
+          <span>Brijesh</span>
+          <em>&amp;</em>
+          <span>Sangeeta</span>
+        </div>
+
+        <p class="hero__hindi" lang="hi">ब्रिजेश यादव <span class="script" style="color:var(--gold)">&amp;</span> संगीता यादव</p>
+
+        <p class="hero__invite">Request the honour of your presence<br />at the wedding of their children</p>
+      </div>
+
+      <!-- three-column date bar -->
+      <div class="datebar">
+        <span class="datebar__side">Sunday<br />Jhaliyahwa</span>
+        <div class="datebar__main">
+          <strong>31</strong>
+          <span>January · 2027</span>
+        </div>
+        <span class="datebar__side">Pratapgarh<br />Uttar Pradesh</span>
+      </div>
+
+      <p class="hero__place">Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, UP</p>
+
+      <!-- mandap scene -->
+      <svg class="couple" viewBox="0 0 260 170" aria-hidden="true">
+        <!-- mandap frame -->
+        <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 30 160 L 30 70" />
+          <path d="M 230 160 L 230 70" />
+          <path d="M 24 70 Q 130 14 236 70" />
+          <path d="M 40 70 Q 130 26 220 70" opacity="0.55" />
+          <path d="M 24 70 L 236 70" />
+          <path d="M 40 82 L 220 82" opacity="0.4" />
+        </g>
+        <!-- marigold strings -->
+        <g>
+          <path d="M 32 78 Q 80 92 130 82 Q 180 72 228 84" fill="none" stroke="#d99a2b" stroke-width="1.4" stroke-linecap="round" />
+          <path d="M 32 90 Q 80 104 130 94 Q 180 84 228 96" fill="none" stroke="#c9483f" stroke-width="1.2" stroke-linecap="round" />
+          <circle cx="46" cy="84" r="3" fill="#d99a2b" />
+          <circle cx="76" cy="90" r="3" fill="#c9483f" />
+          <circle cx="108" cy="84" r="3" fill="#d99a2b" />
+          <circle cx="140" cy="80" r="3" fill="#c9483f" />
+          <circle cx="172" cy="78" r="3" fill="#d99a2b" />
+          <circle cx="204" cy="86" r="3" fill="#c9483f" />
+          <circle cx="226" cy="90" r="3" fill="#d99a2b" />
+        </g>
+        <!-- lanterns -->
+        <g class="lamp">
+          <path d="M 44 70 L 44 58" stroke="#b0863a" stroke-width="0.8" fill="none" />
+          <path d="M 38 58 L 50 58 L 49 46 L 39 46 Z" fill="#d99a2b" stroke="#b0863a" stroke-width="0.6" />
+          <circle cx="44" cy="50" r="1.6" fill="#fdf5e6" opacity="0.85" />
+        </g>
+        <g class="lamp">
+          <path d="M 216 70 L 216 58" stroke="#b0863a" stroke-width="0.8" fill="none" />
+          <path d="M 210 58 L 222 58 L 221 46 L 211 46 Z" fill="#d99a2b" stroke="#b0863a" stroke-width="0.6" />
+          <circle cx="216" cy="50" r="1.6" fill="#fdf5e6" opacity="0.85" />
+        </g>
+        <!-- couple, seen from behind, walking in -->
+        <g class="groom">
+          <path d="M 118 160 L 118 118" stroke="#5c1220" stroke-width="3" stroke-linecap="round" />
+          <circle cx="118" cy="110" r="7" fill="#5c1220" />
+          <path d="M 108 126 Q 118 120 128 126" fill="none" stroke="#5c1220" stroke-width="2.2" />
+          <path d="M 112 160 L 112 138" stroke="#5c1220" stroke-width="2.6" stroke-linecap="round" />
+          <path d="M 124 160 L 124 138" stroke="#5c1220" stroke-width="2.6" stroke-linecap="round" />
+        </g>
+        <g class="bride">
+          <path d="M 142 160 L 142 118" stroke="#c9483f" stroke-width="3" stroke-linecap="round" />
+          <circle cx="142" cy="110" r="7" fill="#c9483f" />
+          <path d="M 132 126 Q 142 120 152 126" fill="none" stroke="#c9483f" stroke-width="2.2" />
+          <path d="M 130 130 Q 142 142 154 130 L 150 160 L 134 160 Z" fill="#c9483f" opacity="0.85" />
+          <path d="M 136 104 Q 142 100 148 104" fill="none" stroke="#dcc08a" stroke-width="1.2" />
+        </g>
+        <path d="M 80 162 Q 130 156 180 162" fill="none" stroke="#b0863a" stroke-width="0.8" opacity="0.6" />
+      </svg>
+
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#rsvp">RSVP</a>
+        <a class="btn btn--line" href="#functions">The functions</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     DATES STRIP
+     ============================================================ -->
+<div class="strip" role="navigation" aria-label="Functions and dates">
+  <div class="strip__inner">
+    <a class="strip__item" href="#functions">
+      <svg class="strip__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M 6 3 L 6 7 M 18 3 L 18 7 M 3 10 L 21 10 M 5 6 L 19 6 Q 21 6 21 8 L 21 19 Q 21 21 19 21 L 5 21 Q 3 21 3 19 L 3 8 Q 3 6 5 6 Z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><circle cx="8" cy="14" r="0.9" fill="currentColor" /><circle cx="12" cy="14" r="0.9" fill="currentColor" /><circle cx="16" cy="14" r="0.9" fill="currentColor" /></svg>
+      <span>Haldi</span><strong>30 Jan</strong><em>3:00 pm</em>
+    </a>
+    <a class="strip__item" href="#functions">
+      <svg class="strip__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M 12 3 C 8 3 6 7 7 11 C 7 13 9 14 12 14 C 15 14 17 13 17 11 C 18 7 16 3 12 3 Z M 9 14 L 8 20 L 16 20 L 15 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>Mehndi</span><strong>30 Jan</strong><em>7:00 pm</em>
+    </a>
+    <a class="strip__item" href="#functions">
+      <svg class="strip__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M 4 18 L 20 18 M 6 18 L 6 12 M 18 18 L 18 12 M 5 12 L 19 12 M 12 12 L 12 6 M 9 6 L 15 6 M 10 4 L 14 4 M 8 9 L 16 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>DJ night</span><strong>30 Jan</strong><em>10:00 pm</em>
+    </a>
+    <a class="strip__item" href="#functions">
+      <svg class="strip__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M 4 20 L 20 20 M 6 20 L 6 12 M 18 20 L 18 12 M 4 12 L 20 12 M 12 12 L 12 4 M 8 8 L 16 8 M 9 4 L 15 4" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>Shaadi</span><strong>31 Jan</strong><em>4:00 pm</em>
+    </a>
+    <a class="strip__item" href="#functions">
+      <svg class="strip__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M 12 3 L 14 9 L 20 9 L 15 13 L 17 19 L 12 15 L 7 19 L 9 13 L 4 9 L 10 9 Z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>Reception</span><strong>2 Feb</strong><em>5:00 pm</em>
+    </a>
+  </div>
+</div>
+
+<!-- ============================================================
+     INVITATION
+     ============================================================ -->
+<section class="section section--cream" id="invitation" aria-labelledby="invitation-title">
+  <div class="wrap wrap--narrow">
+    <div class="invitation">
+      <p class="invocation" lang="hi">॥ श्री गणेशाय नमः ॥</p>
+      <h2 class="s-title" id="invitation-title">You are warmly invited</h2>
+      <div class="flourish reveal"><span></span><span class="flourish__heart"></span><span></span></div>
+
+      <div class="invitation__lead">
+        <p>Shri Ram Abhilash Yadav &amp; Smt. Anita Yadav</p>
+        <p class="invitation__lead-and">&amp;</p>
+        <p>Shri Brijendra Yadav &amp; Smt. Kalawati Devi</p>
+      </div>
+
+      <p class="invitation__script script">request the honour of your presence<br />at the wedding of their children</p>
+
+      <p class="invitation__hindi" lang="hi">आपकी उपस्थिति से विवाह समारोह और भी शुभ एवं यादगार बन जाएगा।</p>
+
+      <div class="parents">
+        <div class="parents__pair">
+          <p class="parents__names">Shri Ram Abhilash Yadav<br /><span class="script">&amp;</span> Smt. Anita Yadav</p>
+          <p class="parents__role">Groom's parents</p>
+        </div>
+        <span class="parents__and">&amp;</span>
+        <div class="parents__pair">
+          <p class="parents__names">Shri Brijendra Yadav<br /><span class="script">&amp;</span> Smt. Kalawati Devi</p>
+          <p class="parents__role">Bride's parents</p>
+        </div>
+      </div>
+
+      <div class="family">
+        <p class="family__names">
+          <span>Abhimanyu</span> <i>·</i> <span>Shanvi</span> <i>·</i> <span>Anaika</span> <i>·</i>
+          <span>Aisha</span> <i>·</i> <span>Yogesh</span> <i>·</i> <span>Dharmendra</span> <i>·</i> <span>Anmol</span>
+        </p>
+      </div>
+
+      <p class="invitation__copy">Both families, one celebration — five functions spread across four days, in the village where we grew up. Come for whichever you can; stay for all of them if you can.</p>
+
+      <div class="flourish reveal"><span></span><span class="flourish__heart"></span><span></span></div>
+
+      <p class="invitation__sign script">Brijesh &amp; Sangeeta</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FUNCTIONS
+     ============================================================ -->
+<section class="section section--cream-2" id="functions" aria-labelledby="functions-title">
+  <div class="wrap">
+    <div class="s-head s-head--center">
+      <p class="eyebrow center">Five functions · four days</p>
+      <h2 class="s-title" id="functions-title">What we're celebrating</h2>
+      <div class="flourish reveal"><span></span><span class="flourish__heart"></span><span></span></div>
+      <p class="s-sub">Each one at the family home. Wear what you like — marigold and gold are always right.</p>
+    </div>
+
+    <div class="functions">
+      <article class="fcard">
+        <div class="fcard__art">
+          <svg viewBox="0 0 160 110" aria-hidden="true">
+            <!-- haldi bowl -->
+            <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 30 62 Q 80 80 130 62" />
+              <path d="M 34 62 Q 80 50 126 62" />
+              <path d="M 30 62 L 26 78 Q 80 92 134 78 L 130 62" />
+              <path d="M 52 46 Q 80 34 108 46" />
+              <circle cx="62" cy="50" r="2.2" fill="#d99a2b" stroke="none" />
+              <circle cx="78" cy="44" r="2.2" fill="#d99a2b" stroke="none" />
+              <circle cx="96" cy="48" r="2.2" fill="#d99a2b" stroke="none" />
+              <circle cx="88" cy="56" r="1.6" fill="#c9483f" stroke="none" />
+            </g>
+          </svg>
+        </div>
+        <p class="fcard__day">Saturday · 30 January</p>
+        <h3 class="fcard__name script">Haldi</h3>
+        <p class="fcard__where">3:00 pm · Family home</p>
+        <p class="fcard__copy">Turmeric, laughter and the first photographs of the week. Come in yellow if you can.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="fcard__art">
+          <svg viewBox="0 0 160 110" aria-hidden="true">
+            <!-- mehndi hand -->
+            <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 50 92 L 50 60 Q 50 44 62 40 L 62 28" />
+              <path d="M 62 40 L 70 26" />
+              <path d="M 68 44 L 80 30" />
+              <path d="M 76 50 L 90 40" />
+              <path d="M 82 58 L 96 52" />
+              <path d="M 50 60 Q 72 70 96 60" />
+              <circle cx="60" cy="52" r="1" fill="currentColor" stroke="none" />
+              <circle cx="70" cy="46" r="1" fill="currentColor" stroke="none" />
+              <circle cx="80" cy="50" r="1" fill="currentColor" stroke="none" />
+              <path d="M 108 78 Q 120 60 132 78" />
+              <path d="M 112 78 L 112 92 M 120 76 L 120 92 M 128 78 L 128 92" />
+            </g>
+          </svg>
+        </div>
+        <p class="fcard__day">Saturday · 30 January</p>
+        <h3 class="fcard__name script">Mehndi</h3>
+        <p class="fcard__where">7:00 pm · Family home</p>
+        <p class="fcard__copy">Henna on the hands, songs in the courtyard, and the bride's name hidden in the design.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="fcard__art">
+          <svg viewBox="0 0 160 110" aria-hidden="true">
+            <!-- DJ night: turntable + music notes -->
+            <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="24" y="36" width="112" height="52" rx="4" />
+              <circle cx="62" cy="62" r="16" />
+              <circle cx="62" cy="62" r="6" />
+              <circle cx="62" cy="62" r="2" fill="currentColor" stroke="none" />
+              <circle cx="110" cy="52" r="6" />
+              <circle cx="110" cy="52" r="2" fill="currentColor" stroke="none" />
+              <path d="M 104 46 L 104 66" />
+              <path d="M 98 72 L 122 72" />
+              <path d="M 30 88 L 136 88" opacity="0.5" />
+              <path d="M 46 24 Q 54 16 62 24" />
+              <path d="M 70 20 L 70 30 M 76 16 L 76 28" />
+              <path d="M 120 22 Q 128 14 136 22" />
+              <circle cx="128" cy="16" r="1.6" fill="currentColor" stroke="none" />
+            </g>
+          </svg>
+        </div>
+        <p class="fcard__day">Saturday · 30 January</p>
+        <h3 class="fcard__name script">DJ night</h3>
+        <p class="fcard__where">10:00 pm · Garden</p>
+        <p class="fcard__copy">Music, lights and dancing under the stars — the night before the baraat, when nobody has to be formal.</p>
+      </article>
+
+      <article class="fcard fcard--main">
+        <div class="fcard__art">
+          <svg viewBox="0 0 160 110" aria-hidden="true">
+            <!-- mandap -->
+            <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 24 92 L 24 52 M 136 92 L 136 52" />
+              <path d="M 18 52 Q 80 14 142 52" />
+              <path d="M 30 52 Q 80 24 130 52" opacity="0.6" />
+              <path d="M 18 52 L 142 52" />
+              <path d="M 30 62 L 130 62" opacity="0.4" />
+              <path d="M 40 46 Q 60 56 80 46 Q 100 36 120 46" />
+              <circle cx="40" cy="48" r="2" fill="#c9483f" stroke="none" />
+              <circle cx="60" cy="52" r="2" fill="#d99a2b" stroke="none" />
+              <circle cx="80" cy="46" r="2" fill="#c9483f" stroke="none" />
+              <circle cx="100" cy="42" r="2" fill="#d99a2b" stroke="none" />
+              <circle cx="120" cy="48" r="2" fill="#c9483f" stroke="none" />
+              <path d="M 48 92 L 48 74 M 112 92 L 112 74" opacity="0.5" />
+              <path d="M 40 92 Q 80 86 120 92" opacity="0.4" />
+            </g>
+          </svg>
+        </div>
+        <p class="fcard__day">Sunday · 31 January</p>
+        <h3 class="fcard__name script">Shaadi</h3>
+        <p class="fcard__where">4:00 pm · Baraat muhurat</p>
+        <p class="fcard__copy">The baraat arrives, milni, jaimala, pheras around the fire, sindoor, and the vidaai at the end of the night.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="fcard__art">
+          <svg viewBox="0 0 160 110" aria-hidden="true">
+            <!-- reception lantern -->
+            <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 80 14 L 80 26" />
+              <path d="M 68 26 L 92 26 L 88 34 L 72 34 Z" />
+              <path d="M 72 34 Q 64 58 72 86 L 88 86 Q 96 58 88 34" />
+              <path d="M 70 46 Q 80 52 90 46" opacity="0.6" />
+              <path d="M 68 62 Q 80 68 92 62" opacity="0.6" />
+              <path d="M 70 78 Q 80 84 90 78" opacity="0.6" />
+              <path d="M 72 86 L 66 96 M 88 86 L 94 96" />
+              <circle cx="80" cy="58" r="3" fill="#dcc08a" stroke="none" opacity="0.8" />
+              <path d="M 40 96 L 120 96" opacity="0.5" />
+              <circle cx="46" cy="96" r="1.6" fill="currentColor" stroke="none" />
+              <circle cx="114" cy="96" r="1.6" fill="currentColor" stroke="none" />
+            </g>
+          </svg>
+        </div>
+        <p class="fcard__day">Tuesday · 2 February</p>
+        <h3 class="fcard__name script">Reception</h3>
+        <p class="fcard__where">5:00 pm · Family home</p>
+        <p class="fcard__copy">The easy evening — dinner, music and the chance to actually talk to everyone.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE DAY
+     ============================================================ -->
+<section class="section section--ink" id="schedule" aria-labelledby="schedule-title">
+  <div class="wrap">
+    <div class="s-head s-head--center">
+      <p class="eyebrow center">The wedding day · Sunday 31 January</p>
+      <h2 class="s-title" id="schedule-title">The baraat and the day</h2>
+      <div class="flourish flourish--light reveal"><span></span><span class="flourish__heart"></span><span></span></div>
+      <p class="s-sub">The order of the day, in the order it happens. Times for the rituals are set by the family priest on the day.</p>
+    </div>
+
+    <!-- baraat frieze (line drawing) -->
+    <svg class="baraat" viewBox="0 0 460 170" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- elephant -->
+        <path d="M 30 110 Q 28 92 40 84 Q 52 76 68 80 Q 84 84 92 96" />
+        <path d="M 34 96 Q 22 98 20 112 Q 18 124 26 130" />
+        <path d="M 34 110 L 32 148 M 44 112 L 42 148 M 56 114 L 54 148 M 70 112 L 68 148" />
+        <path d="M 92 96 Q 100 104 96 116" />
+        <path d="M 40 84 Q 44 70 56 68 Q 68 66 74 74" />
+        <path d="M 70 78 L 78 70 Q 86 64 92 70" />
+        <path d="M 56 84 Q 58 96 52 102" />
+        <circle cx="50" cy="82" r="1.6" fill="currentColor" stroke="none" />
+        <!-- flag on elephant -->
+        <path d="M 60 68 L 60 46" />
+        <path d="M 60 46 L 84 52 L 60 58" fill="currentColor" opacity="0.5" stroke="none" />
+        <!-- howdah -->
+        <path d="M 46 78 Q 62 72 78 78" />
+        <path d="M 48 78 L 46 70 M 76 78 L 78 70" />
+        <!-- dhol player -->
+        <path d="M 150 148 L 150 118" />
+        <circle cx="150" cy="110" r="7" />
+        <path d="M 140 124 Q 150 118 160 124" />
+        <path d="M 144 148 L 144 128 M 156 148 L 156 128" />
+        <!-- dhol -->
+        <ellipse cx="178" cy="124" rx="14" ry="10" />
+        <path d="M 164 124 L 192 124" opacity="0.5" />
+        <path d="M 166 118 Q 178 114 190 118" />
+        <path d="M 166 130 Q 178 134 190 130" />
+        <path d="M 160 120 L 150 118 M 160 128 L 150 130" />
+        <!-- horse -->
+        <path d="M 290 112 Q 288 96 300 88 Q 312 80 328 84 Q 344 88 352 100" />
+        <path d="M 292 100 Q 280 102 278 116 Q 276 128 284 132" />
+        <path d="M 292 112 L 290 148 M 304 114 L 302 148 M 318 116 L 316 148 M 332 112 L 330 148" />
+        <path d="M 352 100 Q 360 108 356 120" />
+        <path d="M 300 88 Q 304 74 316 72 Q 328 70 334 78" />
+        <path d="M 330 80 L 338 72 Q 346 66 352 72" />
+        <path d="M 316 84 Q 318 96 312 102" />
+        <path d="M 340 86 Q 342 78 338 74" />
+        <!-- rider -->
+        <path d="M 314 84 L 314 66" />
+        <circle cx="314" cy="58" r="6" />
+        <path d="M 306 70 Q 314 64 322 70" />
+        <path d="M 308 84 L 306 70 M 320 84 L 322 70" />
+        <!-- ground -->
+        <path d="M 10 148 Q 230 140 450 148" opacity="0.5" />
+        <!-- flowers scattered -->
+        <circle cx="110" cy="144" r="2" fill="currentColor" stroke="none" opacity="0.7" />
+        <circle cx="200" cy="142" r="2" fill="currentColor" stroke="none" opacity="0.7" />
+        <circle cx="260" cy="146" r="2" fill="currentColor" stroke="none" opacity="0.7" />
+        <circle cx="380" cy="144" r="2" fill="currentColor" stroke="none" opacity="0.7" />
+      </g>
+    </svg>
+
+    <ol class="schedule schedule--sequence reveal">
+      <li>
+        <div>
+          <h3>Baraat arrives</h3>
+          <p>The groom's party reaches the bride's home with the band and the horses. The bride's family welcomes them at the door.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Milni</h3>
+          <p>The two families meet, one pair at a time, with garlands and embraces — the moment the two households become one.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Jaimala</h3>
+          <p>Brijesh and Sangeeta exchange garlands. The one moment everyone is waiting to photograph.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Pheras</h3>
+          <p>The couple takes the seven rounds around the sacred fire, with the priest guiding each vow.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Sindoor &amp; mangalsutra</h3>
+          <p>Brijesh applies sindoor and ties the mangalsutra — the marriage is complete.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Dinner</h3>
+          <p>A long, unhurried meal. Please stay and eat with us.</p>
+        </div>
+      </li>
+      <li class="schedule__vidai">
+        <div>
+          <h3>Vidaai</h3>
+          <p>The bride leaves with her husband, throwing rice back over her shoulder — a blessing for the home she grew up in.</p>
+        </div>
+        <svg class="vidai" viewBox="0 0 80 90" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 20 86 L 20 56" />
+            <circle cx="20" cy="48" r="7" />
+            <path d="M 10 62 Q 20 56 30 62" />
+            <path d="M 14 86 L 14 66 M 26 86 L 26 66" />
+            <path d="M 30 52 Q 44 44 52 52" />
+            <circle cx="50" cy="50" r="2.2" fill="currentColor" stroke="none" />
+            <circle cx="56" cy="46" r="1.6" fill="currentColor" stroke="none" />
+            <circle cx="60" cy="52" r="1.4" fill="currentColor" stroke="none" />
+            <path d="M 4 90 Q 40 82 76 90" opacity="0.5" />
+          </g>
+        </svg>
+      </li>
+    </ol>
+
+    <p class="schedule__note">The baraat muhurat is 4:00 pm on Sunday 31 January 2027. Every other time on this day is set by the family priest.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRAVEL
+     ============================================================ -->
+<section class="section section--cream" id="travel" aria-labelledby="travel-title">
+  <div class="wrap">
+    <div class="s-head">
+      <p class="eyebrow">Getting there</p>
+      <h2 class="s-title" id="travel-title">Travel and stay</h2>
+      <div class="flourish reveal"><span></span><span class="flourish__heart"></span><span></span></div>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <h3>By train</h3>
+        <p>The nearest station is Pratapgarh Junction. From there it's about 35 km to the village — roughly an hour by car or auto.</p>
+      </div>
+      <div class="col">
+        <h3>By road</h3>
+        <p>Pratapgarh sits on NH-330. From Lucknow it's roughly three and a half hours, from Allahabad about two. The village is 4 km off the main road.</p>
+      </div>
+      <div class="col">
+        <h3>By air</h3>
+        <p>Lucknow (Chaudhary Charan Singh) is the closest airport, about 150 km away. Allahabad (Prayagraj) is the next closest, around 90 km.</p>
+      </div>
+      <div class="col">
+        <h3>Where you'll sleep</h3>
+        <p>Tents will be pitched in the garden of the family home for guests who are staying over — simple, clean and close to everything. Let us know in the RSVP and we'll save you a tent.</p>
+      </div>
+    </div>
+
+    <div class="map-card">
+      <p class="map-card__address">Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, Uttar Pradesh</p>
+      <a class="btn btn--line" href="https://maps.google.com/?q=Village+Jhaliyahwa+Chandauka+Kohandaur+Pratapgarh+Uttar+Pradesh" target="_blank" rel="noopener">Open in Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RSVP
+     ============================================================ -->
+<section class="section section--cream-2" id="rsvp" aria-labelledby="rsvp-title">
+  <div class="wrap wrap--narrow">
+    <div class="s-head s-head--center">
+      <p class="eyebrow center">Reply card</p>
+      <h2 class="s-title" id="rsvp-title">Will you be with us?</h2>
+      <div class="flourish reveal"><span></span><span class="flourish__heart"></span><span></span></div>
+      <p class="s-sub">A line or two is all we need. You can change your answer later — just tell us.</p>
+    </div>
+
+    <form class="rsvp" id="rsvpForm" novalidate>
+      <h3 class="rsvp__title script">RSVP</h3>
+
+      <div class="field-row field-row--spaced">
+        <div class="field">
+          <label for="names">Your name(s)</label>
+          <input id="names" name="names" type="text" autocomplete="name" required placeholder="e.g. Shri Rajesh &amp; Smt. Sunita Sharma" />
+          <p class="field__error" data-error-for="names"></p>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+          <p class="field__error" data-error-for="email"></p>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="phone">Phone <span class="hint">(optional)</span></label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+91 …" />
+        </div>
+        <fieldset class="field field--choice">
+          <legend>Will you attend?</legend>
+          <label class="tick"><input type="radio" name="attending" value="yes" /><span class="tick__mark"></span><span class="tick__label">Yes, with pleasure <em>we'll be there</em></span></label>
+          <label class="tick"><input type="radio" name="attending" value="no" /><span class="tick__mark"></span><span class="tick__label">Sadly, we can't make it <em>but we'll be thinking of you</em></span></label>
+          <p class="field__error" data-error-for="attending"></p>
+        </fieldset>
+      </div>
+
+      <fieldset class="field field--choice" id="attendingDetails">
+        <legend>Which functions?</legend>
+        <label class="tick"><input type="checkbox" name="events" value="haldi" /><span class="tick__mark"></span><span class="tick__label">Haldi <em>Sat 30 · 3 pm</em></span></label>
+        <label class="tick"><input type="checkbox" name="events" value="mehndi" /><span class="tick__mark"></span><span class="tick__label">Mehndi <em>Sat 30 · 7 pm</em></span></label>
+        <label class="tick"><input type="checkbox" name="events" value="dj" /><span class="tick__mark"></span><span class="tick__label">DJ night <em>Sat 30 · 10 pm</em></span></label>
+        <label class="tick"><input type="checkbox" name="events" value="shaadi" /><span class="tick__mark"></span><span class="tick__label">Shaadi <em>Sun 31 · 4 pm</em></span></label>
+        <label class="tick"><input type="checkbox" name="events" value="reception" /><span class="tick__mark"></span><span class="tick__label">Reception <em>Tue 2 · 5 pm</em></span></label>
+        <p class="field__error" data-error-for="events"></p>
+      </fieldset>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="guests">Number of guests <span class="hint">(including you)</span></label>
+          <select id="guests" name="guests">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6+</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="meal">Meal preference</label>
+          <select id="meal" name="meal">
+            <option value="veg">Vegetarian</option>
+            <option value="nonveg">Non-vegetarian</option>
+            <option value="both">Both / mixed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="stay">Travel &amp; stay</label>
+          <select id="stay" name="stay">
+            <option value="local">Staying locally / day trip</option>
+            <option value="tent">A tent in the garden</option>
+            <option value="hotel">Need a hotel suggestion</option>
+            <option value="arranged">You're arranging it for us</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="diet">Dietary notes <span class="hint">(optional)</span></label>
+          <input id="diet" name="diet" type="text" placeholder="Allergies, no onion/garlic, etc." />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="note">A note for us <span class="hint">(optional)</span></label>
+        <textarea id="note" name="note" rows="3" placeholder="Anything we should know?"></textarea>
+      </div>
+
+      <div class="rsvp__actions">
+        <button class="btn btn--solid" type="submit" id="rsvpSubmit">Send reply</button>
+      </div>
+      <p class="rsvp__status" id="rsvpStatus" role="status" aria-live="polite"></p>
+      <p class="rsvp__fineprint">Replies go straight to ybrijesh.005@gmail.com. We'll confirm by email within a day or two.</p>
+    </form>
+
+    <div class="rsvp__done" id="rsvpDone" hidden>
+      <svg class="rsvp__done-mark" viewBox="0 0 44 44" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="22" cy="22" r="19" />
+          <path d="M 13 22 L 19 28 L 31 16" />
+        </g>
+      </svg>
+      <h3 class="script">Thank you.</h3>
+      <p id="rsvpDoneText"></p>
+      <div class="rsvp__done-actions">
+        <a class="btn btn--line" id="calendarLink" hidden href="#" download="brijesh-sangeeta.ics">Add all five dates</a>
+        <button class="btn btn--line" type="button" id="rsvpAgain">Change my reply</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="section section--cream" id="faq" aria-labelledby="faq-title">
+  <div class="wrap wrap--narrow">
+    <div class="s-head s-head--center">
+      <p class="eyebrow center">Questions</p>
+      <h2 class="s-title" id="faq-title">A few things you might ask</h2>
+      <div class="flourish reveal"><span></span><span class="flourish__heart"></span><span></span></div>
+    </div>
+
+    <div class="faq">
+      <details class="faq__item">
+        <summary>Is there a dress code?</summary>
+        <p>No strict code. Marigold, gold and deep reds always look right; anything you'd wear to a family wedding in UP is perfect. Please avoid black and white.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Can I bring children?</summary>
+        <p>Of course. There will be space for them to run about, and a quiet room if anyone needs a nap. Just mention numbers in the RSVP so we can plan food.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Where should I stay?</summary>
+        <p>Tents will be pitched in the garden of the family home for guests staying over, so there's no need for a hotel. If you'd rather have a hotel, Pratapgarh has a few; ask us and we'll point you to one.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Is it an arranged marriage?</summary>
+        <p>Yes. There's no meet-cute to tell — just two families who found each other, and a couple who are very happy to be chosen for this.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Will there be photographs?</summary>
+        <p>A photographer will be there for the Shaadi and the Reception. The Haldi and Mehndi will be captured more casually — feel free to take your own.</p>
+      </details>
+      <details class="faq__item">
+        <summary>What if I can only come for one function?</summary>
+        <p>Come for whichever you can. Every function is a complete event on its own, and we'd rather see you for an hour than not at all.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer__top">
+      <p class="footer__blessing" lang="hi">शुभ विवाह · ब्रिजेश एवं संगीता</p>
+      <p class="footer__mark script">Brijesh &amp; Sangeeta</p>
+      <div class="flourish flourish--light"><span></span><span class="flourish__heart"></span><span></span></div>
+      <p class="footer__date">31 January 2027 · Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, UP</p>
+    </div>
+
+    <div class="contacts">
+      <div class="contacts__group">
+        <p class="eyebrow">Groom's family</p>
+        <p><a href="tel:+919876543210">Shri Ram Abhilash Yadav — +91 98765 43210</a></p>
+        <p><a href="tel:+919876543211">Smt. Anita Yadav — +91 98765 43211</a></p>
+      </div>
+      <div class="contacts__group">
+        <p class="eyebrow">Bride's family</p>
+        <p><a href="tel:+919876543212">Shri Brijendra Yadav — +91 98765 43212</a></p>
+        <p><a href="tel:+919876543213">Smt. Kalawati Devi — +91 98765 43213</a></p>
+      </div>
+      <div class="contacts__group">
+        <p class="eyebrow">Email</p>
+        <p><a href="mailto:ybrijesh.005@gmail.com">ybrijesh.005@gmail.com</a></p>
+      </div>
+    </div>
+
+    <p class="footer__small">Made with love, in the village, for the village.</p>
+  </div>
+</footer>
+
+</main>
+
+<script src="script.js?v=7" defer></script>
+
+</body>
+</html>
