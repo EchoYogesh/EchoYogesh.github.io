@@ -1310,6 +1310,13 @@ section[id] { scroll-margin-top: 4.2rem; }
 
 /* ── Royal Envelope Overlay ─────────────────────────────────── */
 
+body.has-envelope {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  touch-action: none;
+}
+
 .royal-envelope-overlay {
   position: fixed;
   inset: 0;
@@ -1321,6 +1328,8 @@ section[id] { scroll-margin-top: 4.2rem; }
   padding: 1.5rem;
   opacity: 1;
   visibility: visible;
+  touch-action: none;
+  overscroll-behavior: contain;
   transition: opacity 0.8s var(--ease), visibility 0.8s var(--ease);
 }
 .royal-envelope-overlay.is-hidden {
@@ -2142,10 +2151,13 @@ section[id] { scroll-margin-top: 4.2rem; }
 .shagun-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(220, 192, 138, 0.3);
-  padding: 2.2rem clamp(1.4rem, 4vw, 2.6rem);
+  padding: clamp(1.6rem, 4vw, 2.2rem) clamp(1rem, 3vw, 2rem);
   margin-top: 2rem;
   text-align: center;
   position: relative;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .shagun-card::before {
   content: "";
@@ -2167,30 +2179,38 @@ section[id] { scroll-margin-top: 4.2rem; }
   margin: 0 auto 1.4rem;
 }
 .shagun-upi-row {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.8rem;
-  background: rgba(0, 0, 0, 0.25);
+  justify-content: center;
+  gap: 0.5rem 0.8rem;
+  background: rgba(0, 0, 0, 0.35);
   border: 1px solid var(--gold-light);
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 0.85rem;
   border-radius: 4px;
-  margin-bottom: 1.4rem;
+  max-width: 100%;
+  margin: 0 auto 1.4rem;
+  box-sizing: border-box;
 }
 .shagun-upi-row code {
   color: var(--gold-light);
-  font-size: 0.95rem;
+  font-size: clamp(0.9rem, 4vw, 1.05rem);
   letter-spacing: 0.04em;
+  word-break: break-all;
+  user-select: all;
 }
 .btn--copy {
   background: var(--gold);
   color: var(--maroon-deep);
   border: none;
-  font-size: 0.64rem;
+  font-size: 0.65rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 600;
-  padding: 0.35rem 0.75rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2px;
   cursor: pointer;
+  white-space: nowrap;
   transition: background 0.2s ease;
 }
 .btn--copy:hover {
@@ -2198,12 +2218,14 @@ section[id] { scroll-margin-top: 4.2rem; }
 }
 
 .share-invite-bar {
-  margin-top: 2.4rem;
+  margin-top: 2.2rem;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.8rem;
+  text-align: center;
+  max-width: 100%;
 }
 
 /* ── Mobile Quick Bar ───────────────────────────────────────── */
@@ -2248,9 +2270,14 @@ section[id] { scroll-margin-top: 4.2rem; }
   line-height: 1;
 }
 
+.nav__mobile-lang {
+  display: none;
+}
+
 /* ── Responsive ─────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
+  .nav__actions { display: none !important; }
   .nav__toggle { display: inline-flex; }
   .nav__links {
     position: absolute;
@@ -2260,7 +2287,7 @@ section[id] { scroll-margin-top: 4.2rem; }
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 0.4rem 0;
+    padding: 0.4rem 0 0.8rem;
     background: rgba(253, 245, 230, 0.98);
     backdrop-filter: blur(14px);
     border: 1px solid var(--gold-line);
@@ -2270,7 +2297,28 @@ section[id] { scroll-margin-top: 4.2rem; }
   .nav[data-open="true"] .nav__links { display: flex; }
   .nav__links a { padding: 0.85rem 1.15rem; font-size: 0.62rem; }
   .nav__links a::after { display: none; }
-  .nav__links a.nav__cta { margin: 0.4rem 1.15rem 0.6rem; text-align: center; }
+  .nav__links a.nav__cta { margin: 0.4rem 1.15rem 0.4rem; text-align: center; }
+  .nav__mobile-lang {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.6rem 1.15rem 0.2rem;
+    padding: 0.75rem 1rem;
+    background: #fffdf8;
+    border: 1px solid var(--gold);
+    color: var(--maroon);
+    font-family: var(--display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .nav__mobile-lang:hover {
+    background: var(--cream-2);
+  }
   .nav__inner { flex-wrap: wrap; }
 
   .strip__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }

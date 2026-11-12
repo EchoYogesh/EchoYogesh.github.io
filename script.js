@@ -733,7 +733,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const skipBtn = $("#skipEnvelopeBtn");
   if (!overlay) return;
 
+  // Lock scrolling while envelope is shown
+  document.body.classList.add("has-envelope");
+
   function openEnvelope() {
+    document.body.classList.remove("has-envelope");
     if (window.burstPetals) {
       window.burstPetals(window.innerWidth / 2, window.innerHeight / 2, 36);
     }
@@ -749,6 +753,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   // Check if opened during current session
   try {
     if (sessionStorage.getItem("royal_envelope_opened") === "1") {
+      document.body.classList.remove("has-envelope");
       overlay.classList.add("is-hidden");
     }
   } catch (_) {}
@@ -758,12 +763,14 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
 (function languageSwitcher() {
   const toggleBtn = $("#langToggle");
+  const mobileToggleBtn = $("#mobileLangToggle");
   const label = $("#langLabel");
-  if (!toggleBtn) return;
+  const mLabel = $("#mobileLangLabel");
 
   const DICTIONARY = {
     hi: {
       langLabel: "English",
+      mobileLangLabel: "Switch to English",
       nav_invite: "शुभ निमंत्रण",
       nav_functions: "कार्यक्रम",
       nav_attire: "पहनावा",
@@ -802,10 +809,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       patrika_btn_submit: "✦ आशीर्वाद समर्पित करें",
       gifts_eyebrow: "शगुन एवं आशीष",
       gifts_title: "आपका स्नेह और आशीर्वाद ही सर्वोपरि है",
+      shagun_title: "शगुन",
       gifts_lede: "आपका पावन आगमन ही हमारे लिए सबसे बड़ा उपहार है। यदि आप फिर भी कुछ भेंट करना चाहें, तो नए जीवन के प्रारंभ हेतु आपका स्नेहपूर्वक शगुन हमें अनुगृहीत करेगा।"
     },
     en: {
       langLabel: "हिन्दी",
+      mobileLangLabel: "Switch to हिन्दी",
       nav_invite: "Invitation",
       nav_functions: "Functions",
       nav_attire: "Attire",
@@ -844,6 +853,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       patrika_btn_submit: "✦ Seal & Post on Wall",
       gifts_eyebrow: "Shagun & Blessings",
       gifts_title: "Your blessings are enough",
+      shagun_title: "Digital Shagun",
       gifts_lede: "Truly. We have a small home, a full shelf of crockery, and no room for another dinner set. If you would still like to give something, a contribution towards our first home would mean the world to us."
     }
   };
@@ -861,6 +871,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
     const dict = DICTIONARY[lang] || DICTIONARY.en;
     if (label) label.textContent = dict.langLabel;
+    if (mLabel) mLabel.textContent = dict.mobileLangLabel;
 
     $$("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
@@ -874,9 +885,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     }
   }
 
-  toggleBtn.addEventListener("click", () => {
-    const nextLang = currentLang === "en" ? "hi" : "en";
-    applyLanguage(nextLang);
+  const allToggles = [toggleBtn, mobileToggleBtn].filter(Boolean);
+  allToggles.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const nextLang = currentLang === "en" ? "hi" : "en";
+      applyLanguage(nextLang);
+    });
   });
 
   if (currentLang === "hi") {
