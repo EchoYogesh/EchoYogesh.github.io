@@ -6,7 +6,7 @@
 
 <!-- ============================================================
      Brijesh & Sangeeta — wedding invitation
-     Maroon, gold and cream; an arch, a garland and a little script.
+     Maroon, gold and cream; a mandap, a baraat and a vidai.
      ============================================================ -->
 
 <title>Brijesh &amp; Sangeeta — 31 January 2027</title>
@@ -23,11 +23,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Karla:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css?v=5" />
 </head>
 
 <body>
 <a class="skip-link" href="#invitation">Skip to content</a>
+
+<!-- Petals drift across the whole page and scatter under a finger -->
+<canvas class="petals" id="petals" aria-hidden="true"></canvas>
 
 <header class="nav" id="nav">
   <div class="nav__inner">
@@ -51,95 +54,205 @@
 </header>
 
 <main>
-  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <!-- ── Hero: the invitation card itself ───────────────────── -->
   <section class="hero" id="home">
-    <div class="hero__halo" aria-hidden="true"></div>
-
-    <svg class="hero__arch" viewBox="0 0 420 340" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
-      <path class="arch-line" d="M24 340V196c0-62 40-92 88-114 30-14 44-38 58-60 14-22 26-22 40 0 14 22 28 46 58 60 48 22 88 52 88 114v144" />
-      <path class="arch-line arch-line--inner" d="M40 340V200c0-54 36-82 80-103 30-15 44-36 57-57 13-21 24-21 37 0 13 21 27 42 57 57 44 21 80 49 80 103v140" />
-      <circle class="arch-dot" cx="210" cy="28" r="4" />
-      <path class="arch-dot" d="M210 12l3.4 8.6L222 24l-8.6 3.4L210 36l-3.4-8.6L198 24l8.6-3.4z" />
-    </svg>
-
-    <svg class="sprig sprig--tl" viewBox="0 0 120 120" aria-hidden="true">
-      <path class="sprig__stem" d="M6 116C30 96 44 74 52 48c5-16 12-28 24-38" />
-      <path class="sprig__leaf" d="M40 88c-14-2-22-12-22-24 12-2 22 6 24 18z" />
-      <path class="sprig__leaf" d="M52 66c-2-14 6-24 18-26 2 12-4 22-14 26z" />
-      <path class="sprig__leaf" d="M61 46c-12-6-16-18-12-28 11 3 16 13 16 24z" />
-      <circle class="sprig__bud" cx="80" cy="6" r="4.6" />
-      <circle class="sprig__bud" cx="72" cy="16" r="3.4" />
-      <circle class="sprig__bud" cx="88" cy="18" r="2.6" />
-    </svg>
-    <svg class="sprig sprig--tr" viewBox="0 0 120 120" aria-hidden="true">
-      <path class="sprig__stem" d="M6 116C30 96 44 74 52 48c5-16 12-28 24-38" />
-      <path class="sprig__leaf" d="M40 88c-14-2-22-12-22-24 12-2 22 6 24 18z" />
-      <path class="sprig__leaf" d="M52 66c-2-14 6-24 18-26 2 12-4 22-14 26z" />
-      <path class="sprig__leaf" d="M61 46c-12-6-16-18-12-28 11 3 16 13 16 24z" />
-      <circle class="sprig__bud" cx="80" cy="6" r="4.6" />
-      <circle class="sprig__bud" cx="72" cy="16" r="3.4" />
-      <circle class="sprig__bud" cx="88" cy="18" r="2.6" />
-    </svg>
-
     <div class="hero__inner">
-      <p class="hero__blessing" lang="hi">॥ श्री गणेशाय नमः ॥</p>
+      <div class="hero__card">
 
-      <p class="eyebrow">Together with their families</p>
+        <svg class="hero__arch" viewBox="0 0 400 150" fill="none" aria-hidden="true" preserveAspectRatio="none">
+          <path class="arch-outer" d="M0 150V96C0 46 78 12 200 12s200 34 200 84v54" />
+          <path class="arch-inner" d="M13 150V98C13 52 84 24 200 24s187 28 187 74v52" />
+        </svg>
 
-      <h1 class="hero__names">
-        <span class="script">Brijesh</span>
-        <em>&amp;</em>
-        <span class="script">Sangeeta</span>
-      </h1>
+        <div class="hero__lead">
+        <p class="hero__ganesh" aria-hidden="true">
+          <svg viewBox="0 0 40 32" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round">
+            <path d="M20 30c-3-6-3-13 0-20 3 7 3 14 0 20z" />
+            <path d="M20 30c-5-4-8-10-9-16 5 3 8 9 9 16z" />
+            <path d="M20 30c5-4 8-10 9-16-5 3-8 9-9 16z" />
+            <path d="M20 30c-7-1-12-4-16-9 6 0 12 3 16 9z" />
+            <path d="M20 30c7-1 12-4 16-9-6 0-12 3-16 9z" />
+          </svg>
+        </p>
+        <p class="hero__mantra" lang="hi">॥ श्री गणेशाय नमः ॥</p>
 
-      <p class="hero__hindi" lang="hi">ब्रिजेश एवं संगीता</p>
+        <p class="hero__pre">Together with their families<br />we cordially invite you to</p>
+        <p class="hero__the">The</p>
+        <p class="hero__wedding">WEDDING<span class="script">Invitation</span></p>
 
-      <div class="rule rule--hero" aria-hidden="true">
-        <span></span><i class="rule__gem"></i><span></span>
-      </div>
+        <h1 class="hero__names">
+          <span class="script">Brijesh</span>
+          <em>&amp;</em>
+          <span class="script">Sangeeta</span>
+        </h1>
 
-      <p class="hero__kicker">Joyfully invite you to celebrate the beginning of their forever</p>
+        <p class="hero__hindi" lang="hi">ब्रिजेश एवं संगीता</p>
 
-      <p class="hero__date"><span>Sunday</span><strong>31 January 2027</strong><span>Jhaliyahwa</span></p>
-      <p class="hero__place">Pratapgarh &middot; Uttar Pradesh</p>
+        <div class="flourish" aria-hidden="true">
+          <span></span><i class="flourish__heart"></i><span></span>
+        </div>
 
-      <div class="hero__actions">
-        <a class="btn btn--solid" href="#rsvp">Reply</a>
-        <a class="btn btn--line" href="#invitation">The invitation</a>
+        <p class="hero__invite">Joyfully invite you to celebrate<br /> the beginning of their forever</p>
+
+        <div class="datebar">
+          <div class="datebar__side"><span>Sunday</span></div>
+          <div class="datebar__main">
+            <strong>31</strong>
+            <span>January 2027</span>
+          </div>
+          <div class="datebar__side"><span>Jhaliyahwa</span></div>
+        </div>
+        <p class="hero__place">Village Jhaliyahwa &middot; Pratapgarh &middot; Uttar Pradesh</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#rsvp">Reply</a>
+          <a class="btn btn--line" href="#invitation">The invitation</a>
+        </div>
+        </div>
+
+        <svg class="couple" viewBox="0 0 400 300" role="img" aria-label="Brijesh and Sangeeta, seen from behind, walking into the flower-decked mandap">
+          <defs>
+            <radialGradient id="warm" cx="50%" cy="60%" r="55%">
+              <stop offset="0" stop-color="#f8dcaa" stop-opacity=".95" />
+              <stop offset="55%" stop-color="#f3c987" stop-opacity=".4" />
+              <stop offset="100%" stop-color="#f3c987" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <ellipse cx="200" cy="168" rx="150" ry="118" fill="url(#warm)" />
+
+          <!-- the mandap -->
+          <g stroke="#b0863a" fill="none" stroke-linecap="round">
+            <path d="M96 262V152M105 262V152M295 262V152M304 262V152" stroke-width="1.4" />
+            <path d="M86 152h26M288 152h26" stroke-width="1.8" />
+            <path d="M96 152c4-46 34-68 104-68s100 22 104 68" stroke-width="1.6" />
+            <path d="M108 152c4-38 30-58 92-58s88 20 92 58" stroke-width=".8" opacity=".45" />
+            <path d="M200 84V70" stroke-width="1.2" />
+            <circle cx="200" cy="67" r="3.4" stroke-width="1.2" />
+            <path d="M196 74h8" stroke-width="1" />
+          </g>
+
+          <!-- marigold strings -->
+          <g stroke="#d99a2b" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-dasharray="0.1 7.5" opacity=".85">
+            <path d="M105 160h190" />
+            <path d="M105 160c8 24 34 32 95 32s87-8 95-32" />
+          </g>
+
+          <!-- lanterns -->
+          <g>
+            <circle cx="52" cy="140" r="42" fill="url(#warm)" />
+            <path d="M52 74v20" stroke="#b0863a" stroke-width="1" />
+            <path d="M41 94h22l5 34H36z" fill="#fbeccb" stroke="#b0863a" stroke-width="1.2" />
+            <path d="M39 128h26" stroke="#b0863a" stroke-width="1.2" />
+            <circle cx="52" cy="111" r="5" fill="#e9a94a" />
+          </g>
+          <g>
+            <circle cx="348" cy="140" r="42" fill="url(#warm)" />
+            <path d="M348 74v20" stroke="#b0863a" stroke-width="1" />
+            <path d="M337 94h22l5 34H332z" fill="#fbeccb" stroke="#b0863a" stroke-width="1.2" />
+            <path d="M335 128h26" stroke="#b0863a" stroke-width="1.2" />
+            <circle cx="348" cy="111" r="5" fill="#e9a94a" />
+          </g>
+
+          <!-- the couple, from behind: two quiet silhouettes -->
+          <g fill="#5c1220">
+            <!-- groom -->
+            <path d="M166 264l3-50c1-10 5-15 12-15s10 5 11 15l3 50z" />
+            <path d="M182 199c-6 0-10-4-10-9s4-9 10-9 10 4 10 9-4 9-10 9z" />
+            <path d="M182 182c-8 0-13-3-13-7s5-7 13-7 13 3 13 7-5 7-13 7z" />
+            <path d="M193 171l7-6 2 8z" />
+
+            <!-- bride -->
+            <path d="M206 264l7-52c1-9 4-13 10-13s9 4 10 13l7 52z" />
+            <path d="M223 197c-5 0-9-4-9-8s4-8 9-8 9 4 9 8-4 8-9 8z" />
+            <circle cx="223" cy="181" r="4" />
+            <path d="M232 186c6 24 7 52 6 78h-6c1-24-1-46-5-62z" />
+          </g>
+
+          <!-- gold light along their edges -->
+          <g stroke="#b0863a" stroke-width=".9" fill="none" opacity=".5">
+            <path d="M171 258l2-44" />
+            <path d="M194 258l-1-44" />
+            <path d="M213 258l5-46" />
+            <path d="M229 258l-5-46" />
+            <circle cx="204" cy="208" r="4" />
+          </g>
+
+          <!-- petals at their feet and flowers at the edges -->
+          <g fill="#c9483f" opacity=".75">
+            <ellipse cx="188" cy="268" rx="4" ry="2.6" transform="rotate(-18 188 268)" />
+            <ellipse cx="214" cy="270" rx="3.4" ry="2.2" transform="rotate(22 214 270)" />
+            <ellipse cx="200" cy="273" rx="2.6" ry="1.8" transform="rotate(-8 200 273)" />
+          </g>
+          <g>
+            <path d="M30 262c-2-16 2-28 9-36" stroke="#6f7d5a" stroke-width="1.1" fill="none" />
+            <path d="M370 262c2-16-2-28-9-36" stroke="#6f7d5a" stroke-width="1.1" fill="none" />
+            <g fill="#c9483f" stroke="#b0863a" stroke-width=".6">
+              <circle cx="34" cy="238" r="6.5" /><circle cx="22" cy="248" r="5.4" /><circle cx="46" cy="248" r="5" />
+              <circle cx="366" cy="238" r="6.5" /><circle cx="378" cy="248" r="5.4" /><circle cx="354" cy="248" r="5" />
+            </g>
+            <g fill="#d99a2b" stroke="#b0863a" stroke-width=".5">
+              <circle cx="40" cy="228" r="3.6" /><circle cx="18" cy="232" r="3" />
+              <circle cx="360" cy="228" r="3.6" /><circle cx="382" cy="232" r="3" />
+            </g>
+          </g>
+        </svg>
       </div>
     </div>
-
-    <a class="hero__scroll" href="#invitation">
-      <span class="visually-hidden">Scroll down</span>
-      <svg viewBox="0 0 24 44" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-        <path d="M12 2v36M6 32l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </a>
   </section>
 
-  <!-- ── The four dates, at a glance ────────────────────────── -->
+  <!-- ── The four dates ─────────────────────────────────────── -->
   <section class="strip" aria-label="The four functions">
     <div class="wrap strip__inner">
-      <div class="strip__item">
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M8 24h24c0 8-5 12-12 12S8 32 8 24z" fill="#f3d9a4" stroke="currentColor" stroke-width="1.2" />
+          <path d="M8 24c4-2 24-2 24 0" stroke="currentColor" stroke-width="1.2" />
+          <circle cx="15" cy="15" r="4" fill="#d99a2b" stroke="currentColor" stroke-width=".8" />
+          <circle cx="25" cy="13" r="3.4" fill="#e4b45a" stroke="currentColor" stroke-width=".8" />
+          <circle cx="21" cy="18" r="3" fill="#c9483f" stroke="currentColor" stroke-width=".8" />
+        </svg>
         <span>Haldi</span>
         <strong>Sat 30 January</strong>
         <em>3 pm</em>
-      </div>
-      <div class="strip__item">
+      </a>
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M14 34V22c0-5 3-8 6-8s6 3 6 8v12" stroke="currentColor" stroke-width="1.3" />
+          <path d="M10 24l4-8 3 3-3 8z" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+          <path d="M30 24l-4-8-3 3 3 8z" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+          <path d="M20 14c-1-4 1-7 4-8 1 4-1 7-4 8z" fill="#6f7d5a" stroke="currentColor" stroke-width=".9" />
+          <circle cx="20" cy="20" r="2.4" fill="none" stroke="currentColor" stroke-width=".9" />
+          <circle cx="20" cy="26" r="2.4" fill="none" stroke="currentColor" stroke-width=".9" />
+        </svg>
         <span>Mehndi</span>
         <strong>Sat 30 January</strong>
         <em>7 pm</em>
-      </div>
-      <div class="strip__item">
+      </a>
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M8 34V16M32 34V16" stroke="currentColor" stroke-width="1.4" />
+          <path d="M8 16c2-8 6-12 12-12s10 4 12 12" stroke="currentColor" stroke-width="1.4" />
+          <path d="M4 16h32" stroke="currentColor" stroke-width="1.4" />
+          <path d="M20 34v-8" stroke="currentColor" stroke-width="1.2" />
+          <path d="M17 30c0-4 1.6-6 3-7 1.4 1 3 3 3 7-2 1-4 1-6 0z" fill="#d99a2b" stroke="currentColor" stroke-width=".9" />
+        </svg>
         <span>Shaadi</span>
         <strong>Sun 31 January</strong>
         <em>4 pm</em>
-      </div>
-      <div class="strip__item">
+      </a>
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M20 4v6" stroke="currentColor" stroke-width="1.2" />
+          <path d="M13 12h14l4 18H9z" fill="#fbeccb" stroke="currentColor" stroke-width="1.2" />
+          <path d="M10 30h20" stroke="currentColor" stroke-width="1.2" />
+          <circle cx="20" cy="21" r="5" fill="#e9a94a" stroke="currentColor" stroke-width=".8" />
+          <path d="M20 36c-3-2-5-5-5-8" stroke="currentColor" stroke-width="1" opacity=".5" />
+        </svg>
         <span>Reception</span>
         <strong>Tue 2 February</strong>
         <em>5 pm</em>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -147,20 +260,7 @@
   <section class="section section--cream" id="invitation">
     <div class="wrap">
       <div class="card invitation">
-        <svg class="sprig sprig--card sprig--tl" viewBox="0 0 120 120" aria-hidden="true">
-          <path class="sprig__stem" d="M6 116C30 96 44 74 52 48c5-16 12-28 24-38" />
-          <path class="sprig__leaf" d="M40 88c-14-2-22-12-22-24 12-2 22 6 24 18z" />
-          <path class="sprig__leaf" d="M52 66c-2-14 6-24 18-26 2 12-4 22-14 26z" />
-          <circle class="sprig__bud" cx="80" cy="6" r="4.6" />
-        </svg>
-        <svg class="sprig sprig--card sprig--br" viewBox="0 0 120 120" aria-hidden="true">
-          <path class="sprig__stem" d="M6 116C30 96 44 74 52 48c5-16 12-28 24-38" />
-          <path class="sprig__leaf" d="M40 88c-14-2-22-12-22-24 12-2 22 6 24 18z" />
-          <path class="sprig__leaf" d="M52 66c-2-14 6-24 18-26 2 12-4 22-14 26z" />
-          <circle class="sprig__bud" cx="80" cy="6" r="4.6" />
-        </svg>
-
-        <p class="invocation" lang="hi">॥ श्री गणेशाय नमः ॥</p>
+        <p class="invocation" lang="hi">॥ शुभ विवाह ॥</p>
         <p class="eyebrow center">With the blessings of</p>
 
         <div class="parents">
@@ -168,7 +268,7 @@
             <p class="parents__names">Shri Ram Abhilash Yadav<br />&amp; Smt. Anita Yadav</p>
             <p class="parents__role">Parents of the groom</p>
           </div>
-          <div class="parents__and" aria-hidden="true">and</div>
+          <div class="parents__and">&amp;</div>
           <div class="parents__pair">
             <p class="parents__names">Shri Brijendra Yadav<br />&amp; Smt. Kalawati Devi</p>
             <p class="parents__role">Parents of the bride</p>
@@ -185,12 +285,12 @@
           </p>
         </div>
 
-        <div class="rule reveal" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+        <div class="flourish reveal" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
 
         <p class="invitation__lead">
-          Brijesh Yadav, son of Shri Ram Abhilash and Smt. Anita Yadav,
-          <br class="hide-sm" />and Sangeeta Yadav, daughter of Shri Brijendra and
-          Smt. Kalawati Devi,
+          Brijesh Yadav, son of Shri Ram Abhilash &amp; Smt. Anita Yadav,
+          <br class="hide-sm" />&amp; Sangeeta Yadav, daughter of Shri Brijendra
+          &amp; Smt. Kalawati Devi,
         </p>
 
         <p class="invitation__script script">request the honour of your presence at their wedding</p>
@@ -225,102 +325,169 @@
   <!-- ── Functions ──────────────────────────────────────────── -->
   <section class="section section--cream" id="functions">
     <div class="wrap">
-      <header class="s-head">
+      <header class="s-head s-head--center">
         <p class="eyebrow">The functions</p>
         <h2 class="s-title">Four occasions, at the family home</h2>
-        <div class="rule rule--short" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
         <p class="s-sub">
           Everything happens in the village, within a short walk of one another. The
           rituals begin on time; come a little early for the rest.
         </p>
       </header>
 
-      <ol class="agenda">
-        <li class="agenda__row reveal">
-          <div class="agenda__when">
-            <span>Saturday</span>
-            <strong>30 January</strong>
-            <em>3:00 pm</em>
+      <div class="functions">
+        <article class="fcard reveal">
+          <div class="fcard__art fcard__art--haldi">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M24 58h72c0 22-16 32-36 32S24 80 24 58z" fill="#f6e2b8" stroke="currentColor" stroke-width="1.6" />
+              <path d="M24 58c12-5 60-5 72 0" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="42" cy="42" r="9" fill="#d99a2b" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="62" cy="34" r="11" fill="#e4b45a" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="82" cy="43" r="8" fill="#d99a2b" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="54" cy="50" r="7" fill="#c9483f" stroke="currentColor" stroke-width="1.2" />
+              <path d="M62 22c-2-6 0-11 5-14 2 6 0 11-5 14z" fill="#6f7d5a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M26 78c14 6 54 6 68 0" stroke="currentColor" stroke-width="1" opacity=".4" />
+            </svg>
           </div>
-          <div class="agenda__what">
-            <h3>Haldi</h3>
-            <p class="agenda__where">At the family home, Jhaliyahwa</p>
-            <p>
-              Turmeric, marigolds and dhol in the courtyard. The elders will smear
-              everyone within reach, so dress accordingly and keep your good clothes for
-              the evening.
-            </p>
-            <p class="agenda__meta">Dress &middot; yellow or marigold, and nothing precious</p>
-          </div>
-        </li>
+          <p class="fcard__day">Saturday 30 January &middot; 3 pm</p>
+          <h3 class="fcard__name">Haldi</h3>
+          <p class="fcard__where">At the family home, Jhaliyahwa</p>
+          <p class="fcard__copy">
+            Turmeric, marigolds and dhol in the courtyard. The elders will smear everyone
+            within reach, so wear something yellow you can ruin.
+          </p>
+        </article>
 
-        <li class="agenda__row reveal">
-          <div class="agenda__when">
-            <span>Saturday</span>
-            <strong>30 January</strong>
-            <em>7:00 pm</em>
+        <article class="fcard reveal">
+          <div class="fcard__art fcard__art--mehndi">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M44 88V52c0-10 5-16 12-16s12 6 12 16v30" stroke="currentColor" stroke-width="1.6" />
+              <path d="M44 52c-8-2-14 3-16 10-2 8 2 14 9 16" stroke="currentColor" stroke-width="1.6" />
+              <path d="M76 52c8-2 14 3 16 10 2 8-2 14-9 16" stroke="currentColor" stroke-width="1.6" />
+              <circle cx="56" cy="58" r="3.4" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="56" cy="70" r="3.4" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="56" cy="82" r="3.4" stroke="currentColor" stroke-width="1.1" />
+              <path d="M50 64c3 2 9 2 12 0M50 76c3 2 9 2 12 0" stroke="currentColor" stroke-width="1" opacity=".7" />
+              <path d="M56 26c-2-6 1-11 6-14 2 6-1 11-6 14z" fill="#6f7d5a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M68 30c4-4 9-4 13-1-4 4-9 4-13 1z" fill="#6f7d5a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M30 30c-3-4-3-9 0-12 2 4 2 8 0 12z" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+            </svg>
           </div>
-          <div class="agenda__what">
-            <h3>Mehndi</h3>
-            <p class="agenda__where">At the family home, Jhaliyahwa</p>
-            <p>
-              Mehndi for Sangeeta and anyone else who wants a pattern, songs on the
-              veranda, and dinner laid out under the lights.
-            </p>
-            <p class="agenda__meta">Dress &middot; green, or whatever you can sit in for an hour</p>
-          </div>
-        </li>
+          <p class="fcard__day">Saturday 30 January &middot; 7 pm</p>
+          <h3 class="fcard__name">Mehndi</h3>
+          <p class="fcard__where">At the family home, Jhaliyahwa</p>
+          <p class="fcard__copy">
+            Mehndi for Sangeeta and anyone else who wants a pattern, songs on the
+            veranda, and dinner laid out under the lights.
+          </p>
+        </article>
 
-        <li class="agenda__row reveal">
-          <div class="agenda__when">
-            <span>Sunday</span>
-            <strong>31 January</strong>
-            <em>4:00 pm</em>
+        <article class="fcard fcard--main reveal">
+          <div class="fcard__art fcard__art--shaadi">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M22 88V40M98 88V40" stroke="currentColor" stroke-width="1.8" />
+              <path d="M22 40c4-18 16-26 38-26s34 8 38 26" stroke="currentColor" stroke-width="1.8" />
+              <path d="M12 40h96" stroke="currentColor" stroke-width="2" />
+              <path d="M34 40c4-12 12-18 26-18s22 6 26 18" stroke="currentColor" stroke-width=".9" opacity=".5" />
+              <path d="M52 88V64M68 88V64" stroke="currentColor" stroke-width="1.4" />
+              <path d="M60 84c-8-3-12-10-12-18 8 1 13 7 12 18z" fill="#e9a94a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M60 84c8-3 12-10 12-18-8 1-13 7-12 18z" fill="#d99a2b" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="60" cy="60" r="2.6" fill="#c9483f" />
+            </svg>
           </div>
-          <div class="agenda__what">
-            <h3>Shaadi</h3>
-            <p class="agenda__where">The mandap, Jhaliyahwa</p>
-            <p>
-              The baraat arrives at the muhurat of four o'clock, the families meet for
-              the milni, and the vows follow around the fire. Dinner and music carry on
-              into the night.
-            </p>
-            <p class="agenda__meta">Dress &middot; traditional Indian festive</p>
-          </div>
-        </li>
+          <p class="fcard__day">Sunday 31 January &middot; 4 pm</p>
+          <h3 class="fcard__name">Shaadi</h3>
+          <p class="fcard__where">The mandap, Jhaliyahwa</p>
+          <p class="fcard__copy">
+            The baraat arrives at the muhurat of four o'clock, the families meet for the
+            milni, and the vows follow around the fire. Dinner and music carry on into
+            the night.
+          </p>
+        </article>
 
-        <li class="agenda__row reveal">
-          <div class="agenda__when">
-            <span>Tuesday</span>
-            <strong>2 February</strong>
-            <em>5:00 pm</em>
+        <article class="fcard reveal">
+          <div class="fcard__art fcard__art--reception">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M60 8v14" stroke="currentColor" stroke-width="1.2" />
+              <path d="M44 22h32l8 46H36z" fill="#fbeccb" stroke="currentColor" stroke-width="1.6" />
+              <path d="M38 68h44" stroke="currentColor" stroke-width="1.6" />
+              <circle cx="60" cy="44" r="10" fill="#e9a94a" stroke="currentColor" stroke-width="1.2" />
+              <path d="M60 78c-4-3-6-7-6-11" stroke="currentColor" stroke-width="1.1" opacity=".5" />
+              <circle cx="34" cy="80" r="7" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+              <circle cx="48" cy="86" r="5" fill="#d99a2b" stroke="currentColor" stroke-width="1" />
+              <circle cx="86" cy="80" r="7" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+              <circle cx="72" cy="86" r="5" fill="#d99a2b" stroke="currentColor" stroke-width="1" />
+            </svg>
           </div>
-          <div class="agenda__what">
-            <h3>Reception</h3>
-            <p class="agenda__where">At the family home, Jhaliyahwa</p>
-            <p>
-              The newlyweds, in one room with everyone they love. Dinner, a few short
-              speeches, and a shamiana that stays open far later than planned.
-            </p>
-            <p class="agenda__meta">Dress &middot; formal — sarees, sherwanis, suits</p>
-          </div>
-        </li>
-      </ol>
+          <p class="fcard__day">Tuesday 2 February &middot; 5 pm</p>
+          <h3 class="fcard__name">Reception</h3>
+          <p class="fcard__where">At the family home, Jhaliyahwa</p>
+          <p class="fcard__copy">
+            The newlyweds, in one room with everyone they love. Dinner, a few short
+            speeches, and a shamiana that stays open far later than planned.
+          </p>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- ── The wedding day ────────────────────────────────────── -->
+  <!-- ── The baraat and the day ─────────────────────────────── -->
   <section class="section section--ink" id="shaadi">
     <div class="wrap">
       <header class="s-head s-head--center">
         <p class="eyebrow">Sunday, 31 January</p>
         <h2 class="s-title">How the day unfolds</h2>
-        <div class="rule rule--short" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+        <div class="flourish flourish--light" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
         <p class="s-sub">
           The baraat arrives at the muhurat of four o'clock. After that the rituals set
           the pace, not the clock.
         </p>
       </header>
+
+      <svg class="baraat" viewBox="0 0 420 120" fill="none" role="img" aria-label="An elephant, a dhol player and a horse, leading the baraat">
+        <g fill="#dcc08a">
+          <!-- elephant -->
+          <ellipse cx="86" cy="70" rx="42" ry="24" />
+          <rect x="52" y="84" width="9" height="24" rx="4" />
+          <rect x="70" y="86" width="9" height="22" rx="4" />
+          <rect x="98" y="86" width="9" height="22" rx="4" />
+          <rect x="114" y="84" width="9" height="24" rx="4" />
+          <circle cx="136" cy="62" r="19" />
+          <ellipse cx="126" cy="64" rx="12" ry="15" opacity=".85" />
+          <path d="M150 68q14 9 11 24-2 9-9 8" stroke="#dcc08a" stroke-width="9" stroke-linecap="round" fill="none" />
+          <path d="M150 78q9 4 5 13" stroke="#f7e8c8" stroke-width="2.4" stroke-linecap="round" />
+          <circle cx="140" cy="55" r="2.2" fill="#3a0913" />
+          <path d="M70 44q16-16 32 0z" />
+          <path d="M86 40V26" stroke="#dcc08a" stroke-width="2" stroke-linecap="round" />
+          <path d="M86 26l12 4-12 4z" />
+          <g stroke="#3a0913" stroke-width="2" stroke-linecap="round" opacity=".55">
+            <path d="M62 52v34M76 50v34M96 50v34M110 52v34" />
+          </g>
+
+          <!-- dhol player -->
+          <circle cx="204" cy="46" r="9" />
+          <path d="M192 58q-7 14-7 30v16h8V86h22v18h8V86q0-16-7-28z" />
+          <ellipse cx="204" cy="84" rx="15" ry="10" />
+          <ellipse cx="204" cy="84" rx="15" ry="10" fill="none" stroke="#3a0913" stroke-width="2" opacity=".55" />
+          <path d="M191 78q13 8 26 0" stroke="#3a0913" stroke-width="1.6" fill="none" opacity=".45" />
+          <path d="M218 78q8 4 8 12" stroke="#dcc08a" stroke-width="5" stroke-linecap="round" fill="none" />
+          <path d="M190 78q-8 4-8 12" stroke="#dcc08a" stroke-width="5" stroke-linecap="round" fill="none" />
+
+          <!-- horse -->
+          <ellipse cx="330" cy="66" rx="32" ry="16" />
+          <path d="M348 60l10-22 14 2-6 22z" />
+          <ellipse cx="378" cy="34" rx="13" ry="6.5" transform="rotate(-24 378 34)" />
+          <path d="M368 29l-2-9 8 6z" />
+          <path d="M377 25l2-9 6 8z" />
+          <path d="M352 52q8-10 12-16" stroke="#3a0913" stroke-width="4" stroke-linecap="round" opacity=".4" fill="none" />
+          <rect x="308" y="78" width="8" height="28" rx="4" />
+          <rect x="324" y="80" width="8" height="26" rx="4" />
+          <rect x="344" y="78" width="8" height="28" rx="4" />
+          <rect x="354" y="80" width="7" height="26" rx="3.5" />
+          <path d="M300 56q-12 10-9 26" stroke="#dcc08a" stroke-width="5" stroke-linecap="round" fill="none" />
+        </g>
+        <path d="M0 112h420" stroke="#dcc08a" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="0.1 9" opacity=".5" />
+      </svg>
 
       <ol class="schedule schedule--sequence">
         <li class="reveal"><div><h3>Baraat</h3><p>Four o'clock, at the gate: dhol, dancing and rather more people than planned.</p></div></li>
@@ -329,7 +496,25 @@
         <li class="reveal"><div><h3>Kanyadaan &amp; pheras</h3><p>The seven vows around the fire. Please gather close — this is the part worth watching.</p></div></li>
         <li class="reveal"><div><h3>Sindoor &amp; mangalsutra</h3><p>Blessings, a few tears, and the moment the two of them are formally married.</p></div></li>
         <li class="reveal"><div><h3>Dinner</h3><p>A long vegetarian spread — chaat, sabzi, dal, hot puris and far too much dessert.</p></div></li>
-        <li class="reveal"><div><h3>Vidaai</h3><p>Sangeeta leaves with her new family. Bring a handkerchief.</p></div></li>
+        <li class="reveal schedule__vidai">
+          <div>
+            <h3>Vidaai</h3>
+            <p>Sangeeta leaves with her new family. Bring a handkerchief — and stand close to the gate, because this is the part everyone remembers.</p>
+          </div>
+          <svg class="vidai" viewBox="0 0 120 118" fill="none" role="img" aria-label="The bride walking away, carrying a lamp">
+            <g fill="#dcc08a">
+              <path d="M44 108q-2-28 8-42h16q10 14 8 42z" />
+              <path d="M52 68l2-18c1-4 3-6 7-6s6 2 7 6l2 18z" />
+              <circle cx="61" cy="38" r="7.6" />
+              <circle cx="66" cy="28" r="3.8" />
+              <path d="M67 34q8 20 7 50l-6 24h-7q6-30 2-56z" />
+            </g>
+            <path d="M69 58q7 4 9 11" stroke="#dcc08a" stroke-width="3.4" stroke-linecap="round" />
+            <circle cx="80" cy="74" r="4.4" fill="#e9a94a" />
+            <path d="M80 69v-3" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M28 108h14M24 100h12M26 92h10" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity=".45" />
+          </svg>
+        </li>
       </ol>
 
       <p class="schedule__note reveal">
@@ -342,10 +527,10 @@
   <!-- ── Travel ─────────────────────────────────────────────── -->
   <section class="section section--cream-2" id="travel">
     <div class="wrap">
-      <header class="s-head">
+      <header class="s-head s-head--center">
         <p class="eyebrow">Travel &amp; stay</p>
         <h2 class="s-title">Reaching Jhaliyahwa</h2>
-        <div class="rule rule--short" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
         <p class="s-sub">
           The village sits in Pratapgarh district, between Lucknow and Prayagraj.
           Trains are the easiest way in; from the station, we'll help with the last hour.
@@ -409,7 +594,7 @@
       <header class="s-head s-head--center">
         <p class="eyebrow">Reply</p>
         <h2 class="s-title">Will you join us?</h2>
-        <div class="rule rule--short" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
         <p class="s-sub">
           Kindly reply by <strong>10 January 2027</strong> so the kitchen and the seating
           can be planned. If something changes after that, write to us — the door stays open.
@@ -555,7 +740,7 @@
     <div class="wrap wrap--narrow center">
       <p class="eyebrow">Shagun</p>
       <h2 class="s-title">Your blessings are enough</h2>
-      <div class="rule rule--short" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+      <div class="flourish flourish--light" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
       <p class="lede">
         Truly. We have a small home, a full shelf of crockery, and no room for another
         dinner set. If you would still like to give something, a contribution towards
@@ -567,10 +752,10 @@
   <!-- ── FAQ ────────────────────────────────────────────────── -->
   <section class="section section--cream" id="faq">
     <div class="wrap wrap--narrow">
-      <header class="s-head">
+      <header class="s-head s-head--center">
         <p class="eyebrow">Questions</p>
         <h2 class="s-title">Things people have asked</h2>
-        <div class="rule rule--short" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
       </header>
 
       <div class="faq">
@@ -617,7 +802,7 @@
     <div class="footer__top">
       <p class="footer__blessing" lang="hi">॥ शुभ विवाह ॥</p>
       <p class="footer__mark script">Brijesh &amp; Sangeeta</p>
-      <div class="rule rule--footer" aria-hidden="true"><span></span><i class="rule__gem"></i><span></span></div>
+      <div class="flourish flourish--light" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
       <p class="footer__date">30 January &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; 2 February 2027</p>
     </div>
 
@@ -666,6 +851,6 @@
 }
 </script>
 
-<script src="script.js"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>
