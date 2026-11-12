@@ -1,1 +1,1495 @@
-...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- ============================================================
+     Brijesh & Sangeeta — wedding invitation
+     Maroon, gold and cream; a mandap, a baraat and a vidai.
+     ============================================================ -->
+
+<title>Brijesh &amp; Sangeeta — 31 January 2027</title>
+<meta name="description" content="Brijesh Yadav and Sangeeta Yadav invite you to their wedding. Haldi and mehndi on 30 January, shaadi on 31 January and reception on 2 February 2027, at Chandauka, Uttar Pradesh." />
+<meta name="theme-color" content="#5c1220" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Brijesh &amp; Sangeeta — 31 January 2027" />
+<meta property="og:description" content="Haldi · Mehndi · Shaadi · Reception. Chandauka, Uttar Pradesh. Details and RSVP inside." />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%235c1220'/%3E%3Crect x='4' y='4' width='56' height='56' fill='none' stroke='%23c9a961' stroke-width='1.4'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='22' fill='%23f7ecd7' text-anchor='middle'%3EBS%3C/text%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Karla:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css?v=12" />
+</head>
+
+<body>
+<a class="skip-link" href="#invitation">Skip to content</a>
+
+<!-- Royal Wax Seal & Envelope Opening Experience -->
+<div class="royal-envelope-overlay" id="envelopeOverlay" aria-modal="true" role="dialog" aria-label="Royal Wedding Invitation Envelope">
+  <div class="envelope-card">
+    <div class="envelope-stamp">
+      <span class="envelope-stamp__om" lang="hi">॥ श्री ॥</span>
+    </div>
+    <p class="envelope-sub script">Shubh Vivah Nimantran</p>
+    <h2 class="envelope-title">Brijesh <span class="amp">&amp;</span> Sangeeta</h2>
+    <p class="envelope-date">Sunday, 31 January 2027 &middot; Chandauka, UP</p>
+    <div class="envelope-seal-btn-wrap">
+      <button class="envelope-seal-btn" id="breakSealBtn" aria-label="Open Royal Invitation">
+        <span class="seal-icon">🪔</span>
+        <span class="seal-text">Unfold Royal Invitation</span>
+      </button>
+    </div>
+    <button class="envelope-skip" id="skipEnvelopeBtn">Enter site directly &rarr;</button>
+  </div>
+</div>
+
+<!-- Petals drift across the whole page and scatter under a finger -->
+<canvas class="petals" id="petals" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__mark" href="#home" aria-label="Brijesh and Sangeeta — back to top">
+      <span class="script">B</span><i>&amp;</i><span class="script">S</span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="Sections">
+      <a href="#invitation" data-i18n="nav_invite">Invitation</a>
+      <a href="#functions" data-i18n="nav_functions">Functions</a>
+      <a href="#attire" data-i18n="nav_attire">Attire</a>
+      <a href="#shaadi" data-i18n="nav_day">The Day</a>
+      <a href="#travel" data-i18n="nav_travel">Travel</a>
+      <a href="#wishes" data-i18n="nav_wishes">Blessings</a>
+      <a class="nav__cta" href="#rsvp">RSVP</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="nav__ctrl nav__ctrl--lang" id="langToggle" aria-label="Switch Language" title="Switch to Hindi">
+        <span id="langLabel">हिन्दी</span>
+      </button>
+    </div>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">
+      <span class="nav__toggle-box" aria-hidden="true"><i></i><i></i></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ── Hero: the invitation card itself ───────────────────── -->
+  <section class="hero" id="home">
+    <div class="hero__inner">
+      <div class="hero__card">
+
+        <svg class="hero__arch" viewBox="0 0 400 150" fill="none" aria-hidden="true" preserveAspectRatio="none">
+          <path class="arch-outer" d="M0 150V96C0 46 78 12 200 12s200 34 200 84v54" />
+          <path class="arch-inner" d="M13 150V98C13 52 84 24 200 24s187 28 187 74v52" />
+        </svg>
+
+        <div class="hero__lead">
+        <p class="hero__ganesh" aria-hidden="true">
+          <svg viewBox="0 0 40 32" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round">
+            <path d="M20 30c-3-6-3-13 0-20 3 7 3 14 0 20z" />
+            <path d="M20 30c-5-4-8-10-9-16 5 3 8 9 9 16z" />
+            <path d="M20 30c5-4 8-10 9-16-5 3-8 9-9 16z" />
+            <path d="M20 30c-7-1-12-4-16-9 6 0 12 3 16 9z" />
+            <path d="M20 30c7-1 12-4 16-9-6 0-12 3-16 9z" />
+          </svg>
+        </p>
+        <p class="hero__mantra" lang="hi">॥ श्री गणेशाय नमः ॥</p>
+
+        <p class="hero__pre">Together with their families<br />we cordially invite you to</p>
+        <p class="hero__the">The</p>
+        <p class="hero__wedding">WEDDING<span class="script">Invitation</span></p>
+
+        <h1 class="hero__names">
+          <span class="script">Brijesh</span>
+          <em>&amp;</em>
+          <span class="script">Sangeeta</span>
+        </h1>
+
+        <p class="hero__hindi" lang="hi">ब्रिजेश एवं संगीता</p>
+
+        <div class="flourish" aria-hidden="true">
+          <span></span><i class="flourish__heart"></i><span></span>
+        </div>
+
+        <p class="hero__invite">Joyfully invite you to celebrate<br /> the beginning of their forever</p>
+
+        <div class="datebar">
+          <div class="datebar__side"><span>Sunday</span></div>
+          <div class="datebar__main">
+            <strong>31</strong>
+            <span>January 2027</span>
+          </div>
+          <div class="datebar__side"><span>Chandauka</span></div>
+        </div>
+        <p class="hero__place">Village Chandauka &middot; Pratapgarh &middot; Uttar Pradesh</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#rsvp">Reply</a>
+          <a class="btn btn--line" href="#invitation">The invitation</a>
+        </div>
+        </div>
+
+        <svg class="couple" viewBox="0 0 400 300" role="img" aria-label="Brijesh and Sangeeta, seen from behind, walking into the flower-decked mandap">
+          <defs>
+            <radialGradient id="warm" cx="50%" cy="60%" r="55%">
+              <stop offset="0" stop-color="#f8dcaa" stop-opacity=".95" />
+              <stop offset="55%" stop-color="#f3c987" stop-opacity=".4" />
+              <stop offset="100%" stop-color="#f3c987" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <ellipse cx="200" cy="168" rx="150" ry="118" fill="url(#warm)" />
+
+          <!-- the mandap -->
+          <g stroke="#b0863a" fill="none" stroke-linecap="round">
+            <path d="M96 262V152M105 262V152M295 262V152M304 262V152" stroke-width="1.4" />
+            <path d="M86 152h26M288 152h26" stroke-width="1.8" />
+            <path d="M96 152c4-46 34-68 104-68s100 22 104 68" stroke-width="1.6" />
+            <path d="M108 152c4-38 30-58 92-58s88 20 92 58" stroke-width=".8" opacity=".45" />
+            <path d="M200 84V70" stroke-width="1.2" />
+            <circle cx="200" cy="67" r="3.4" stroke-width="1.2" />
+            <path d="M196 74h8" stroke-width="1" />
+          </g>
+
+          <!-- marigold strings -->
+          <g stroke="#d99a2b" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-dasharray="0.1 7.5" opacity=".85">
+            <path d="M105 160h190" />
+            <path d="M105 160c8 24 34 32 95 32s87-8 95-32" />
+          </g>
+
+          <!-- lanterns -->
+          <g>
+            <circle cx="52" cy="140" r="42" fill="url(#warm)" />
+            <path d="M52 74v20" stroke="#b0863a" stroke-width="1" />
+            <path d="M41 94h22l5 34H36z" fill="#fbeccb" stroke="#b0863a" stroke-width="1.2" />
+            <path d="M39 128h26" stroke="#b0863a" stroke-width="1.2" />
+            <circle cx="52" cy="111" r="5" fill="#e9a94a" />
+          </g>
+          <g>
+            <circle cx="348" cy="140" r="42" fill="url(#warm)" />
+            <path d="M348 74v20" stroke="#b0863a" stroke-width="1" />
+            <path d="M337 94h22l5 34H332z" fill="#fbeccb" stroke="#b0863a" stroke-width="1.2" />
+            <path d="M335 128h26" stroke="#b0863a" stroke-width="1.2" />
+            <circle cx="348" cy="111" r="5" fill="#e9a94a" />
+          </g>
+
+          <!-- the couple, from behind: two quiet silhouettes -->
+          <g fill="#5c1220">
+            <!-- groom -->
+            <path d="M166 264l3-50c1-10 5-15 12-15s10 5 11 15l3 50z" />
+            <path d="M182 199c-6 0-10-4-10-9s4-9 10-9 10 4 10 9-4 9-10 9z" />
+            <path d="M182 182c-8 0-13-3-13-7s5-7 13-7 13 3 13 7-5 7-13 7z" />
+            <path d="M193 171l7-6 2 8z" />
+
+            <!-- bride -->
+            <path d="M206 264l7-52c1-9 4-13 10-13s9 4 10 13l7 52z" />
+            <path d="M223 197c-5 0-9-4-9-8s4-8 9-8 9 4 9 8-4 8-9 8z" />
+            <circle cx="223" cy="181" r="4" />
+            <path d="M232 186c6 24 7 52 6 78h-6c1-24-1-46-5-62z" />
+          </g>
+
+          <!-- gold light along their edges -->
+          <g stroke="#b0863a" stroke-width=".9" fill="none" opacity=".5">
+            <path d="M171 258l2-44" />
+            <path d="M194 258l-1-44" />
+            <path d="M213 258l5-46" />
+            <path d="M229 258l-5-46" />
+            <circle cx="204" cy="208" r="4" />
+          </g>
+
+          <!-- petals at their feet and flowers at the edges -->
+          <g fill="#c9483f" opacity=".75">
+            <ellipse cx="188" cy="268" rx="4" ry="2.6" transform="rotate(-18 188 268)" />
+            <ellipse cx="214" cy="270" rx="3.4" ry="2.2" transform="rotate(22 214 270)" />
+            <ellipse cx="200" cy="273" rx="2.6" ry="1.8" transform="rotate(-8 200 273)" />
+          </g>
+          <g>
+            <path d="M30 262c-2-16 2-28 9-36" stroke="#6f7d5a" stroke-width="1.1" fill="none" />
+            <path d="M370 262c2-16-2-28-9-36" stroke="#6f7d5a" stroke-width="1.1" fill="none" />
+            <g fill="#c9483f" stroke="#b0863a" stroke-width=".6">
+              <circle cx="34" cy="238" r="6.5" /><circle cx="22" cy="248" r="5.4" /><circle cx="46" cy="248" r="5" />
+              <circle cx="366" cy="238" r="6.5" /><circle cx="378" cy="248" r="5.4" /><circle cx="354" cy="248" r="5" />
+            </g>
+            <g fill="#d99a2b" stroke="#b0863a" stroke-width=".5">
+              <circle cx="40" cy="228" r="3.6" /><circle cx="18" cy="232" r="3" />
+              <circle cx="360" cy="228" r="3.6" /><circle cx="382" cy="232" r="3" />
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The five dates ─────────────────────────────────────── -->
+  <section class="strip" aria-label="The five functions">
+    <div class="wrap strip__inner">
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M8 24h24c0 8-5 12-12 12S8 32 8 24z" fill="#f3d9a4" stroke="currentColor" stroke-width="1.2" />
+          <path d="M8 24c4-2 24-2 24 0" stroke="currentColor" stroke-width="1.2" />
+          <circle cx="15" cy="15" r="4" fill="#d99a2b" stroke="currentColor" stroke-width=".8" />
+          <circle cx="25" cy="13" r="3.4" fill="#e4b45a" stroke="currentColor" stroke-width=".8" />
+          <circle cx="21" cy="18" r="3" fill="#c9483f" stroke="currentColor" stroke-width=".8" />
+        </svg>
+        <span>Haldi</span>
+        <strong>Sat 30 January</strong>
+        <em>3 pm</em>
+      </a>
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M14 34V22c0-5 3-8 6-8s6 3 6 8v12" stroke="currentColor" stroke-width="1.3" />
+          <path d="M10 24l4-8 3 3-3 8z" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+          <path d="M30 24l-4-8-3 3 3 8z" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+          <path d="M20 14c-1-4 1-7 4-8 1 4-1 7-4 8z" fill="#6f7d5a" stroke="currentColor" stroke-width=".9" />
+          <circle cx="20" cy="20" r="2.4" fill="none" stroke="currentColor" stroke-width=".9" />
+          <circle cx="20" cy="26" r="2.4" fill="none" stroke="currentColor" stroke-width=".9" />
+        </svg>
+        <span>Mehndi</span>
+        <strong>Sat 30 January</strong>
+        <em>7 pm</em>
+      </a>
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M8 17h5l8-6v20l-8-6H8z" fill="#f3d9a4" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" />
+          <path d="M27 15c3 3 3 9 0 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M31 11c5 6 5 16 0 22" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".55" />
+        </svg>
+        <span>DJ night</span>
+        <strong>Sat 30 January</strong>
+        <em>10 pm</em>
+      </a>
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M8 34V16M32 34V16" stroke="currentColor" stroke-width="1.4" />
+          <path d="M8 16c2-8 6-12 12-12s10 4 12 12" stroke="currentColor" stroke-width="1.4" />
+          <path d="M4 16h32" stroke="currentColor" stroke-width="1.4" />
+          <path d="M20 34v-8" stroke="currentColor" stroke-width="1.2" />
+          <path d="M17 30c0-4 1.6-6 3-7 1.4 1 3 3 3 7-2 1-4 1-6 0z" fill="#d99a2b" stroke="currentColor" stroke-width=".9" />
+        </svg>
+        <span>Shaadi</span>
+        <strong>Sun 31 January</strong>
+        <em>4 pm</em>
+      </a>
+      <a class="strip__item" href="#functions">
+        <svg class="strip__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M20 4v6" stroke="currentColor" stroke-width="1.2" />
+          <path d="M13 12h14l4 18H9z" fill="#fbeccb" stroke="currentColor" stroke-width="1.2" />
+          <path d="M10 30h20" stroke="currentColor" stroke-width="1.2" />
+          <circle cx="20" cy="21" r="5" fill="#e9a94a" stroke="currentColor" stroke-width=".8" />
+          <path d="M20 36c-3-2-5-5-5-8" stroke="currentColor" stroke-width="1" opacity=".5" />
+        </svg>
+        <span>Reception</span>
+        <strong>Tue 2 February</strong>
+        <em>5 pm</em>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Invitation ─────────────────────────────────────────── -->
+  <section class="section section--cream" id="invitation">
+    <div class="wrap">
+      <div class="card invitation">
+        <p class="invocation" lang="hi">॥ शुभ विवाह ॥</p>
+        <p class="eyebrow center">With the blessings of</p>
+
+        <div class="parents">
+          <div class="parents__pair">
+            <p class="parents__names">Shri Ram Abhilash Yadav<br />&amp; Smt. Anita Yadav</p>
+            <p class="parents__role">Parents of the groom</p>
+          </div>
+          <div class="parents__and">&amp;</div>
+          <div class="parents__pair">
+            <p class="parents__names">Shri Brijendra Yadav<br />&amp; Smt. Kalawati Devi</p>
+            <p class="parents__role">Parents of the bride</p>
+          </div>
+        </div>
+
+        <div class="family">
+          <p class="eyebrow center">With our family</p>
+          <p class="family__names">
+            <span>Abhimanyu</span> <i>&middot;</i> <span>Shanvi</span> <i>&middot;</i>
+            <span>Anaika</span> <i>&middot;</i> <span>Aisha</span> <i>&middot;</i>
+            <span>Yogesh</span> <i>&middot;</i> <span>Dharmendra</span> <i>&middot;</i>
+            <span>Anmol</span>
+          </p>
+        </div>
+
+        <div class="flourish reveal" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+
+        <div class="invitation__lead">
+          <p>Brijesh Yadav, son of Shri Ram Abhilash &amp; Smt. Anita Yadav,</p>
+          <p class="invitation__lead-and" aria-hidden="true">&amp;</p>
+          <p>Sangeeta Yadav, daughter of Shri Brijendra &amp; Smt. Kalawati Devi,</p>
+        </div>
+
+        <p class="invitation__script script">request the honour of your presence at their wedding</p>
+
+        <p class="invitation__hindi" lang="hi">आपके आगमन से हमारा उत्सव पूर्ण होगा</p>
+
+        <p class="invitation__copy">
+          Five occasions, 3 days, one village. Haldi in the courtyard on Saturday
+          at 3:00 pm, Mehndi that evening at 7:00 pm, and DJ night in the garden at 10:00 pm; the
+          Baraat at 4:00 pm (4 o'clock) on Sunday; and the Reception on Tuesday at 5:00 pm. We would be
+          glad to have you with us for all of it, or for whichever part you can manage.
+        </p>
+
+        <p class="invitation__sign script">Brijesh &amp; Sangeeta</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Countdown ──────────────────────────────────────────── -->
+  <section class="countdown" aria-label="Countdown to the wedding">
+    <div class="wrap countdown__inner">
+      <p class="countdown__lead script">The baraat arrives in</p>
+      <div class="countdown__grid" id="countdownGrid" role="timer" aria-live="off">
+        <div class="countdown__cell"><strong data-unit="days">—</strong><span>days</span></div>
+        <div class="countdown__cell"><strong data-unit="hours">—</strong><span>hours</span></div>
+        <div class="countdown__cell"><strong data-unit="minutes">—</strong><span>minutes</span></div>
+        <div class="countdown__cell"><strong data-unit="seconds">—</strong><span>seconds</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Functions ──────────────────────────────────────────── -->
+  <section class="section section--cream" id="functions">
+    <div class="wrap">
+      <header class="s-head s-head--center">
+        <p class="eyebrow">The functions</p>
+        <h2 class="s-title">Five occasions, at the family home</h2>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+        <p class="s-sub">
+          Everything happens in the village, within a short walk of one another. The
+          rituals begin on time; come a little early for the rest.
+        </p>
+      </header>
+
+      <div class="functions">
+        <article class="fcard reveal">
+          <div class="fcard__art fcard__art--haldi">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M24 58h72c0 22-16 32-36 32S24 80 24 58z" fill="#f6e2b8" stroke="currentColor" stroke-width="1.6" />
+              <path d="M24 58c12-5 60-5 72 0" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="42" cy="42" r="9" fill="#d99a2b" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="62" cy="34" r="11" fill="#e4b45a" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="82" cy="43" r="8" fill="#d99a2b" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="54" cy="50" r="7" fill="#c9483f" stroke="currentColor" stroke-width="1.2" />
+              <path d="M62 22c-2-6 0-11 5-14 2 6 0 11-5 14z" fill="#6f7d5a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M26 78c14 6 54 6 68 0" stroke="currentColor" stroke-width="1" opacity=".4" />
+            </svg>
+          </div>
+          <p class="fcard__day">Saturday 30 January &middot; 3 pm</p>
+          <h3 class="fcard__name">Haldi</h3>
+          <p class="fcard__where">At the family home, Chandauka</p>
+          <p class="fcard__copy">
+            Turmeric, marigolds and dhol in the courtyard. The elders will smear everyone
+            within reach, so wear something yellow you can ruin.
+          </p>
+        </article>
+
+        <article class="fcard reveal">
+          <div class="fcard__art fcard__art--mehndi">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M44 88V52c0-10 5-16 12-16s12 6 12 16v30" stroke="currentColor" stroke-width="1.6" />
+              <path d="M44 52c-8-2-14 3-16 10-2 8 2 14 9 16" stroke="currentColor" stroke-width="1.6" />
+              <path d="M76 52c8-2 14 3 16 10 2 8-2 14-9 16" stroke="currentColor" stroke-width="1.6" />
+              <circle cx="56" cy="58" r="3.4" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="56" cy="70" r="3.4" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="56" cy="82" r="3.4" stroke="currentColor" stroke-width="1.1" />
+              <path d="M50 64c3 2 9 2 12 0M50 76c3 2 9 2 12 0" stroke="currentColor" stroke-width="1" opacity=".7" />
+              <path d="M56 26c-2-6 1-11 6-14 2 6-1 11-6 14z" fill="#6f7d5a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M68 30c4-4 9-4 13-1-4 4-9 4-13 1z" fill="#6f7d5a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M30 30c-3-4-3-9 0-12 2 4 2 8 0 12z" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+            </svg>
+          </div>
+          <p class="fcard__day">Saturday 30 January &middot; 7 pm</p>
+          <h3 class="fcard__name">Mehndi</h3>
+          <p class="fcard__where">At the family home, Chandauka</p>
+          <p class="fcard__copy">
+            Mehndi for Sangeeta and anyone else who wants a pattern, songs on the
+            veranda, and dinner laid out under the lights.
+          </p>
+        </article>
+
+        <article class="fcard reveal">
+          <div class="fcard__art fcard__art--dj">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M26 40h22v46H26z" fill="#fbeccb" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="37" cy="52" r="5.4" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="37" cy="72" r="8" stroke="currentColor" stroke-width="1.2" />
+              <path d="M72 40h22v46H72z" fill="#fbeccb" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="83" cy="52" r="5.4" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="83" cy="72" r="8" stroke="currentColor" stroke-width="1.2" />
+              <path d="M60 14v9M55.5 18.5h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+              <path d="M104 26v7M100.5 29.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".7" />
+              <path d="M16 26v7M12.5 29.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".7" />
+              <path d="M18 88h84" stroke="currentColor" stroke-width="1.4" opacity=".55" />
+            </svg>
+          </div>
+          <p class="fcard__day">Saturday 30 January &middot; 10 pm</p>
+          <h3 class="fcard__name">DJ night</h3>
+          <p class="fcard__where">In the garden, Chandauka</p>
+          <p class="fcard__copy">
+            After the mehndi the garden turns into a dance floor: speakers, string
+            lights and a mix of Bollywood, Bhojpuri and everything in between. Wear
+            something you can dance in.
+          </p>
+        </article>
+
+        <article class="fcard fcard--main reveal">
+          <div class="fcard__art fcard__art--shaadi">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M22 88V40M98 88V40" stroke="currentColor" stroke-width="1.8" />
+              <path d="M22 40c4-18 16-26 38-26s34 8 38 26" stroke="currentColor" stroke-width="1.8" />
+              <path d="M12 40h96" stroke="currentColor" stroke-width="2" />
+              <path d="M34 40c4-12 12-18 26-18s22 6 26 18" stroke="currentColor" stroke-width=".9" opacity=".5" />
+              <path d="M52 88V64M68 88V64" stroke="currentColor" stroke-width="1.4" />
+              <path d="M60 84c-8-3-12-10-12-18 8 1 13 7 12 18z" fill="#e9a94a" stroke="currentColor" stroke-width="1.1" />
+              <path d="M60 84c8-3 12-10 12-18-8 1-13 7-12 18z" fill="#d99a2b" stroke="currentColor" stroke-width="1.1" />
+              <circle cx="60" cy="60" r="2.6" fill="#c9483f" />
+            </svg>
+          </div>
+          <p class="fcard__day">Sunday 31 January &middot; 4 pm</p>
+          <h3 class="fcard__name">Shaadi</h3>
+          <p class="fcard__where">The mandap, Chandauka</p>
+          <p class="fcard__copy">
+            The baraat arrives at the muhurat of 4:00 pm (4 o'clock), the families meet for the
+            milni, and the vows follow around the fire. Dinner and music carry on into
+            the night.
+          </p>
+        </article>
+
+        <article class="fcard reveal">
+          <div class="fcard__art fcard__art--reception">
+            <svg viewBox="0 0 120 96" fill="none" aria-hidden="true">
+              <path d="M60 8v14" stroke="currentColor" stroke-width="1.2" />
+              <path d="M44 22h32l8 46H36z" fill="#fbeccb" stroke="currentColor" stroke-width="1.6" />
+              <path d="M38 68h44" stroke="currentColor" stroke-width="1.6" />
+              <circle cx="60" cy="44" r="10" fill="#e9a94a" stroke="currentColor" stroke-width="1.2" />
+              <path d="M60 78c-4-3-6-7-6-11" stroke="currentColor" stroke-width="1.1" opacity=".5" />
+              <circle cx="34" cy="80" r="7" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+              <circle cx="48" cy="86" r="5" fill="#d99a2b" stroke="currentColor" stroke-width="1" />
+              <circle cx="86" cy="80" r="7" fill="#c9483f" stroke="currentColor" stroke-width="1" />
+              <circle cx="72" cy="86" r="5" fill="#d99a2b" stroke="currentColor" stroke-width="1" />
+            </svg>
+          </div>
+          <p class="fcard__day">Tuesday 2 February &middot; 5 pm</p>
+          <h3 class="fcard__name">Reception</h3>
+          <p class="fcard__where">At the family home, Chandauka</p>
+          <p class="fcard__copy">
+            The newlyweds, in one room with everyone they love. Dinner, a few short
+            speeches, and a shamiana that stays open far later than planned.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Attire & Color Guide ─────────────────────────────────── -->
+  <section class="section section--cream-2" id="attire">
+    <div class="wrap">
+      <header class="s-head s-head--center">
+        <p class="eyebrow" data-i18n="attire_eyebrow">Dress code &amp; palette</p>
+        <h2 class="s-title" data-i18n="attire_title">What to wear for each occasion</h2>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+        <p class="s-sub" data-i18n="attire_sub">
+          A guide to colors and traditional attire to help you pack. Above all, choose what makes you feel festive, radiant and comfortable!
+        </p>
+      </header>
+
+      <div class="attire-grid">
+        <article class="attire-card reveal">
+          <div class="attire-card__header">
+            <h3 class="attire-card__name">Haldi</h3>
+            <span class="attire-card__time">Sat 30 Jan &middot; 3 pm</span>
+          </div>
+          <div class="attire-palette" aria-label="Color palette">
+            <span class="swatch" style="background: #f5b041;" data-name="Mustard Yellow"></span>
+            <span class="swatch" style="background: #f4d03f;" data-name="Sunshine Yellow"></span>
+            <span class="swatch" style="background: #f9e79f;" data-name="Marigold Cream"></span>
+            <span class="swatch" style="background: #e59866;" data-name="Warm Ochre"></span>
+          </div>
+          <p class="attire-card__desc">
+            Vibrant yellows, marigolds, and warm ochre tones. Traditional cotton kurtas, lightweight chanderi lehengas, or floral sarees.
+          </p>
+          <div class="attire-card__tags">
+            <span class="attire-tag">Yellow / Mustard</span>
+            <span class="attire-tag">Stain-Friendly</span>
+            <span class="attire-tag">Cotton Comfort</span>
+          </div>
+        </article>
+
+        <article class="attire-card reveal">
+          <div class="attire-card__header">
+            <h3 class="attire-card__name">Mehndi</h3>
+            <span class="attire-card__time">Sat 30 Jan &middot; 7 pm</span>
+          </div>
+          <div class="attire-palette" aria-label="Color palette">
+            <span class="swatch" style="background: #2e7d32;" data-name="Mehendi Green"></span>
+            <span class="swatch" style="background: #6f7d5a;" data-name="Olive Shade"></span>
+            <span class="swatch" style="background: #a9dfbf;" data-name="Mint Pastel"></span>
+            <span class="swatch" style="background: #d4efdf;" data-name="Sage Leaf"></span>
+          </div>
+          <p class="attire-card__desc">
+            All shades of festive green, mint, and olive. Breezy anarkalis, floral kurtas, and easy sleeves so you can have henna applied with ease.
+          </p>
+          <div class="attire-card__tags">
+            <span class="attire-tag">Mehendi Green</span>
+            <span class="attire-tag">Floral Prints</span>
+            <span class="attire-tag">Easy Sleeves</span>
+          </div>
+        </article>
+
+        <article class="attire-card reveal">
+          <div class="attire-card__header">
+            <h3 class="attire-card__name">DJ Night</h3>
+            <span class="attire-card__time">Sat 30 Jan &middot; 10 pm</span>
+          </div>
+          <div class="attire-palette" aria-label="Color palette">
+            <span class="swatch" style="background: #1a237e;" data-name="Midnight Blue"></span>
+            <span class="swatch" style="background: #7d1e2d;" data-name="Wine / Plum"></span>
+            <span class="swatch" style="background: #d4af37;" data-name="Metallic Gold"></span>
+            <span class="swatch" style="background: #283747;" data-name="Deep Charcoal"></span>
+          </div>
+          <p class="attire-card__desc">
+            Cocktail glam and Indo-Western flair. Shimmering sarees, modern bandhgalas, or party suits. Wear footwear you can dance in till midnight!
+          </p>
+          <div class="attire-card__tags">
+            <span class="attire-tag">Cocktail &amp; Shimmer</span>
+            <span class="attire-tag">Indo-Western</span>
+            <span class="attire-tag">Dancing Shoes</span>
+          </div>
+        </article>
+
+        <article class="attire-card reveal">
+          <div class="attire-card__header">
+            <h3 class="attire-card__name">Shaadi</h3>
+            <span class="attire-card__time">Sun 31 Jan &middot; 4 pm</span>
+          </div>
+          <div class="attire-palette" aria-label="Color palette">
+            <span class="swatch" style="background: #8b0000;" data-name="Crimson Red"></span>
+            <span class="swatch" style="background: #5c1220;" data-name="Royal Maroon"></span>
+            <span class="swatch" style="background: #b0863a;" data-name="Imperial Gold"></span>
+            <span class="swatch" style="background: #fdf5e6;" data-name="Ivory Silk"></span>
+          </div>
+          <p class="attire-card__desc">
+            Grand Indian festive royalty: Banarasi and Kanjeevaram silks, embroidered lehengas, royal sherwanis, safas, and rich heritage jewelry.
+          </p>
+          <div class="attire-card__tags">
+            <span class="attire-tag">Royal Traditional</span>
+            <span class="attire-tag">Banarasi &amp; Silk</span>
+            <span class="attire-tag">Sherwani / Safa</span>
+          </div>
+        </article>
+
+        <article class="attire-card reveal">
+          <div class="attire-card__header">
+            <h3 class="attire-card__name">Reception</h3>
+            <span class="attire-card__time">Tue 2 Feb &middot; 5 pm</span>
+          </div>
+          <div class="attire-palette" aria-label="Color palette">
+            <span class="swatch" style="background: #1b4d3e;" data-name="Emerald Velvet"></span>
+            <span class="swatch" style="background: #1c2833;" data-name="Black Tie"></span>
+            <span class="swatch" style="background: #d4af37;" data-name="Warm Champagne"></span>
+            <span class="swatch" style="background: #e8daef;" data-name="Lilac Silver"></span>
+          </div>
+          <p class="attire-card__desc">
+            Regal evening grace: structured bandhgalas, tuxedo suits, designer gowns, or opulent tissue silk sarees under the lit shamiana.
+          </p>
+          <div class="attire-card__tags">
+            <span class="attire-tag">Evening Formal</span>
+            <span class="attire-tag">Bandhgala / Tuxedo</span>
+            <span class="attire-tag">Regal Elegance</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="attire-tips reveal">
+        <div class="attire-tip-item">
+          <h4>Footwear on Village Lawns</h4>
+          <p>The celebrations happen across open village courtyards and grass lawns. Wedges, block heels, festive juttis, and mojris are far more comfortable than thin stilettos.</p>
+        </div>
+        <div class="attire-tip-item">
+          <h4>January Winter Shawls</h4>
+          <p>Eastern UP evenings drop to around 8°C. Do carry a pashmina shawl, Nehru jacket, or formal blazer so you remain comfortably warm during the ceremonies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The baraat and the day ─────────────────────────────── -->
+  <section class="section section--ink" id="shaadi">
+    <div class="wrap">
+      <header class="s-head s-head--center">
+        <p class="eyebrow">Sunday, 31 January</p>
+        <h2 class="s-title">How the day unfolds</h2>
+        <div class="flourish flourish--light" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+        <p class="s-sub">
+          The baraat arrives at the muhurat of 4:00 pm (4 o'clock). After that the rituals set
+          the pace, not the clock.
+        </p>
+      </header>
+
+      <svg class="baraat" viewBox="0 0 460 170" fill="none" role="img" aria-label="A gold line drawing of an elephant, a dhol and a horse leading the baraat">
+        <g fill="none" stroke="#dcc08a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+
+          <!-- ── the elephant ───────────────────────────────── -->
+          <path d="M40 100C34 78 40 58 62 50c22-8 50-8 70-2 16 5 28 12 36 22 8 9 13 18 12 25-1 7-8 11-17 11-15 4-39 5-57 4-22-1-48-2-58-5-6-1-8-3-8-5z" />
+          <path d="M130 62c20-3 36 11 38 29 2 14-12 23-25 17-12-6-17-22-15-34z" fill="rgba(220,192,138,0.16)" />
+          <path d="M136 72c7 6 11 15 10 24" stroke-width="1.7" opacity=".7" />
+          <path d="M177 93c3 14 4 26 6 36" stroke-width="11" />
+          <path d="M183 129c1 7 6 10 9 5" stroke-width="7" />
+          <path d="M160 101c9 3 16 9 19 16" stroke="#f7e8c8" stroke-width="3.2" />
+          <path d="M155 103c6 3 11 7 13 12" stroke="#f7e8c8" stroke-width="2.4" opacity=".85" />
+          <circle cx="172" cy="80" r="1.9" fill="#3a0913" stroke="none" />
+          <path d="M58 106l-1 36" stroke-width="12" />
+          <path d="M51 146h13" stroke-width="9" />
+          <path d="M136 106l-1 36" stroke-width="12" />
+          <path d="M129 146h13" stroke-width="9" />
+          <path d="M44 106l-1 34" stroke-width="11" opacity=".55" />
+          <path d="M37 145h12" stroke-width="8" opacity=".4" />
+          <path d="M151 105l1 35" stroke-width="11" opacity=".55" />
+          <path d="M146 145h12" stroke-width="8" opacity=".4" />
+          <path d="M37 74c-10 18-11 36-6 50" stroke-width="3.6" />
+          <ellipse cx="31" cy="129" rx="3.4" ry="5.5" fill="#f7e8c8" stroke="none" opacity=".8" />
+          <path d="M78 54c22-7 44-7 60 0 3 14 5 28 6 42-22 6-48 6-70-1 1-13 2-27 4-41z" fill="rgba(220,192,138,0.16)" />
+          <path d="M74 95c22 7 48 7 70 1" />
+          <path d="M82 98v7M94 100v7M106 101v7M118 101v7M130 100v7M140 97v7" stroke-width="1.6" opacity=".6" />
+          <circle cx="108" cy="72" r="4.4" stroke-width="1.6" />
+          <path d="M108 64v-4M108 80v4M100 72h-4M116 72h4" stroke-width="1.4" opacity=".7" />
+
+          <!-- ── the dhol ───────────────────────────────────── -->
+          <path d="M212 152c-6-10-6-24 2-32 9-7 27-7 35 0 7 8 7 22 1 32z" fill="rgba(220,192,138,0.16)" />
+          <ellipse cx="249" cy="136" rx="6.4" ry="16" />
+          <path d="M219 118c-3 12-3 24 0 34M226 116c-3 14-3 26 0 36M233 116c-3 14-3 26 0 36" stroke-width="1.4" opacity=".6" />
+          <path d="M236 112l26-16M244 116l26-12" stroke-width="3.2" />
+          <circle cx="262" cy="96" r="2.6" fill="#f7e8c8" stroke="none" />
+          <circle cx="270" cy="104" r="2.6" fill="#f7e8c8" stroke="none" />
+
+          <!-- ── the horse ──────────────────────────────────── -->
+          <path d="M290 100c-6-18 0-36 16-42 20-7 46-7 64 0 10 4 16 14 16 26 0 12-6 18-18 20-22 4-56 4-70 1-6-1-8-3-8-5z" />
+          <path d="M370 58c8-8 19-18 29-25 4-3 10-3 12 1l3 8c9 2 17 7 22 13 5 6 6 11 3 14-3 3-9 2-13-2l-6-5c-5 6-8 13-10 20-4 12-12 19-20 21-8 2-15-4-17-13-3-12-1-24-3-32z" />
+          <path d="M407 32c-10 10-22 21-31 31" stroke="#c9a961" stroke-width="8" stroke-linecap="round" />
+          <path d="M411 34c4-4 9-4 11 0-3 2-8 3-11 0z" fill="#c9a961" stroke="none" />
+          <circle cx="432" cy="54" r="1.9" fill="#3a0913" stroke="none" />
+          <circle cx="439" cy="64" r="1.3" fill="#3a0913" stroke="none" />
+          <path d="M288 74c-10 20-10 40-5 56" stroke-width="4.2" />
+          <path d="M306 106l-1 37" stroke-width="11" />
+          <path d="M298 147h13" stroke-width="8.5" />
+          <path d="M374 104l-1 39" stroke-width="11" />
+          <path d="M366 147h13" stroke-width="8.5" />
+          <path d="M292 105l-1 36" stroke-width="10" opacity=".55" />
+          <path d="M284 145h12" stroke-width="8" opacity=".4" />
+          <path d="M386 102l2 39" stroke-width="10" opacity=".55" />
+          <path d="M383 145h12" stroke-width="8" opacity=".4" />
+          <path d="M320 60c18-6 38-6 52 0 2 10 3 18 3 26-18 4-38 4-55 0 0-8 1-16 0-26z" fill="rgba(220,192,138,0.16)" />
+          <path d="M318 86c18 4 38 4 55 0" />
+        </g>
+        <path d="M6 154h448" stroke="#dcc08a" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 9" opacity=".45" />
+      </svg>
+
+      <ol class="schedule schedule--sequence">
+        <li class="reveal">
+          <div>
+            <h3 data-i18n="sched_baraat">Baraat</h3>
+            <p>4:00 pm (4 o'clock), at the gate: dhol, dancing and rather more people than planned.</p>
+          </div>
+          <svg class="schedule__icon" viewBox="0 0 120 118" fill="none" role="img" aria-label="Festive wedding dhol and crossed drumsticks for Baraat">
+            <!-- Dhol barrel body -->
+            <path d="M28 38 C42 32 78 32 92 38 L92 80 C78 86 42 86 28 80 Z" fill="rgba(220,192,138,0.12)" stroke="#dcc08a" stroke-width="2" stroke-linejoin="round" />
+            <!-- Left & Right drumheads -->
+            <ellipse cx="28" cy="59" rx="8" ry="21" fill="rgba(220,192,138,0.25)" stroke="#dcc08a" stroke-width="2" />
+            <ellipse cx="28" cy="59" rx="4" ry="11" fill="#dcc08a" opacity="0.6" />
+            <ellipse cx="92" cy="59" rx="8" ry="21" fill="rgba(220,192,138,0.25)" stroke="#dcc08a" stroke-width="2" />
+            <ellipse cx="92" cy="59" rx="4" ry="11" fill="#dcc08a" opacity="0.6" />
+            <!-- Tension ropes -->
+            <path d="M34 40 L48 78 L60 40 L72 78 L86 40" stroke="#dcc08a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M34 78 L48 40 L60 78 L72 40 L86 78" stroke="#dcc08a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+            <!-- Brass tuning rings -->
+            <circle cx="48" cy="59" r="3" fill="#e9a94a" />
+            <circle cx="72" cy="59" r="3" fill="#e9a94a" />
+            <!-- Drum strap & hanging tassel -->
+            <path d="M46 79 C52 92 68 92 74 79" stroke="#dcc08a" stroke-width="1.6" stroke-linecap="round" fill="none" />
+            <circle cx="60" cy="94" r="2.5" fill="#e9a94a" />
+            <path d="M60 96 v8 M58 104 h4" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" />
+            <!-- Crossed drumsticks -->
+            <path d="M18 24 L102 94" stroke="#dcc08a" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M102 24 L18 94" stroke="#dcc08a" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M18 24 C14 20 18 14 24 16" stroke="#dcc08a" stroke-width="2.2" stroke-linecap="round" fill="none" />
+            <!-- Festive rhythm sparkles -->
+            <circle cx="16" cy="46" r="1.5" fill="#e9a94a" />
+            <circle cx="104" cy="46" r="1.5" fill="#e9a94a" />
+            <path d="M60 16 v6 M57 19 h6" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.7" />
+          </svg>
+        </li>
+
+        <li class="reveal">
+          <div>
+            <h3 data-i18n="sched_milni">Milni</h3>
+            <p>Both families meet at the entrance with garlands and embraces. This is where the noise begins.</p>
+          </div>
+          <svg class="schedule__icon" viewBox="0 0 120 118" fill="none" role="img" aria-label="Namaste greeting and welcoming floral garland for Milni">
+            <!-- Auspicious floral garland arch -->
+            <path d="M22 84 C18 42 42 20 60 20 C78 20 102 42 98 84" stroke="#dcc08a" stroke-width="1.4" stroke-dasharray="0.5 6" stroke-linecap="round" />
+            <circle cx="28" cy="74" r="4.5" fill="#e9a94a" opacity="0.85" />
+            <circle cx="24" cy="56" r="4.5" fill="#dcc08a" opacity="0.85" />
+            <circle cx="34" cy="38" r="4.5" fill="#e9a94a" opacity="0.85" />
+            <circle cx="50" cy="24" r="4.5" fill="#dcc08a" opacity="0.85" />
+            <circle cx="70" cy="24" r="4.5" fill="#e9a94a" opacity="0.85" />
+            <circle cx="86" cy="38" r="4.5" fill="#dcc08a" opacity="0.85" />
+            <circle cx="96" cy="56" r="4.5" fill="#e9a94a" opacity="0.85" />
+            <circle cx="92" cy="74" r="4.5" fill="#dcc08a" opacity="0.85" />
+            <path d="M60 18 v-6" stroke="#dcc08a" stroke-width="1.4" stroke-linecap="round" />
+            <circle cx="60" cy="10" r="2.5" fill="#e9a94a" />
+            <!-- Clasping Namaste Hands in Anjali Mudra -->
+            <path d="M50 96 L50 82 C50 78 52 74 54 70 L58 46 C58.5 42 60 40 60 38 C60 40 61.5 42 62 46 L66 70 C68 74 70 78 70 82 L70 96 Z" fill="rgba(220,192,138,0.2)" stroke="#dcc08a" stroke-width="1.8" stroke-linejoin="round" />
+            <path d="M60 38 v34" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.75" />
+            <!-- Royal wrist kadas -->
+            <rect x="47" y="86" width="26" height="3" rx="1.5" fill="#e9a94a" stroke="#dcc08a" stroke-width="1" />
+            <rect x="48" y="91" width="24" height="2.5" rx="1" fill="none" stroke="#dcc08a" stroke-width="1" />
+            <!-- Blessing rays -->
+            <path d="M60 28 v-4 M52 31 l-3 -3 M68 31 l3 -3" stroke="#dcc08a" stroke-width="1.3" stroke-linecap="round" opacity="0.6" />
+            <circle cx="60" cy="31" r="1.5" fill="#e9a94a" />
+          </svg>
+        </li>
+
+        <li class="reveal">
+          <div>
+            <h3 data-i18n="sched_jaimala">Jaimala</h3>
+            <p>Brijesh and Sangeeta exchange garlands, and the pandit begins the ceremony.</p>
+          </div>
+          <svg class="schedule__icon" viewBox="0 0 120 118" fill="none" role="img" aria-label="Intertwined wedding garlands for Jaimala">
+            <!-- Twin Varmala Garlands -->
+            <ellipse cx="46" cy="54" rx="24" ry="30" fill="none" stroke="#dcc08a" stroke-width="1.6" stroke-dasharray="1 6" stroke-linecap="round" />
+            <ellipse cx="74" cy="54" rx="24" ry="30" fill="none" stroke="#dcc08a" stroke-width="1.6" stroke-dasharray="1 6" stroke-linecap="round" />
+            <!-- Auspicious flowers -->
+            <circle cx="28" cy="44" r="4.2" fill="#e9a94a" opacity="0.8" />
+            <circle cx="32" cy="68" r="4.2" fill="#dcc08a" opacity="0.8" />
+            <circle cx="46" cy="82" r="4.5" fill="#e9a94a" opacity="0.9" />
+            <circle cx="92" cy="44" r="4.2" fill="#e9a94a" opacity="0.8" />
+            <circle cx="88" cy="68" r="4.2" fill="#dcc08a" opacity="0.8" />
+            <circle cx="74" cy="82" r="4.5" fill="#e9a94a" opacity="0.9" />
+            <!-- Central Lotus Medallion -->
+            <g transform="translate(60, 52)">
+              <circle cx="0" cy="0" r="11" fill="rgba(125,30,45,0.4)" stroke="#dcc08a" stroke-width="1.6" />
+              <path d="M0 -7 C3 -3 6 0 0 6 C-6 0 -3 -3 0 -7 Z" fill="#e9a94a" />
+              <path d="M-6 -2 C-3 0 0 3 -7 5 C-6 1 -6 -1 -6 -2 Z" fill="#dcc08a" opacity="0.8" />
+              <path d="M6 -2 C3 0 0 3 7 5 C6 1 6 -1 6 -2 Z" fill="#dcc08a" opacity="0.8" />
+              <circle cx="0" cy="0" r="2.2" fill="#fff" />
+            </g>
+            <!-- Hanging silk latkans (tassels) -->
+            <path d="M60 63 v28" stroke="#dcc08a" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M56 70 v18 M64 70 v18" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.75" />
+            <circle cx="60" cy="94" r="3.2" fill="#e9a94a" />
+            <path d="M57 97 l3 9 l3 -9 Z" fill="#dcc08a" />
+            <circle cx="38" cy="26" r="1.5" fill="#e9a94a" />
+            <circle cx="82" cy="26" r="1.5" fill="#e9a94a" />
+          </svg>
+        </li>
+
+        <li class="reveal">
+          <div>
+            <h3 data-i18n="sched_pherai">Kanyadaan &amp; Pheras</h3>
+            <p>The seven vows around the fire. Please gather close — this is the part worth watching.</p>
+          </div>
+          <svg class="schedule__icon" viewBox="0 0 120 118" fill="none" role="img" aria-label="Sacred Vedic Havankund fire altar for Pheras">
+            <!-- Stepped Havankund altar -->
+            <path d="M18 96 h84 l-6 8 h-72 Z" fill="rgba(220,192,138,0.2)" stroke="#dcc08a" stroke-width="1.6" stroke-linejoin="round" />
+            <path d="M26 84 h68 l-5 12 h-58 Z" fill="rgba(220,192,138,0.14)" stroke="#dcc08a" stroke-width="1.6" stroke-linejoin="round" />
+            <path d="M34 74 h52 l-4 10 h-44 Z" fill="rgba(220,192,138,0.28)" stroke="#dcc08a" stroke-width="1.8" stroke-linejoin="round" />
+            <!-- Kund side handles -->
+            <path d="M26 87 C20 87 18 92 24 94" stroke="#dcc08a" stroke-width="1.6" fill="none" stroke-linecap="round" />
+            <path d="M94 87 C100 87 102 92 96 94" stroke="#dcc08a" stroke-width="1.6" fill="none" stroke-linecap="round" />
+            <!-- Sacred Agni flames -->
+            <path d="M60 22 C68 36 78 48 76 64 C74 72 68 76 60 76 C52 76 46 72 44 64 C42 48 52 36 60 22 Z" fill="rgba(233,169,74,0.3)" stroke="#e9a94a" stroke-width="1.8" stroke-linejoin="round" />
+            <path d="M60 36 C64 45 70 54 68 64 C66 70 63 74 60 74 C57 74 54 70 52 64 C50 54 56 45 60 36 Z" fill="#e9a94a" opacity="0.75" />
+            <path d="M60 48 C62 53 64 58 63 64 C62 67 61 70 60 70 C59 70 58 67 57 64 C56 58 58 53 60 48 Z" fill="#fffdf8" />
+            <!-- Sacred Ladle (Sruva) -->
+            <path d="M28 62 L44 74" stroke="#dcc08a" stroke-width="2" stroke-linecap="round" />
+            <circle cx="28" cy="62" r="3" fill="#dcc08a" />
+            <!-- Holy smoke & sparks -->
+            <path d="M52 24 C50 16 54 12 50 8" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+            <path d="M66 22 C68 15 64 11 68 7" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+            <circle cx="46" cy="30" r="1.4" fill="#e9a94a" />
+            <circle cx="74" cy="32" r="1.4" fill="#e9a94a" />
+          </svg>
+        </li>
+
+        <li class="reveal">
+          <div>
+            <h3 data-i18n="sched_sindoor">Sindoor &amp; Mangalsutra</h3>
+            <p>Blessings, a few tears, and the moment the two of them are formally married.</p>
+          </div>
+          <svg class="schedule__icon" viewBox="0 0 120 118" fill="none" role="img" aria-label="Sacred Mangalsutra and Sindoor Daani for the wedding rites">
+            <!-- Mangalsutra Chain with black and gold beads -->
+            <path d="M20 28 C28 58 48 76 60 76 C72 76 92 58 100 28" stroke="#dcc08a" stroke-width="1.6" stroke-linecap="round" fill="none" />
+            <path d="M20 28 C28 58 48 76 60 76 C72 76 92 58 100 28" stroke="#1f1a17" stroke-width="2.6" stroke-dasharray="1.5 5" stroke-linecap="round" fill="none" />
+            <!-- Twin Golden Vati Cups Pendant -->
+            <g transform="translate(60, 77)">
+              <circle cx="-5" cy="0" r="5" fill="#e9a94a" stroke="#dcc08a" stroke-width="1.2" />
+              <circle cx="5" cy="0" r="5" fill="#e9a94a" stroke="#dcc08a" stroke-width="1.2" />
+              <circle cx="-5" cy="0" r="2" fill="#8b2635" />
+              <circle cx="5" cy="0" r="2" fill="#8b2635" />
+              <circle cx="0" cy="7" r="2" fill="#e9a94a" />
+              <path d="M0 9 v4" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" />
+            </g>
+            <!-- Auspicious Sindoor Daani (Vermilion pot) -->
+            <g transform="translate(60, 42)">
+              <ellipse cx="0" cy="8" rx="14" ry="5" fill="rgba(220,192,138,0.2)" stroke="#dcc08a" stroke-width="1.4" />
+              <path d="M-13 8 C-13 0 -7 -4 0 -4 C7 -4 13 0 13 8 Z" fill="rgba(220,192,138,0.25)" stroke="#dcc08a" stroke-width="1.4" />
+              <ellipse cx="0" cy="-3" rx="10" ry="3.5" fill="#c0392b" />
+              <path d="M-4 -8 C-4 -14 0 -17 3 -18 C6 -17 10 -14 10 -8 Z" fill="#e9a94a" stroke="#dcc08a" stroke-width="1.2" />
+              <circle cx="3" cy="-19" r="1.5" fill="#dcc08a" />
+              <circle cx="0" cy="-3" r="2" fill="#e74c3c" />
+              <path d="M-16 -3 h-4 M16 -3 h4 M0 -12 v-4" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+            </g>
+          </svg>
+        </li>
+
+        <li class="reveal">
+          <div>
+            <h3 data-i18n="sched_dinner">Dinner</h3>
+            <p>A long vegetarian spread — chaat, sabzi, dal, hot puris and far too much dessert.</p>
+          </div>
+          <svg class="schedule__icon" viewBox="0 0 120 118" fill="none" role="img" aria-label="Royal traditional wedding feast thali for Dinner">
+            <!-- Royal Indian Thali platter -->
+            <ellipse cx="58" cy="64" rx="46" ry="32" fill="rgba(220,192,138,0.12)" stroke="#dcc08a" stroke-width="2.2" />
+            <ellipse cx="58" cy="64" rx="42" ry="28" fill="rgba(220,192,138,0.08)" stroke="#dcc08a" stroke-width="1.2" stroke-dasharray="1 3" />
+            <!-- Embossed Katoris (Bowls) -->
+            <ellipse cx="36" cy="50" rx="9" ry="6.5" fill="#e9a94a" opacity="0.75" stroke="#dcc08a" stroke-width="1.4" />
+            <ellipse cx="36" cy="49" rx="6" ry="3.8" fill="#d48a28" />
+            <ellipse cx="58" cy="44" rx="9" ry="6.5" fill="#e9a94a" opacity="0.75" stroke="#dcc08a" stroke-width="1.4" />
+            <ellipse cx="58" cy="43" rx="6" ry="3.8" fill="#c0392b" opacity="0.8" />
+            <ellipse cx="80" cy="50" rx="9" ry="6.5" fill="#e9a94a" opacity="0.75" stroke="#dcc08a" stroke-width="1.4" />
+            <ellipse cx="80" cy="49" rx="6" ry="3.8" fill="#fffdf8" opacity="0.9" />
+            <!-- Rolled Puris / Naan bread -->
+            <ellipse cx="48" cy="74" rx="14" ry="9" fill="rgba(233,169,74,0.4)" stroke="#dcc08a" stroke-width="1.5" transform="rotate(-8 48 74)" />
+            <ellipse cx="64" cy="74" rx="14" ry="9" fill="rgba(233,169,74,0.5)" stroke="#dcc08a" stroke-width="1.5" transform="rotate(10 64 74)" />
+            <circle cx="58" cy="62" r="3.2" fill="#7a2e1d" stroke="#dcc08a" stroke-width="0.8" />
+            <!-- Royal Tumbler / Glass -->
+            <path d="M96 32 L93 54 C93 56 99 56 99 54 L103 32 Z" fill="rgba(220,192,138,0.25)" stroke="#dcc08a" stroke-width="1.4" stroke-linejoin="round" />
+            <ellipse cx="99.5" cy="32" rx="3.5" ry="1.8" fill="#e9a94a" stroke="#dcc08a" stroke-width="1" />
+            <!-- Steam curls -->
+            <path d="M48 36 C46 30 50 26 48 20" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+            <path d="M68 34 C70 28 66 24 68 18" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+          </svg>
+        </li>
+
+        <li class="reveal">
+          <div>
+            <h3 data-i18n="sched_vidai">Vidaai</h3>
+            <p>Sangeeta leaves with her new family. Bring a handkerchief — and stand close to the gate, because this is the part everyone remembers.</p>
+          </div>
+          <svg class="schedule__icon vidai" viewBox="0 0 120 118" fill="none" role="img" aria-label="The bride walking away, carrying a lamp for Vidaai">
+            <g fill="#dcc08a">
+              <path d="M44 108q-2-28 8-42h16q10 14 8 42z" />
+              <path d="M52 68l2-18c1-4 3-6 7-6s6 2 7 6l2 18z" />
+              <circle cx="61" cy="38" r="7.6" />
+              <circle cx="66" cy="28" r="3.8" />
+              <path d="M67 34q8 20 7 50l-6 24h-7q6-30 2-56z" />
+            </g>
+            <path d="M69 58q7 4 9 11" stroke="#dcc08a" stroke-width="3.4" stroke-linecap="round" />
+            <circle cx="80" cy="74" r="4.4" fill="#e9a94a" />
+            <path d="M80 69v-3" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M28 108h14M24 100h12M26 92h10" stroke="#dcc08a" stroke-width="1.2" stroke-linecap="round" opacity=".45" />
+          </svg>
+        </li>
+      </ol>
+
+      <p class="schedule__note reveal">
+        The ceremony will be conducted in Hindi and Sanskrit. We'll keep it easy to
+        follow, and there will be someone at every row to explain what is happening.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Sacred Vows: Saptapadi ──────────────────────────────── -->
+  <section class="section section--ink" id="rituals">
+    <div class="wrap">
+      <header class="s-head s-head--center">
+        <p class="eyebrow" data-i18n="vows_eyebrow">Agni Sakshi &middot; Vedic Traditions</p>
+        <h2 class="s-title" data-i18n="vows_title">The Seven Sacred Vows</h2>
+        <div class="flourish flourish--light" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+        <p class="s-sub" data-i18n="vows_sub">
+          Around the sacred Agni, Brijesh and Sangeeta will take seven steps together, binding their lives in love, devotion, and lifelong companionship.
+        </p>
+      </header>
+
+      <div class="saptapadi-grid">
+        <article class="phera-card reveal">
+          <div class="phera-card__header">
+            <span class="phera-card__num">01</span>
+            <span class="phera-card__step">Pratham Phera</span>
+          </div>
+          <p class="phera-card__shloka" lang="hi">ॐ एकमिषे विष्णुस्त्वान्वेतु</p>
+          <h3 class="phera-card__title">Nourishment &amp; Sustenance</h3>
+          <p class="phera-card__meaning">A shared vow to nourish each other with health, pure food, kindness, and devotion throughout life's journey.</p>
+        </article>
+
+        <article class="phera-card reveal">
+          <div class="phera-card__header">
+            <span class="phera-card__num">02</span>
+            <span class="phera-card__step">Dwitiya Phera</span>
+          </div>
+          <p class="phera-card__shloka" lang="hi">ॐ द्वे ऊर्जे विष्णुस्त्वान्वेतु</p>
+          <h3 class="phera-card__title">Strength &amp; Protection</h3>
+          <p class="phera-card__meaning">To stand as pillars of emotional, physical, and spiritual courage for each other and shield our home in every season.</p>
+        </article>
+
+        <article class="phera-card reveal">
+          <div class="phera-card__header">
+            <span class="phera-card__num">03</span>
+            <span class="phera-card__step">Tritiya Phera</span>
+          </div>
+          <p class="phera-card__shloka" lang="hi">ॐ त्रीणि रायस्पोषाय विष्णुस्त्वान्वेतु</p>
+          <h3 class="phera-card__title">Prosperity &amp; Righteous Wealth</h3>
+          <p class="phera-card__meaning">To earn our livelihood through noble and righteous means, sharing blessings with charity, humility, and grace.</p>
+        </article>
+
+        <article class="phera-card reveal">
+          <div class="phera-card__header">
+            <span class="phera-card__num">04</span>
+            <span class="phera-card__step">Chaturtha Phera</span>
+          </div>
+          <p class="phera-card__shloka" lang="hi">ॐ चत्वारि मायोभवाय विष्णुस्त्वान्वेतु</p>
+          <h3 class="phera-card__title">Family Harmony &amp; Joy</h3>
+          <p class="phera-card__meaning">To cherish both our families, honor our elders' wisdom, and cultivate harmony, laughter, and unity in our household.</p>
+        </article>
+
+        <article class="phera-card reveal">
+          <div class="phera-card__header">
+            <span class="phera-card__num">05</span>
+            <span class="phera-card__step">Panchama Phera</span>
+          </div>
+          <p class="phera-card__shloka" lang="hi">ॐ पञ्च पशुभ्यो विष्णुस्त्वान्वेतु</p>
+          <h3 class="phera-card__title">Compassion &amp; Progeny</h3>
+          <p class="phera-card__meaning">To pray for healthy, virtuous future generations, treating every living soul with empathy, gentleness, and respect.</p>
+        </article>
+
+        <article class="phera-card reveal">
+          <div class="phera-card__header">
+            <span class="phera-card__num">06</span>
+            <span class="phera-card__step">Shashtha Phera</span>
+          </div>
+          <p class="phera-card__shloka" lang="hi">ॐ षड् ऋतुभ्यो विष्णुस्त्वान्वेतु</p>
+          <h3 class="phera-card__title">Health Across All Seasons</h3>
+          <p class="phera-card__meaning">To pray for wellness through all the seasons of nature and all the changing chapters of life, side by side.</p>
+        </article>
+
+        <article class="phera-card reveal" style="grid-column: 1 / -1;">
+          <div class="phera-card__header">
+            <span class="phera-card__num">07</span>
+            <span class="phera-card__step">Saptama Phera &middot; The Eternal Bond</span>
+          </div>
+          <p class="phera-card__shloka" lang="hi">ॐ सखे सप्तपदा भव सा मामनुव्रता भव</p>
+          <h3 class="phera-card__title">Sacred Friendship &amp; Oneness</h3>
+          <p class="phera-card__meaning">Having taken seven steps together, we become lifelong friends and soulmates — unbroken, devoted, and united forever.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Travel ─────────────────────────────────────────────── -->
+  <section class="section section--cream-2" id="travel">
+    <div class="wrap">
+      <header class="s-head s-head--center">
+        <p class="eyebrow">Travel &amp; stay</p>
+        <h2 class="s-title">Reaching Chandauka</h2>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+        <p class="s-sub">
+          The village sits in Pratapgarh district, between Lucknow and Prayagraj.
+          Trains are the easiest way in; from the station, we'll help with the last hour.
+        </p>
+      </header>
+
+      <div class="cols">
+        <article class="col reveal">
+          <h3>By train</h3>
+          <p>
+            Pratapgarh Junction is the closest station, with direct trains from Lucknow,
+            Prayagraj, Delhi and Varanasi. Tell us your train and we'll arrange a car
+            from the station.
+          </p>
+        </article>
+        <article class="col reveal">
+          <h3>By air</h3>
+          <p>
+            Prayagraj and Lucknow are the nearest airports, both a few hours by road.
+            If several guests arrive at once, we'll organise a shared car — let us know
+            your flight.
+          </p>
+        </article>
+        <article class="col reveal">
+          <h3>By road</h3>
+          <p>
+            The village is off the Chandauka road in Kohandaur. From Lucknow or
+            Prayagraj, take the highway towards Pratapgarh and turn at Chandauka; ask
+            for the Yadav house and anyone will point you on.
+          </p>
+        </article>
+        <article class="col reveal">
+          <h3>Where you'll sleep</h3>
+          <p>
+            Nothing to book. We are putting up tents in the garden for our guests —
+            mattresses, quilts, hot water and a lit path to the house. Tell us in the
+            RSVP how many of you there are and we'll keep one ready.
+          </p>
+        </article>
+      </div>
+
+      <div class="map-card reveal">
+        <div>
+          <p class="eyebrow">The address</p>
+          <p class="map-card__address">
+            Village Chandauka<br />
+            Chandauka, Kohandaur<br />
+            Pratapgarh, Uttar Pradesh
+          </p>
+        </div>
+        <a class="btn btn--solid" href="https://maps.app.goo.gl/VxRZg8T2aJi7nfKd7" target="_blank" rel="noopener">
+          Open in Google Maps
+        </a>
+      </div>
+
+      <div class="winter-advisory reveal">
+        <div class="winter-advisory__weather">
+          <p class="eyebrow">January Weather in Pratapgarh</p>
+          <div class="weather-temp">
+            <strong>21°C / 8°C</strong>
+            <span>Pleasant sunny days &middot; Brisk foggy nights</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--ink-soft); margin: 0;">
+            Eastern UP experiences crisp winter sunshine by day and cold, starry village nights. Bonfires and hot spiced chai will be lit throughout the evenings in the garden.
+          </p>
+        </div>
+        <div>
+          <p class="eyebrow">Packing Checklist for Guests</p>
+          <div class="packing-list">
+            <div class="packing-item"><i>✦</i> Pashmina / Warm Shawl</div>
+            <div class="packing-item"><i>✦</i> Nehru Jacket or Blazer</div>
+            <div class="packing-item"><i>✦</i> Grass-Friendly Juttis / Flats</div>
+            <div class="packing-item"><i>✦</i> Light Thermals for Tents</div>
+            <div class="packing-item"><i>✦</i> Portable Power Bank</div>
+            <div class="packing-item"><i>✦</i> Festive Smiles &amp; Blessings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RSVP ───────────────────────────────────────────────── -->
+  <section class="section section--cream" id="rsvp">
+    <div class="wrap wrap--narrow">
+      <header class="s-head s-head--center">
+        <p class="eyebrow">Reply</p>
+        <h2 class="s-title">Will you join us?</h2>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+        <p class="s-sub">
+          Kindly reply by <strong>10 January 2027</strong> so the kitchen and the seating
+          can be planned. If something changes after that, write to us — the door stays open.
+        </p>
+      </header>
+
+      <form class="rsvp" id="rsvpForm" novalidate>
+        <p class="rsvp__title script">Kindly reply</p>
+
+        <div class="field">
+          <label for="rsvpNames">Your name(s)</label>
+          <input type="text" id="rsvpNames" name="names" autocomplete="name" placeholder="Your name, and everyone coming with you" required />
+          <p class="field__error" data-error-for="rsvpNames"></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="rsvpEmail">Email</label>
+            <input type="email" id="rsvpEmail" name="email" autocomplete="email" placeholder="you@example.com" required />
+            <p class="field__error" data-error-for="rsvpEmail"></p>
+          </div>
+          <div class="field">
+            <label for="rsvpPhone">Phone <span class="hint">optional</span></label>
+            <input type="tel" id="rsvpPhone" name="phone" autocomplete="tel" placeholder="For the wedding-day group" />
+          </div>
+        </div>
+
+        <fieldset class="field field--choice">
+          <legend>Will you be there?</legend>
+          <div class="ticks">
+            <label class="tick">
+              <input type="radio" name="attending" value="yes" required />
+              <span class="tick__mark" aria-hidden="true"></span>
+              <span class="tick__label">Joyfully accepts</span>
+            </label>
+            <label class="tick">
+              <input type="radio" name="attending" value="no" required />
+              <span class="tick__mark" aria-hidden="true"></span>
+              <span class="tick__label">Regretfully declines</span>
+            </label>
+          </div>
+          <p class="field__error" data-error-for="attending"></p>
+        </fieldset>
+
+        <div id="attendingDetails">
+          <fieldset class="field field--choice">
+            <legend>Which functions will you attend?</legend>
+            <div class="ticks">
+              <label class="tick">
+                <input type="checkbox" name="events" value="haldi" />
+                <span class="tick__mark" aria-hidden="true"></span>
+                <span class="tick__label">Haldi<em>Saturday 30 January, 3 pm</em></span>
+              </label>
+              <label class="tick">
+                <input type="checkbox" name="events" value="mehndi" />
+                <span class="tick__mark" aria-hidden="true"></span>
+                <span class="tick__label">Mehndi<em>Saturday 30 January, 7 pm</em></span>
+              </label>
+              <label class="tick">
+                <input type="checkbox" name="events" value="dj" />
+                <span class="tick__mark" aria-hidden="true"></span>
+                <span class="tick__label">DJ night<em>Saturday 30 January, 10 pm</em></span>
+              </label>
+              <label class="tick">
+                <input type="checkbox" name="events" value="shaadi" />
+                <span class="tick__mark" aria-hidden="true"></span>
+                <span class="tick__label">Shaadi<em>Sunday 31 January, 4 pm</em></span>
+              </label>
+              <label class="tick">
+                <input type="checkbox" name="events" value="reception" />
+                <span class="tick__mark" aria-hidden="true"></span>
+                <span class="tick__label">Reception<em>Tuesday 2 February, 5 pm</em></span>
+              </label>
+            </div>
+            <p class="field__error" data-error-for="events"></p>
+          </fieldset>
+
+          <div class="field-row field-row--spaced">
+            <div class="field">
+              <label for="rsvpGuests">Number of guests <span class="hint">including you</span></label>
+              <select id="rsvpGuests" name="guests">
+                <option value="1">Just me</option>
+                <option value="2">Two of us</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+                <option value="5">Five or more</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rsvpMeal">Meal preference</label>
+              <select id="rsvpMeal" name="meal">
+                <option value="veg">Vegetarian</option>
+                <option value="jain">Jain, without onion or garlic</option>
+                <option value="vegan">Vegan</option>
+                <option value="nonveg">Non-vegetarian</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="rsvpDiet">Allergies or dietary needs</label>
+            <input type="text" id="rsvpDiet" name="diet" placeholder="Optional — nuts, dairy, anything we should know" />
+          </div>
+
+          <div class="field">
+            <label for="rsvpStay">Do you need a tent, or a car from the station?</label>
+            <select id="rsvpStay" name="stay">
+              <option value="no">No, thank you — we're sorted</option>
+              <option value="rooms">Yes, please keep a tent for us</option>
+              <option value="station">Yes, a car from the station</option>
+              <option value="both">A tent and a car, please</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="rsvpNote">Anything else</label>
+          <textarea id="rsvpNote" name="note" rows="3" placeholder="Notes, requests, or a message for us"></textarea>
+        </div>
+
+        <p class="rsvp__status" id="rsvpStatus" role="status" aria-live="polite"></p>
+
+        <div class="rsvp__actions">
+          <button class="btn btn--solid" type="submit" id="rsvpSubmit">Send our reply</button>
+        </div>
+        <p class="rsvp__fineprint">
+          Prefer to speak to someone? Ring any of the numbers at the bottom of this page.
+        </p>
+      </form>
+
+      <div class="whatsapp-rsvp-box reveal">
+        <p><strong>Prefer to reply immediately on WhatsApp?</strong></p>
+        <a class="btn btn--whatsapp" id="whatsappRsvpBtn" href="https://wa.me/919540984699?text=Namaste%20Brijesh%2C%20we%20have%20received%20the%20wedding%20invitation%20and%20would%20love%20to%20attend!" target="_blank" rel="noopener">
+          <span>💬 1-Click RSVP on WhatsApp</span>
+        </a>
+      </div>
+
+      <div class="rsvp__done" id="rsvpDone" hidden>
+        <svg class="rsvp__done-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="1" />
+          <path d="M14 24.5l7 7 13-14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <h3>Thank you — we have your reply.</h3>
+        <p id="rsvpDoneText">We can't wait to see you in January.</p>
+
+        <div class="wedding-pass" id="weddingPassCard">
+          <span class="wedding-pass__badge">Official Digital Guest Pass</span>
+          <h4 class="wedding-pass__guest" id="passGuestName">Guest Name</h4>
+          <p class="wedding-pass__details" id="passDetails">Village Chandauka &middot; 30 Jan – 2 Feb 2027</p>
+          <div class="wedding-pass__actions">
+            <button class="btn btn--solid" type="button" onclick="window.print()">Print / Save Pass</button>
+            <a class="btn btn--line" id="googleCalendarLink" href="#" target="_blank" rel="noopener">Google Calendar</a>
+          </div>
+        </div>
+
+        <div class="rsvp__done-actions" style="margin-top: 1.4rem;">
+          <a class="btn btn--line" id="calendarLink" href="#" download="brijesh-and-sangeeta.ics">Download .ICS Calendar</a>
+          <button class="btn btn--line" type="button" id="rsvpAgain">Edit reply</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Shubhkamnayein: Wishes & Blessings Wall ─────────────── -->
+  <section class="section section--cream" id="wishes">
+    <div class="wrap">
+      <header class="s-head s-head--center">
+        <p class="eyebrow" data-i18n="wishes_eyebrow">Heartfelt Blessings</p>
+        <h2 class="s-title" data-i18n="wishes_title">Blessings for the Couple</h2>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+        <p class="s-sub" data-i18n="wishes_sub">
+          Sacred blessings and heartfelt wishes from our beloved family for Brijesh and Sangeeta as they embark on this sacred journey together.
+        </p>
+      </header>
+
+      <div class="wishes-wrap">
+        <!-- Family Blessings Gallery: displayed front and center -->
+        <div class="wishes-grid" id="wishesGrid">
+          <!-- Populated dynamically via JS with authentic family blessings -->
+        </div>
+
+        <!-- Royal Invitation to inscribe guest blessings -->
+        <div class="blessing-invite-banner reveal" id="blessingInviteBanner">
+          <div class="blessing-invite-banner__flourish" aria-hidden="true">
+            <span class="blessing-ornament">✦</span>
+            <span class="blessing-sanskrit">॥ श्री गणेशाय नमः ॥</span>
+            <span class="blessing-ornament">✦</span>
+          </div>
+          <h3 class="blessing-invite-banner__title" data-i18n="wishes_banner_title">Inscribe Your Blessings</h3>
+          <p class="blessing-invite-banner__sub" data-i18n="wishes_banner_sub">
+            Your heartfelt words and prayers mean the world to Brijesh &amp; Sangeeta. Inscribe your blessing on this digital patrika or wish them directly on WhatsApp.
+          </p>
+          <div class="blessing-invite-banner__actions">
+            <button class="btn btn--solid" id="toggleWishFormBtn" type="button" aria-expanded="false">
+              <span data-i18n="wishes_write_btn">✍️ Write a Blessing Card</span>
+            </button>
+            <a class="btn btn--whatsapp" href="https://wa.me/919540984699?text=Namaste%20Brijesh%20%26%20Sangeeta%2C%20heartiest%20congratulations%20on%20your%20wedding!%20May%20God%20bless%20both%20of%20you%20with%20eternal%20joy%20and%20prosperity." target="_blank" rel="noopener">
+              <span data-i18n="wishes_wa_btn">💬 Wish on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Royal Sandesh Patrika (Digital Letter Pad, revealed on click) -->
+        <form class="patrika-card" id="wishesForm" hidden>
+          <div class="patrika-card__head">
+            <span class="patrika-card__crest">॥ मङ्गलम् भगवान विष्णुः मङ्गलम् गरुड़ध्वजः ॥</span>
+            <h3 class="patrika-card__title" data-i18n="patrika_title">Royal Blessing Patrika</h3>
+            <p class="patrika-card__sub" data-i18n="patrika_sub">Inscribe your words of blessing for Brijesh &amp; Sangeeta</p>
+          </div>
+
+          <div class="blessing-tags" id="blessingTags">
+            <button type="button" class="blessing-tag-btn is-active" data-tag-en="🌸 Eternal Blessings" data-tag-hi="🌸 सदा सुहागन रहो">🌸 Eternal Blessings</button>
+            <button type="button" class="blessing-tag-btn" data-tag-en="🪔 Prayers &amp; Love" data-tag-hi="🪔 ईश्वर का आशीर्वाद">🪔 Prayers &amp; Love</button>
+            <button type="button" class="blessing-tag-btn" data-tag-en="💐 Warmest Congratulations" data-tag-hi="💐 ढेरों बधाइयां">💐 Warmest Congratulations</button>
+            <button type="button" class="blessing-tag-btn" data-tag-en="🧿 God Protect You" data-tag-hi="🧿 बुरी नज़र से बचे">🧿 God Protect You</button>
+            <button type="button" class="blessing-tag-btn" data-tag-en="💍 Best Wishes Forever" data-tag-hi="💍 हार्दिक शुभकामनाएं">💍 Best Wishes Forever</button>
+          </div>
+
+          <div class="patrika-field">
+            <label class="patrika-label" for="wishMessage" data-i18n="patrika_label_msg">Your Blessing, Prayer or Message</label>
+            <textarea class="patrika-textarea" id="wishMessage" rows="3" required placeholder="Write your heartfelt blessing, prayer or shloka here…"></textarea>
+          </div>
+
+          <div class="patrika-row">
+            <div class="patrika-field">
+              <label class="patrika-label" for="wishAuthor" data-i18n="patrika_label_author">Your Name &amp; Family</label>
+              <input class="patrika-input" type="text" id="wishAuthor" required placeholder="e.g. Ramesh Yadav &amp; Family" />
+            </div>
+            <div class="patrika-field">
+              <label class="patrika-label" for="wishRelation" data-i18n="patrika_label_rel">Relation or City</label>
+              <input class="patrika-input" type="text" id="wishRelation" placeholder="e.g. Friends / Family / Lucknow" />
+            </div>
+          </div>
+
+          <div class="patrika-actions">
+            <button class="btn btn--line" type="button" id="closeWishFormBtn" data-i18n="patrika_btn_cancel">Cancel</button>
+            <button class="btn btn--solid" type="submit" data-i18n="patrika_btn_submit">✦ Seal &amp; Post on Wall</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Gifts ──────────────────────────────────────────────── -->
+  <section class="section section--ink" id="gifts">
+    <div class="wrap wrap--narrow center">
+      <p class="eyebrow" data-i18n="gifts_eyebrow">Shagun &amp; Blessings</p>
+      <h2 class="s-title" data-i18n="gifts_title">Your blessings are enough</h2>
+      <div class="flourish flourish--light" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+      <p class="lede" data-i18n="gifts_lede">
+        Truly. We have a small home, a full shelf of crockery, and no room for another
+        dinner set. If you would still like to give something, a contribution towards
+        our first home would mean the world to us.
+      </p>
+
+      <div class="shagun-card reveal">
+        <h3 class="shagun-card__title" data-i18n="shagun_title">Digital Shagun</h3>
+        <p class="shagun-card__text">
+          In our tradition, a Shagun envelope with the auspicious +₹1 coin (₹501, ₹1101, ₹2101) signifies endless growth and divine blessings. If you wish to send digital shagun:
+        </p>
+        <div class="shagun-upi-row">
+          <span style="color: #eedcc0; font-size: 0.85rem;">UPI ID:</span>
+          <code id="upiIdText">ybrijesh.005@gmail.com</code>
+          <button class="btn--copy" id="copyUpiBtn" type="button">Copy UPI</button>
+        </div>
+        <p id="upiCopyNotice" style="font-size: 0.78rem; color: var(--gold-light); margin: 0; min-height: 1.2em;"></p>
+      </div>
+
+      <div class="share-invite-bar reveal">
+        <p style="color: #eedcc0; font-size: 0.9rem; margin: 0;">Share this wedding invitation with family &amp; friends:</p>
+        <button class="btn btn--whatsapp" id="shareInviteBtn" type="button">
+          <span>📲 Share on WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ────────────────────────────────────────────────── -->
+  <section class="section section--cream" id="faq">
+    <div class="wrap wrap--narrow">
+      <header class="s-head s-head--center">
+        <p class="eyebrow">Questions</p>
+        <h2 class="s-title">Things people have asked</h2>
+        <div class="flourish" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+      </header>
+
+      <div class="faq">
+        <details class="faq__item" open>
+          <summary>What should I wear?</summary>
+          <p>Traditional Indian festive, and the brighter the better — sarees, lehengas, kurtas, sherwanis, or a smart suit. Please avoid all-black at the rituals. The pheras involve sitting on the floor, so choose something you can fold into.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Anything particular for the haldi?</summary>
+          <p>Yellow or marigold if you have it, and clothes you don't mind staining — turmeric does not wash out. Sandals rather than anything precious.</p>
+        </details>
+        <details class="faq__item">
+          <summary>And for the mehndi?</summary>
+          <p>Come in the evening, wear something green if it suits you, and eat first — the mehndi takes a while to dry, so the plates come out early.</p>
+        </details>
+        <details class="faq__item">
+          <summary>How far is everything from each other?</summary>
+          <p>All five are at the family home. The haldi is in the courtyard, the mehndi on the veranda, the DJ night in the garden, the wedding under the mandap beside it, and the reception under the shamiana — a two-minute walk in each case.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Where do I sleep?</summary>
+          <p>There is nothing to book. We put up tents in the garden for our guests — mattresses, quilts, hot water and a lit path to the house. Say how many of you are coming in the RSVP and a tent will be waiting. Bring a shawl; January nights here are cold.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Is there food for everyone?</summary>
+          <p>The kitchen is pure vegetarian, with Jain and vegan plates on request. If you have an allergy, put it in the RSVP and it will be kept aside for you.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Can I bring my children?</summary>
+          <p>Of course; weddings here are family affairs. Tell us how many of you are coming so the places and the small plates can be counted.</p>
+        </details>
+        <details class="faq__item">
+          <summary>What is the weather like in January?</summary>
+          <p>Cold mornings and fog, mild afternoons, and properly cold evenings — bring a shawl or a jacket, and shoes that can manage a village lane.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ── Footer & contacts ────────────────────────────────────── -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer__top">
+      <p class="footer__blessing" lang="hi">॥ शुभ विवाह ॥</p>
+      <p class="footer__mark script">Brijesh &amp; Sangeeta</p>
+      <div class="flourish flourish--light" aria-hidden="true"><span></span><i class="flourish__heart"></i><span></span></div>
+      <p class="footer__date">30 January &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; 2 February 2027</p>
+    </div>
+
+    <div class="contacts">
+      <div class="contacts__group">
+        <p class="eyebrow">For any help</p>
+        <p><a href="tel:+917503156003">Abhishek Yadav &nbsp;+91 75031 56003</a></p>
+        <p><a href="tel:+919871188873">Jai Prakash Yadav &nbsp;+91 98711 88873</a></p>
+        <p><a href="tel:+919540984699">Brijesh Yadav &nbsp;+91 95409 84699</a></p>
+      </div>
+      <div class="contacts__group">
+        <p class="eyebrow">Write to us</p>
+        <p><a href="mailto:ybrijesh.005@gmail.com">ybrijesh.005@gmail.com</a></p>
+        <p class="contacts__place">
+          Village Chandauka, Kohandaur<br />
+          Chandauka, Pratapgarh<br />
+          Uttar Pradesh
+        </p>
+      </div>
+    </div>
+
+    <p class="footer__small">With love, and a great deal of list-making.</p>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The wedding of Brijesh Yadav and Sangeeta Yadav",
+  "startDate": "2027-01-31T16:00:00+05:30",
+  "endDate": "2027-01-31T23:30:00+05:30",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "Family home, Chandauka — Patti Tehsil, Pratapgarh, Uttar Pradesh",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Village Chandauka, Kohandaur, Patti Tehsil",
+      "addressLocality": "Pratapgarh",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    }
+  }
+}
+</script>
+
+<!-- Mobile Floating Quick Bar -->
+<nav class="mobile-quickbar" aria-label="Mobile quick actions">
+  <div class="mobile-quickbar__inner">
+    <a class="quickbar__item" href="#rsvp">
+      <span class="icon">💌</span>
+      <span>RSVP</span>
+    </a>
+    <a class="quickbar__item" href="https://maps.app.goo.gl/VxRZg8T2aJi7nfKd7" target="_blank" rel="noopener">
+      <span class="icon">📍</span>
+      <span>Map</span>
+    </a>
+    <a class="quickbar__item" href="tel:+919540984699">
+      <span class="icon">📞</span>
+      <span>Help</span>
+    </a>
+    <a class="quickbar__item" href="#wishes">
+      <span class="icon">✨</span>
+      <span>Blessings</span>
+    </a>
+  </div>
+</nav>
+
+<script src="script.js?v=12"></script>
+</body>
+</html>
