@@ -1,12 +1,18 @@
 # Brijesh &amp; Sangeeta — wedding invitation site
 
-A single, quiet page: ivory paper, ink, one antique-brass accent, hairline rules,
+One quiet page: ivory paper, ink, a single antique-brass accent, hairline rules,
 and the invitation set the traditional way — both sets of parents, the family,
-then the couple, then the three functions.
+then the couple, then the four functions.
 
-**Haldi** Saturday 30 January 2027 · **Shaadi** Sunday 31 January 2027 ·
-**Reception** Tuesday 2 February 2027 — all at the family home, Village
-Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, Uttar Pradesh.
+| Function | When | Time |
+| --- | --- | --- |
+| Haldi | Saturday 30 January 2027 | 3:00 pm |
+| Mehndi | Saturday 30 January 2027 | 7:00 pm |
+| Shaadi (baraat muhurat) | Sunday 31 January 2027 | 4:00 pm |
+| Reception | Tuesday 2 February 2027 | 5:00 pm |
+
+All at the family home, Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh,
+Uttar Pradesh.
 
 ## Open it
 
@@ -16,82 +22,52 @@ Double-click `index.html`, or serve it locally:
 python3 -m http.server 3000
 ```
 
-No build step, no dependencies — three files plus your photographs.
+No build step, no dependencies — three files, no images.
 
 ```
 index.html    the page and all the words
 styles.css    the design (palette and fonts at the top)
-script.js     countdown, menu, lightbox, RSVP and calendar
-photos/       put photographs here
+script.js     countdown, menu, RSVP and calendar
 ```
 
-## What is real on the page
+## What is on the page
 
 - Both sets of parents: Shri Ram Abhilash Yadav & Smt. Anita Yadav (groom's),
   Shri Brijendra Yadav & Smt. Kalawati Devi (bride's).
-- The family line: Abhimanyu, Shanvi, Anaika, Aisha, Yogesh, Dharmendra and
-  Anmol.
-- The three dates, the village address and your Google Maps link.
+- The family: Abhimanyu, Shanvi, Anaika, Aisha, Yogesh, Dharmendra, Anmol.
+- The four functions with Brijesh's timings, and the order of the wedding day
+  (baraat → milni → jaimala → pheras → sindoor → dinner → vidaai) without invented
+  clock times.
+- The village address with your Google Maps link.
 - Three contact numbers as tap-to-call links, and `ybrijesh.005@gmail.com`.
-- The shaadi evening's order of events at the times you gave.
+- A countdown to the baraat muhurat, an RSVP reply card with a tick for each
+  function, and a calendar file holding all four events.
 
-**One thing to confirm:** the family names sit under a neutral heading,
-"With our family". If they should read "brothers and sisters" or name a
-particular side, change that one heading in the `family` block in `index.html`.
-
-## What to confirm before sharing
-
-1. **Times** — haldi 10:00, baraat 6:00 pm, muhurat 7:30 pm, reception 7:00 pm.
-   Change them in the three `agenda__row` blocks, the `schedule` list, and in
-   `CONFIG.weddingDate` + `CONFIG.events` in `script.js`.
-2. **The story section** — it now follows the real shape: a guest introduced them
-   in 2025, it was settled in 2026, and they marry in 2027. The prose is still
-   written by me — read it and make it theirs.
-3. **Photographs** — the gallery shows fine-line motifs for now (see below).
-4. **A PIN code**, if you want one in the address — add it in the map card, the
-   footer and the JSON-LD block.
-
-Anything still marked `EDIT ME` in `index.html` is a comment pointing at these.
+**Deliberately not on the page:** a "our story" section (it is an arranged
+marriage — there is no meet-cute to tell) and a photo gallery (there are no
+photographs yet). The nav, footer and structured data reflect that.
 
 ## The design
 
-Deliberately restrained, because that is what was asked for:
-
 - **Cormorant Garamond** for the display setting, **Karla** for small caps and
   body, **Tiro Devanagari Hindi** for the Hindi lines.
-- Five variables in `:root` in `styles.css` drive the whole page: `--paper`
-  (ivory), `--ink`, `--ink-soft`, `--brass` (the only accent) and `--ink-deep`
-  (the two dark bands).
-- The hero is framed with a double hairline, like a letterpress card. Dividers
-  are a 1px rule with a small rotated square. No patterns, no gradients, no
-  ornaments beyond that — on purpose.
-- Motion is quiet but present: the hero arrives in stages, the hairline rules
-  draw themselves in, sections rise as you scroll, photographs settle, the
-  countdown flashes softly each second, and the hero fades as you scroll away.
-  All of it switches off under `prefers-reduced-motion`.
-- The RSVP is a bordered reply card with tick lists, not boxed buttons — it
-  should read like something you post back, not a checkout.
-- Print styles are included: ⌘P / Ctrl+P gives a clean paper copy.
+- Five variables in `:root` drive everything: `--paper` (ivory), `--ink`,
+  `--ink-soft`, `--brass` (the only accent) and `--ink-deep` (the dark bands).
+- The hero sits in a double hairline frame, like a letterpress card. Dividers are
+  a 1px rule with a small rotated square. Nothing else is decorated.
+- Motion is quiet but present: the hero arrives in stages, rules draw themselves
+  in, sections rise on scroll, the function rows tint on hover, the countdown
+  flashes softly each second, and the hero fades as you scroll away. Everything
+  stops under `prefers-reduced-motion`.
+- The RSVP is a bordered reply card with tick lists — not boxed buttons.
+- Print styles included: ⌘P / Ctrl+P gives a clean paper copy.
 
-## Photos
+## If a time or date changes
 
-The gallery currently holds six hand-drawn line motifs — a chai cup, a paisley,
-a dinner table, a mandap, mehndi and marigolds — drawn at 34% opacity so they
-read as illustration rather than as broken images.
-
-To use real photographs:
-
-1. Save pictures into `photos/` (about 1400 px on the long edge, JPG, ~200 KB
-   each keeps the page quick).
-2. In each `<figure>`, replace the `<svg>…</svg>` inside `.gallery__frame` with:
-
-```html
-<img src="photos/haldi-morning.jpg" alt="The haldi, in the courtyard" />
-```
-
-The frame crops to a square — the `--tall` and `--wide` variants are 4:5 and 2:1
-— and the caption comes from `data-caption`. The lightbox picks up real images
-with no further change.
+Change it in three places: the four `strip__item` blocks and the four
+`agenda__row` blocks in `index.html`, and `CONFIG.weddingDate` (the countdown)
+plus `CONFIG.events` (the calendar file) in `script.js`. All use ISO 8601 with
+the Indian offset `+05:30`.
 
 ## RSVP
 
@@ -107,35 +83,66 @@ To collect replies automatically, paste a form endpoint into
   the one a family wants, because the sheet can go straight to the cook.
 - **Netlify Forms** — add `netlify` and a `name` attribute to the `<form>`.
 
-The form posts JSON: `names`, `email`, `phone`, `attending`, `events` (array of
-`haldi` / `shaadi` / `reception`), `guests`, `meal`, `diet`, `stay`, `note`,
-`sentAt`. It insists on at least one function when the answer is yes, so the
+The form posts JSON: `names`, `email`, `phone`, `attending`, `events` (an array of
+`haldi` / `mehndi` / `shaadi` / `reception`), `guests`, `meal`, `diet`, `stay`,
+`note`, `sentAt`. It requires at least one function when the answer is yes, so the
 counts handed to the kitchen are never guesses.
 
-A guest who accepts also gets **Add all three dates** — one `.ics` file with all
-three functions for Google Calendar, Apple Calendar or Outlook.
+A guest who accepts also gets **Add all four dates** — one `.ics` file with all
+four functions, ready for Google Calendar, Apple Calendar or Outlook.
 
 ## Privacy note
 
-The page publishes three mobile numbers and an email address. That is normal for
-a wedding card and it is what you asked for — but the site will be public once
+The page publishes three mobile numbers and an email address. That is normal for a
+wedding card and it is what you asked for — but the site will be public once
 hosted. If you would rather not have the numbers indexed, put the page behind a
-password on Netlify, or remove the numbers from the `contacts` block and keep
-the email only.
+password on Netlify, or remove the numbers from the `contacts` block and keep the
+email only.
 
 ## Publishing
 
 Static, so anything works: Netlify or Vercel drag-and-drop, GitHub Pages,
-Cloudflare Pages, or Freebuff Sites. Upload `index.html`, `styles.css`,
-`script.js` and `photos/`, point a domain at it, and put the URL — or a QR code
-to it — on the printed card. Most of these get forwarded in WhatsApp, so an
-`og:image` (1200×630) is worth adding; the tag is commented out in `index.html`.
+Cloudflare Pages, or Freebuff Sites. Upload `index.html`, `styles.css` and
+`script.js`, point a domain at it, and put the URL — or a QR code to it — on the
+printed card. These get forwarded in WhatsApp, so an `og:image` (1200×630) is
+worth adding later; the tag is commented out in `index.html`.
+
+## Adding photographs later
+
+If photos turn up, add a section back:
+
+```html
+<section class="section" id="gallery">
+  <div class="wrap">
+    <div class="gallery">
+      <figure class="gallery__item reveal" data-caption="The haldi">
+        <div class="gallery__frame"><img src="photos/haldi.jpg" alt="The haldi" /></div>
+        <figcaption>The haldi</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+```
+
+The `.gallery` grid and frame styles are still in `styles.css`, so it will lay
+out correctly. The lightbox script was removed along with the old gallery.
 
 ## Good to know
 
-- The countdown counts to the muhurat, not to midnight, and reads
-  "The pheras begin in".
+- The countdown counts to the baraat muhurat and reads "The baraat arrives in".
 - Hindi lines fall back to Nirmala UI / Noto Sans Devanagari, which most Indian
   phones have installed.
-- Respects `prefers-reduced-motion`, has real labels on every field, announced
-  errors, a keyboard-operable gallery and a skip link.
+- Respects `prefers-reduced-motion`, real labels on every field, announced
+  errors and a skip link.
+
+## Pushing to GitHub
+
+The repo is `https://github.com/EchoYogesh/BrijeshWedsSangeeta.git`, already set
+as `origin`. If a token is available to the shell:
+
+```bash
+GH_TOKEN=… git push -u origin HEAD:main
+```
+
+Otherwise upload `index.html`, `styles.css`, `script.js` and `README.md`
+directly — the site is plain files, with nothing to build.

@@ -1,6 +1,6 @@
 /* ============================================================
    Brijesh & Sangeeta — wedding invitation
-   Countdown · navigation · gallery lightbox · RSVP form
+   Countdown · navigation · RSVP form
    ============================================================ */
 
 /* ── EDIT ME ───────────────────────────────────────────────────
@@ -8,27 +8,33 @@
    ───────────────────────────────────────────────────────────── */
 
 const CONFIG = {
-  // Countdown target: the muhurat on Sunday 31 January 2027.
-  weddingDate: "2027-01-31T19:30:00+05:30",
+  // Countdown target: the baraat muhurat on Sunday 31 January 2027.
+  weddingDate: "2027-01-31T16:00:00+05:30",
 
-  // The three functions, used for the "add to calendar" file.
+  // The four functions, used for the "add to calendar" file.
   events: [
     {
       name: "Haldi",
-      start: "2027-01-30T10:00:00+05:30",
-      end: "2027-01-30T14:00:00+05:30",
+      start: "2027-01-30T15:00:00+05:30",
+      end: "2027-01-30T18:00:00+05:30",
+      place: "Family home, Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, UP",
+    },
+    {
+      name: "Mehndi",
+      start: "2027-01-30T19:00:00+05:30",
+      end: "2027-01-30T23:00:00+05:30",
       place: "Family home, Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, UP",
     },
     {
       name: "Shaadi",
-      start: "2027-01-31T18:00:00+05:30",
+      start: "2027-01-31T16:00:00+05:30",
       end: "2027-01-31T23:30:00+05:30",
       place: "Family home, Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, UP",
     },
     {
       name: "Reception",
-      start: "2027-02-02T19:00:00+05:30",
-      end: "2027-02-02T23:00:00+05:30",
+      start: "2027-02-02T17:00:00+05:30",
+      end: "2027-02-02T22:00:00+05:30",
       place: "Family home, Village Jhaliyahwa, Chandauka, Kohandaur, Pratapgarh, UP",
     },
   ],
@@ -62,9 +68,8 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     seconds: $('[data-unit="seconds"]', grid),
   };
   const pad = (n) => String(n).padStart(2, "0");
-  let timer;
-
   let lastSec = null;
+  let timer;
 
   function paint() {
     const diff = target - Date.now();
@@ -186,78 +191,6 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   items.forEach((el) => io.observe(el));
 })();
 
-/* ── Gallery lightbox ────────────────────────────────────────── */
-
-(function lightbox() {
-  const box = $("#lightbox");
-  const stage = $("#lightboxStage");
-  const caption = $("#lightboxCaption");
-  const items = $$(".gallery__item");
-  if (!box || !stage || !items.length) return;
-
-  let index = 0;
-  let lastFocus = null;
-
-  function render(i) {
-    index = (i + items.length) % items.length;
-    const item = items[index];
-    const art = $(".gallery__frame", item);
-    const img = art ? $("img", art) : null;
-    stage.innerHTML = "";
-
-    if (img) {
-      const clone = document.createElement("img");
-      clone.src = img.currentSrc || img.src;
-      clone.alt = img.alt || "";
-      stage.appendChild(clone);
-    } else if (art) {
-      stage.appendChild(art.firstElementChild.cloneNode(true));
-    }
-    caption.textContent = item.dataset.caption || "";
-  }
-
-  function open(i) {
-    lastFocus = document.activeElement;
-    render(i);
-    box.hidden = false;
-    document.body.style.overflow = "hidden";
-    $("#lightboxClose").focus();
-  }
-
-  function close() {
-    box.hidden = true;
-    document.body.style.overflow = "";
-    stage.innerHTML = "";
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  items.forEach((item, i) => {
-    item.setAttribute("tabindex", "0");
-    item.setAttribute("role", "button");
-    item.setAttribute("aria-label", `View photo: ${item.dataset.caption || i + 1}`);
-    item.addEventListener("click", () => open(i));
-    item.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        open(i);
-      }
-    });
-  });
-
-  $("#lightboxClose").addEventListener("click", close);
-  $("#lightboxPrev").addEventListener("click", () => render(index - 1));
-  $("#lightboxNext").addEventListener("click", () => render(index + 1));
-  box.addEventListener("click", (e) => {
-    if (e.target === box) close();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (box.hidden) return;
-    if (e.key === "Escape") close();
-    if (e.key === "ArrowLeft") render(index - 1);
-    if (e.key === "ArrowRight") render(index + 1);
-  });
-})();
-
 /* ── RSVP form ───────────────────────────────────────────────── */
 
 (function rsvp() {
@@ -271,7 +204,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const submit = $("#rsvpSubmit");
   const calendarLink = $("#calendarLink");
 
-  const FIELD_LABELS = { haldi: "Haldi", shaadi: "Shaadi", reception: "Reception" };
+  const FIELD_LABELS = {
+    haldi: "Haldi",
+    mehndi: "Mehndi",
+    shaadi: "Shaadi",
+    reception: "Reception",
+  };
 
   const fieldOf = (input) => input.closest(".field");
   const errorFor = (name) => $(`[data-error-for="${name}"]`);
@@ -387,7 +325,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
   const escapeText = (t) => String(t).replace(/([,;\\])/g, "\\$1").replace(/\n/g, "\\n");
 
-  // One calendar file holding all three functions.
+  // One calendar file holding all four functions.
   function calendarFile() {
     const lines = [
       "BEGIN:VCALENDAR",
