@@ -474,11 +474,191 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   function update() {
     frame = null;
     const y = Math.min(window.scrollY, window.innerHeight);
-    inner.style.transform = `translate3d(0, ${(y * 0.06).toFixed(2)}px, 0)`;
-    inner.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.85)).toFixed(3));
+    inner.style.transform = `translate3d(0, ${(y * 0.03).toFixed(2)}px, 0)`;
   }
 
   window.addEventListener("scroll", () => {
     if (!frame) frame = requestAnimationFrame(update);
   }, { passive: true });
+})();
+
+/* ── Petals ──────────────────────────────────────────────────────
+   Flowers drift down the page all the time, and scatter away from
+   a finger or a cursor — touching the page should feel like
+   touching the flowers on the card.
+   ───────────────────────────────────────────────────────────── */
+
+(function petals() {
+  const canvas = $("#petals");
+  if (!canvas || reduceMotion) return;
+
+  const ctx = canvas.getContext("2d");
+  const COLORS = ["#c9483f", "#d99a2b", "#e0a3a0", "#e8c07a", "#b8564f"];
+  const petals = [];
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  function size() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function makePetal(fromTouch) {
+    return {
+      x: Math.random() * width,
+      y: fromTouch ? -20 : Math.random() * -height,
+      r: 3 + Math.random() * 5,
+      rot: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.02,
+      vy: 0.25 + Math.random() * 0.65,
+      vx: (Math.random() - 0.5) * 0.4,
+      sway: 0.4 + Math.random() * 1.2,
+      phase: Math.random() * Math.PI * 2,
+      color: COLORS[(Math.random() * COLORS.length) | 0],
+      alpha: 0.55 + Math.random() * 0.4,
+      life: null,
+    };
+  }
+
+  function resetPopulate() {
+    const count = width < 520 ? 16 : 34;
+    petals.length = 0;
+    for (let i = 0; i < count; i++) petals.push(makePetal(false));
+  }
+
+  function drawPetal(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = p.alpha;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.moveTo(0, -p.r);
+    ctx.bezierCurveTo(p.r * 0.95, -p.r * 0.55, p.r * 0.7, p.r * 0.85, 0, p.r);
+    ctx.bezierCurveTo(-p.r * 0.7, p.r * 0.85, -p.r * 0.95, -p.r * 0.55, 0, -p.r);
+    ctx.fill();
+    ctx.globalAlpha = p.alpha * 0.35;
+    ctx.fillStyle = "#fff8ec";
+    ctx.beginPath();
+    ctx.ellipse(-p.r * 0.15, -p.r * 0.1, p.r * 0.26, p.r * 0.5, 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  let last = performance.now();
+  let running = true;
+
+  function frame(now) {
+    if (!running) return;
+    const dt = Math.min(now - last, 40) / 16.67;
+    last = now;
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = petals.length - 1; i >= 0; i--) {
+      const p = petals[i];
+      p.phase += 0.01 * dt;
+      p.x += (p.vx + Math.sin(p.phase) * p.sway * 0.35) * dt;
+      p.y += p.vy * dt;
+      p.rot += p.spin * dt;
+
+      // a finger nearby pushes the petals aside
+      if (pointer.active) {
+        const dx = p.x - pointer.x;
+        const dy = p.y - pointer.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 90 && dist > 0.5) {
+          const force = (1 - dist / 90) * 2.6;
+          p.x += (dx / dist) * force * dt;
+          p.y += (dy / dist) * force * dt;
+          p.rot += force * 0.02;
+        }
+      }
+
+      if (p.life !== null) {
+        p.life -= dt;
+        p.alpha *= 0.995;
+        if (p.life <= 0) { petals.splice(i, 1); continue; }
+      }
+
+      // recycle off the edges
+      if (p.y - p.r > height + 10 || p.x < -40 || p.x > width + 40) {
+        if (p.life === null) {
+          p.y = -12;
+          p.x = Math.random() * width;
+          p.alpha = 0.55 + Math.random() * 0.4;
+        } else {
+          petals.splice(i, 1);
+          continue;
+        }
+      }
+
+      drawPetal(p);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // Where the finger or the cursor is
+  const pointer = { x: 0, y: 0, active: false };
+
+  function burst(x, y, n) {
+    for (let i = 0; i < n; i++) {
+      const p = makePetal(true);
+      p.x = x + (Math.random() - 0.5) * 26;
+      p.y = y + (Math.random() - 0.5) * 20;
+      p.vy = -0.6 - Math.random() * 1.5;
+      p.vx = (Math.random() - 0.5) * 2.4;
+      p.life = 150 + Math.random() * 90;
+      p.r = 3 + Math.random() * 5.5;
+      petals.push(p);
+    }
+  }
+
+  function point(e) {
+    const t = e.touches ? e.touches[0] : e;
+    return { x: t.clientX, y: t.clientY };
+  }
+
+  window.addEventListener("pointermove", (e) => {
+    const pt = point(e);
+    pointer.x = pt.x;
+    pointer.y = pt.y;
+    pointer.active = true;
+  }, { passive: true });
+
+  window.addEventListener("pointerdown", (e) => {
+    const pt = point(e);
+    pointer.x = pt.x;
+    pointer.y = pt.y;
+    pointer.active = true;
+    burst(pt.x, pt.y, width < 520 ? 8 : 12);
+  }, { passive: true });
+
+  window.addEventListener("pointerleave", () => { pointer.active = false; });
+  window.addEventListener("blur", () => { pointer.active = false; });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      running = false;
+    } else {
+      running = true;
+      last = performance.now();
+      requestAnimationFrame(frame);
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    size();
+    resetPopulate();
+  });
+
+  size();
+  resetPopulate();
+  requestAnimationFrame(frame);
 })();
