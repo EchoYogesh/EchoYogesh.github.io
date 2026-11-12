@@ -1,8 +1,9 @@
 # Brijesh &amp; Sangeeta — wedding invitation site
 
-One quiet page: ivory paper, ink, a single antique-brass accent, hairline rules,
-and the invitation set the traditional way — both sets of parents, the family,
-then the couple, then the four functions.
+One rich page: deep maroon, gold and cream, a Mughal arch and a floral sprig,
+script names, and the invitation set the traditional way — both sets of parents,
+the family, then the couple, then the four functions. No photographs: the
+ornament is drawn in CSS and inline SVG, so there is nothing to load.
 
 | Function | When | Time |
 | --- | --- | --- |
@@ -49,17 +50,19 @@ photographs yet). The nav, footer and structured data reflect that.
 
 ## The design
 
-- **Cormorant Garamond** for the display setting, **Karla** for small caps and
-  body, **Tiro Devanagari Hindi** for the Hindi lines.
-- Five variables in `:root` drive everything: `--paper` (ivory), `--ink`,
-  `--ink-soft`, `--brass` (the only accent) and `--ink-deep` (the dark bands).
-- The hero sits in a double hairline frame, like a letterpress card. Dividers are
-  a 1px rule with a small rotated square. Nothing else is decorated.
-- Motion is quiet but present: the hero arrives in stages, rules draw themselves
-  in, sections rise on scroll, the function rows tint on hover, the countdown
-  flashes softly each second, and the hero fades as you scroll away. Everything
-  stops under `prefers-reduced-motion`.
-- The RSVP is a bordered reply card with tick lists — not boxed buttons.
+- **Great Vibes** for the names and the script accents, **Cormorant Garamond**
+  for headings and prose, **Karla** for the small gold capitals,
+  **Tiro Devanagari Hindi** for the Hindi lines.
+- The palette in `:root`: `--cream` and `--cream-2` (paper), `--maroon`,
+  `--maroon-deep` (the dark bands), `--gold`, `--gold-light`, and warm brown ink.
+- The hero sits inside a hand-drawn ogee arch (inline SVG) with a floral sprig in
+  each top corner; the arch strokes itself in on load. Dividers are a gold hairline
+  with a small cut-gem diamond. Cards are cream panels inside a doubled gold frame.
+- Invitations and the reply card are bordered like printed cards; the four
+  functions are cream cards with a maroon date column.
+- Motion is quiet but present: the hero arrives in stages, the arch draws itself,
+  rules extend, sections rise on scroll, the countdown flashes softly each second.
+  Everything stops under `prefers-reduced-motion`.
 - Print styles included: ⌘P / Ctrl+P gives a clean paper copy.
 
 ## If a time or date changes
@@ -124,8 +127,8 @@ If photos turn up, add a section back:
 </section>
 ```
 
-The `.gallery` grid and frame styles are still in `styles.css`, so it will lay
-out correctly. The lightbox script was removed along with the old gallery.
+Add a `.gallery` grid to `styles.css` when you do — the old gallery styles were
+removed with the section, so the markup above needs its layout written.
 
 ## Good to know
 
