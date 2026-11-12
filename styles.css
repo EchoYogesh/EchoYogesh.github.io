@@ -1734,6 +1734,43 @@ body.has-envelope {
   border-right: 1px solid var(--gold-soft);
   padding-right: 1.5rem;
 }
+.weather-eyebrow-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.35rem;
+}
+.weather-eyebrow-row .eyebrow {
+  margin: 0;
+}
+.live-weather-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(39, 110, 43, 0.08);
+  border: 1px solid rgba(39, 110, 43, 0.25);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #276e2b;
+}
+.live-weather-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2e7d32;
+  box-shadow: 0 0 0 rgba(46, 125, 50, 0.5);
+  animation: weatherPulse 2s infinite;
+}
+@keyframes weatherPulse {
+  0% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+}
 .weather-temp {
   display: flex;
   align-items: baseline;
@@ -2381,6 +2418,13 @@ body.has-envelope {
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
+
+.royal-btn__badge svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  display: block;
+}
 .royal-btn--maroon .royal-btn__badge {
   background: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 230, 170, 0.4);
@@ -2589,8 +2633,31 @@ body.has-envelope {
   padding: 0.2rem 0.5rem;
 }
 .quickbar__item span.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
   font-size: 1.05rem;
   line-height: 1;
+}
+
+.quickbar__item span.icon svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--maroon);
+  transition: transform 0.2s var(--ease);
+}
+
+.quickbar__item:hover span.icon svg {
+  transform: scale(1.12);
+}
+
+.btn-wa-icon {
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: 0.45rem;
+  flex-shrink: 0;
 }
 
 .nav__mobile-lang {

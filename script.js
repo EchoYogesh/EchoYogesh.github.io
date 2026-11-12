@@ -802,8 +802,9 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       wishes_sub: "ब्रिजेश और संगीता के सुखद दांपत्य जीवन हेतु परिवार की ओर से पावन आशीर्वाद एवं स्नेह भरे संदेश।",
       wishes_banner_title: "अपनी शुभकामनाएं भेजें",
       wishes_banner_sub: "वर-वधू के लिए आपका आशीर्वाद अमूल्य है। डिजिटल पत्रिका पर अपना संदेश लिखें अथवा सीधे व्हाट्सएप पर शुभकामनाएं भेजें।",
-      wishes_write_btn: "✍️ शुभकामना संदेश लिखें",
-      wishes_wa_btn: "💬 व्हाट्सएप पर भेजें",
+      wishes_write_btn: "शुभकामना संदेश लिखें",
+      wishes_wa_btn: "व्हाट्सएप पर भेजें",
+      rsvp_wa_btn: "व्हाट्सएप पर तुरंत उत्तर दें",
       patrika_title: "शुभकामना पत्र",
       patrika_sub: "ब्रिजेश एवं संगीता के लिए अपने आशीर्वाद भरे शब्द लिखें",
       patrika_label_msg: "शुभकामना संदेश",
@@ -824,6 +825,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       gifts_eyebrow: "शगुन एवं आशीष",
       gifts_title: "आपका स्नेह और आशीर्वाद ही सर्वोपरि है",
       shagun_title: "शगुन",
+      gifts_share_btn: "व्हाट्सएप पर साझा करें",
+      weather_eyebrow: "प्रतापगढ़ का मौसम &middot; रियल-टाइम",
+      weather_live_tag: "लाइव",
+      weather_subtext: "प्रतापगढ़ का वर्तमान मौसम। जनवरी अंत में होने वाले वैवाहिक आयोजनों में दिन में खिली धूप (21°C) तथा शाम को खुशनुमा ठंडक (8°C) रहेगी। शाम को अलाव व गरमा-गरम चाय की व्यवस्था रहेगी!",
       gifts_lede: "आपका पावन आगमन ही हमारे लिए सबसे बड़ा उपहार है। यदि आप फिर भी कुछ भेंट करना चाहें, तो नए जीवन के प्रारंभ हेतु आपका स्नेहपूर्वक शगुन हमें अनुगृहीत करेगा।"
     },
     en: {
@@ -857,8 +862,9 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       wishes_sub: "Sacred blessings and heartfelt wishes from our beloved family for Brijesh and Sangeeta as they embark on this sacred journey together.",
       wishes_banner_title: "Inscribe Your Blessings",
       wishes_banner_sub: "Your heartfelt words and prayers mean the world to Brijesh & Sangeeta. Inscribe your blessing on this digital patrika or wish them directly on WhatsApp.",
-      wishes_write_btn: "✍️ Write a Blessing Card",
-      wishes_wa_btn: "💬 Wish on WhatsApp",
+      wishes_write_btn: "Write a Blessing Card",
+      wishes_wa_btn: "Wish on WhatsApp",
+      rsvp_wa_btn: "1-Click RSVP on WhatsApp",
       patrika_title: "Royal Blessing Patrika",
       patrika_sub: "Inscribe your words of blessing for Brijesh & Sangeeta",
       patrika_label_msg: "Your Blessing, Prayer or Message",
@@ -878,6 +884,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       gifts_eyebrow: "Shagun & Blessings",
       gifts_title: "Your blessings are enough",
       shagun_title: "Digital Shagun",
+      gifts_share_btn: "Share on WhatsApp",
+      weather_eyebrow: "Pratapgarh Weather &middot; Real-Time",
+      weather_live_tag: "Live",
+      weather_subtext: "Real-time conditions in Pratapgarh. For wedding week in late January, expect pleasant sunny afternoons (21°C) and crisp starry village evenings (8°C). Bonfires and hot spiced chai await you!",
       gifts_lede: "Truly. We have a small home, a full shelf of crockery, and no room for another dinner set. If you would still like to give something, a contribution towards our first home would mean the world to us."
     }
   };
@@ -907,6 +917,9 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     if (typeof window.onLanguageChange === "function") {
       window.onLanguageChange(lang);
     }
+    try {
+      window.dispatchEvent(new CustomEvent("weddingLangChange", { detail: { lang } }));
+    } catch (_) {}
   }
 
   const allToggles = [toggleBtn, mobileToggleBtn].filter(Boolean);
@@ -962,16 +975,19 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     });
   }
 
-  let activeTag = "🌸 Eternal Blessings";
+  let activeTag = "✦ Eternal Blessings";
 
   function syncTagLabels(lang) {
     tagBtns.forEach((btn) => {
       const text = lang === "hi" ? btn.dataset.tagHi : btn.dataset.tagEn;
-      if (text) btn.textContent = text;
+      if (text) {
+        btn.innerHTML = `<span>✦</span> <span class="tag-txt">${text}</span>`;
+      }
     });
     const activeBtn = $(".blessing-tag-btn.is-active");
     if (activeBtn) {
-      activeTag = lang === "hi" ? activeBtn.dataset.tagHi : activeBtn.dataset.tagEn;
+      const activeText = lang === "hi" ? activeBtn.dataset.tagHi : activeBtn.dataset.tagEn;
+      activeTag = `✦ ${activeText}`;
     }
   }
 
@@ -980,38 +996,39 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       tagBtns.forEach((b) => b.classList.remove("is-active"));
       btn.classList.add("is-active");
       const isHi = window.getCurrentLang && window.getCurrentLang() === "hi";
-      activeTag = (isHi ? btn.dataset.tagHi : btn.dataset.tagEn) || btn.textContent.trim();
+      const rawText = (isHi ? btn.dataset.tagHi : btn.dataset.tagEn) || btn.textContent.trim().replace(/^✦\s*/, "");
+      activeTag = `✦ ${rawText}`;
     });
   });
 
-  const WISHES_STORAGE_KEY = "wishes-brijesh-sangeeta-v3";
+  const WISHES_STORAGE_KEY = "wishes-brijesh-sangeeta-v4";
 
   const INITIAL_WISHES_EN = [
     {
       author: "Shri Ram Abhilash Yadav & Smt. Anita Yadav",
       relation: "Parents of the Groom",
-      tag: "🌸 Eternal Blessings",
+      tag: "✦ Eternal Blessings",
       text: "Dearest Brijesh and Sangeeta, may your married life be blessed with profound love, mutual trust, and prosperity. May our kuldevta's divine grace walk beside you in every step.",
       date: "Family Blessings",
     },
     {
       author: "Shri Brijendra Yadav & Smt. Kalawati Devi",
       relation: "Parents of the Bride",
-      tag: "🪔 Prayers & Love",
+      tag: "✦ Prayers & Love",
       text: "Our beloved daughter Sangeeta and dear son Brijesh, may joy and abundance always shower upon your home. May your new world together blossom with peace and eternal happiness.",
       date: "Family Blessings",
     },
     {
       author: "Yogesh & Dharmendra",
       relation: "Friends & Brothers",
-      tag: "💐 Heartiest Congratulations",
+      tag: "✦ Heartiest Congratulations",
       text: "Bhaiya and Bhabhi, warmest congratulations on your wedding! The tents are pitched, the dhol is ready, and we cannot wait to dance our hearts out and celebrate at Chandauka!",
       date: "Friends & Brothers",
     },
     {
       author: "Anmol, Abhimanyu, Anaika, Aisha & Shanvi",
       relation: "Nephews & Nieces",
-      tag: "💍 Best Wishes Forever",
+      tag: "✦ Best Wishes Forever",
       text: "Heartiest congratulations to our dearest Chacha-Chachi and Mamu-Mami! Wishing you a lifetime of adventures, boundless laughter, and all the happiness in the world!",
       date: "Nephews & Nieces",
     },
@@ -1021,28 +1038,28 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     {
       author: "श्री राम अभिलाष यादव एवं श्रीमती अनिता यादव",
       relation: "माता-पिता (वर पक्ष)",
-      tag: "🌸 सदा सुहागन रहो",
+      tag: "✦ सदा सुहागन रहो",
       text: "प्रिय ब्रिजेश और संगीता, आप दोनों का दांपत्य जीवन प्रेम, अटूट विश्वास और सुख-समृद्धि से परिपूर्ण रहे। कुलदेवता का पावन आशीर्वाद सदा तुम दोनों पर बना रहे।",
       date: "माता-पिता (वर पक्ष)",
     },
     {
       author: "श्री बृजेन्द्र यादव एवं श्रीमती कलावती देवी",
       relation: "माता-पिता (वधू पक्ष)",
-      tag: "🪔 ईश्वर का आशीर्वाद",
+      tag: "✦ ईश्वर का आशीर्वाद",
       text: "लाडली संगीता और दामाद ब्रिजेश, आपके दांपत्य जीवन में सदैव खुशियों की वर्षा हो। आपका नया संसार हमेशा सुख, शांति और समृद्धि से महकता रहे।",
       date: "माता-पिता (वधू पक्ष)",
     },
     {
       author: "योगेश एवं धर्मेन्द्र",
       relation: "मित्र एवं भाई",
-      tag: "💐 ढेरों बधाइयां",
+      tag: "✦ ढेरों बधाइयां",
       text: "ब्रिजेश भैया और संगीता भाभी, विवाह के इस पावन अवसर पर ढेरों बधाइयां! बारात में ढोल-नगाड़ों की थाप पर खूब जश्न मनेगा और हम सब दिल खोलकर नाचेंगे!",
       date: "मित्र एवं भाई",
     },
     {
       author: "अनमोल, अभिमन्यु, अनायका, आयशा एवं शान्वी",
       relation: "भतीजे एवं भांजे-भांजी",
-      tag: "💍 हार्दिक शुभकामनाएं",
+      tag: "✦ हार्दिक शुभकामनाएं",
       text: "चाचा-चाची और मामा-मामी को विवाह की हार्दिक शुभकामनाएं! आप दोनों की प्यारी जोड़ी हमेशा सलामत रहे और आपके जीवन में सदा खुशियां और प्यार बना रहे!",
       date: "भतीजे एवं भांजे-भांजी",
     },
@@ -1075,7 +1092,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       card.className = "wish-card";
       const isHindi = /[\u0900-\u097F]/.test(item.text);
       card.innerHTML = `
-        <div class="wish-card__stamp">${item.tag || "🌸 Blessings"}</div>
+        <div class="wish-card__stamp">${item.tag || "✦ Blessings"}</div>
         <p class="wish-card__text"${isHindi ? ' lang="hi"' : ""}>“${item.text}”</p>
         <div class="wish-card__author">
           <span class="wish-card__name">${item.author}</span>
@@ -1404,4 +1421,119 @@ const QRGenerator = (function() {
       console.warn("QR generator fallback:", err);
     }
   }
+})();
+
+/* ── Live Real-Time Weather in Pratapgarh (Lat: 25.90, Lon: 81.99) ── */
+
+(function initLiveWeather() {
+  const tempEl = document.getElementById("liveWeatherTemp");
+  const condEl = document.getElementById("liveWeatherCondition");
+  const tagEl = document.getElementById("weatherLiveTag");
+  if (!tempEl || !condEl) return;
+
+  let cachedData = null;
+
+  const WMO_CONDITIONS = {
+    en: {
+      0: "Clear Sky",
+      1: "Mainly Clear",
+      2: "Partly Cloudy",
+      3: "Overcast",
+      45: "Foggy",
+      48: "Dense Rime Fog",
+      51: "Light Drizzle",
+      53: "Moderate Drizzle",
+      55: "Dense Drizzle",
+      61: "Slight Rain",
+      63: "Moderate Rain",
+      65: "Heavy Rain",
+      80: "Passing Showers",
+      81: "Moderate Showers",
+      82: "Violent Showers",
+      95: "Thunderstorm"
+    },
+    hi: {
+      0: "साफ़ आसमान",
+      1: "सुहावना व साफ़",
+      2: "आंशिक बादल",
+      3: "घने बादल",
+      45: "हल्का कोहरा",
+      48: "सघन कोहरा",
+      51: "हल्की बूंदाबांदी",
+      53: "बूंदाबांदी",
+      55: "घनी बूंदाबांदी",
+      61: "हल्की वर्षा",
+      63: "मध्यम वर्षा",
+      65: "तेज़ वर्षा",
+      80: "वर्षा की बौछारें",
+      81: "मध्यम बौछारें",
+      82: "तेज़ बौछारें",
+      95: "आंधी-तूफान"
+    }
+  };
+
+  function updateDisplay(lang) {
+    const activeLang = lang || (window.getCurrentLang ? window.getCurrentLang() : "en");
+
+    if (cachedData && cachedData.current && typeof cachedData.current.temperature_2m === "number") {
+      const currentTemp = Math.round(cachedData.current.temperature_2m);
+      const code = cachedData.current.weather_code;
+      const maxTemp = (cachedData.daily && cachedData.daily.temperature_2m_max) ? Math.round(cachedData.daily.temperature_2m_max[0]) : null;
+      const minTemp = (cachedData.daily && cachedData.daily.temperature_2m_min) ? Math.round(cachedData.daily.temperature_2m_min[0]) : null;
+
+      const codeMap = WMO_CONDITIONS[activeLang] || WMO_CONDITIONS.en;
+      const desc = codeMap[code] || (activeLang === "hi" ? "सुहावना मौसम" : "Pleasant Weather");
+
+      tempEl.textContent = `${currentTemp}°C`;
+
+      if (maxTemp !== null && minTemp !== null) {
+        if (activeLang === "hi") {
+          condEl.innerHTML = `${desc} &middot; अधिकतम: ${maxTemp}°C / न्यूनतम: ${minTemp}°C`;
+        } else {
+          condEl.innerHTML = `${desc} &middot; High: ${maxTemp}°C / Low: ${minTemp}°C`;
+        }
+      } else {
+        condEl.textContent = desc;
+      }
+
+      if (tagEl) {
+        tagEl.textContent = activeLang === "hi" ? "लाइव" : "Live";
+      }
+    } else {
+      // Climatological late-January baseline fallback
+      tempEl.textContent = "21°C / 8°C";
+      if (activeLang === "hi") {
+        condEl.innerHTML = "सुहावनी खिली धूप &middot; शीतल रात्रियां";
+        if (tagEl) tagEl.textContent = "पूर्वानुमान";
+      } else {
+        condEl.innerHTML = "Pleasant sunny days &middot; Brisk starry nights";
+        if (tagEl) tagEl.textContent = "Forecast";
+      }
+    }
+  }
+
+  function fetchWeather() {
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=25.90&longitude=81.99&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FKolkata";
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (data && data.current) {
+          cachedData = data;
+          updateDisplay();
+        }
+      })
+      .catch((err) => {
+        console.warn("Live weather service fallback:", err);
+        updateDisplay();
+      });
+  }
+
+  window.addEventListener("weddingLangChange", (e) => {
+    updateDisplay(e.detail && e.detail.lang);
+  });
+
+  fetchWeather();
 })();
