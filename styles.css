@@ -701,6 +701,15 @@ section[id] { scroll-margin-top: 4.2rem; }
   color: var(--ink-soft);
   margin: 0 0 1.2rem;
 }
+/* the two families, one above the other with an ampersand between */
+.invitation__lead p { margin: 0; }
+.invitation__lead-and {
+  margin: 0.15em 0 0.25em;
+  font-family: var(--script);
+  font-size: clamp(1.6rem, 2.8vw, 2rem);
+  line-height: 1.1;
+  color: var(--gold);
+}
 .invitation__script {
   font-size: clamp(1.35rem, 3.2vw, 1.9rem);
   line-height: 1.4;
