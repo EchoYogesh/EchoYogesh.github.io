@@ -793,6 +793,7 @@ function escapeHtml(str) {
 
 (function royalEnvelope() {
   const overlay = $("#envelopeOverlay");
+  const container = $("#envelopeContainer");
   const breakBtn = $("#breakSealBtn");
   const skipBtn = $("#skipEnvelopeBtn");
   if (!overlay) return;
@@ -800,11 +801,36 @@ function escapeHtml(str) {
   // Lock scrolling while envelope is shown
   document.body.classList.add("has-envelope");
 
+  let isOpening = false;
+
   function openEnvelope() {
-    document.body.classList.remove("has-envelope");
-    if (window.burstPetals) {
-      window.burstPetals(window.innerWidth / 2, window.innerHeight / 2, 36);
+    if (isOpening) return;
+    isOpening = true;
+
+    if (container) {
+      container.classList.add("is-opening");
     }
+
+    // Burst celebratory petals from seal center
+    if (window.burstPetals) {
+      const rect = breakBtn ? breakBtn.getBoundingClientRect() : null;
+      const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+      const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
+      window.burstPetals(x, y, 48);
+    }
+
+    // Allow 3D flap fold and card emergence animation to play
+    setTimeout(() => {
+      document.body.classList.remove("has-envelope");
+      overlay.classList.add("is-hidden");
+      try {
+        sessionStorage.setItem("royal_envelope_opened", "1");
+      } catch (_) {}
+    }, 850);
+  }
+
+  function skipDirectly() {
+    document.body.classList.remove("has-envelope");
     overlay.classList.add("is-hidden");
     try {
       sessionStorage.setItem("royal_envelope_opened", "1");
@@ -812,7 +838,7 @@ function escapeHtml(str) {
   }
 
   if (breakBtn) breakBtn.addEventListener("click", openEnvelope);
-  if (skipBtn) skipBtn.addEventListener("click", openEnvelope);
+  if (skipBtn) skipBtn.addEventListener("click", skipDirectly);
 
   // Check if opened during current session
   try {

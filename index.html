@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Karla:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="styles.css?v=13" />
+<link rel="stylesheet" href="styles.css?v=14" />
 </head>
 
 <body>
@@ -36,24 +36,120 @@
 
 <!-- Royal Wax Seal & Envelope Opening Experience -->
 <div class="royal-envelope-overlay" id="envelopeOverlay" aria-modal="true" role="dialog" aria-label="Royal Wedding Invitation Envelope">
-  <div class="envelope-card">
-    <div class="envelope-stamp">
-      <span class="envelope-stamp__om" lang="hi">॥ श्री ॥</span>
+  <div class="envelope-scene">
+    <div class="envelope-container" id="envelopeContainer">
+      
+      <!-- Background Ambient Glow -->
+      <div class="envelope-ambient-glow" aria-hidden="true"></div>
+
+      <!-- Banarasi Brocade Royal Envelope -->
+      <div class="banarasi-envelope" id="banarasiEnvelope">
+        
+        <!-- Gold Foiled Corner Filigrees -->
+        <div class="env-filigree env-filigree--tl" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M4 4h20c-8 0-16 8-16 16v16c-3-8-4-16-4-32z" fill="url(#envGoldGrad)"/></svg>
+        </div>
+        <div class="env-filigree env-filigree--tr" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M36 4H16c8 0 16 8 16 16v16c3-8 4-16 4-32z" fill="url(#envGoldGrad)"/></svg>
+        </div>
+        <div class="env-filigree env-filigree--bl" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M4 36h20c-8 0-16-8-16-16V4c-3 8-4 16-4 32z" fill="url(#envGoldGrad)"/></svg>
+        </div>
+        <div class="env-filigree env-filigree--br" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M36 36H16c8 0 16-8 16-16V4c3 8 4 16 4 32z" fill="url(#envGoldGrad)"/></svg>
+        </div>
+
+        <!-- Inner Royal Letter (Tucked inside, glides up on opening) -->
+        <div class="envelope-inner-card" id="envelopeLetter">
+          <div class="card-inner-frame">
+            <div class="card-auspicious">
+              <span class="card-om" lang="hi">॥ श्री गणेशाय नमः ॥</span>
+            </div>
+            <p class="card-sub-head script">Shubh Vivah Nimantran</p>
+            <h2 class="card-couple-title">Brijesh <span class="card-amp">&amp;</span> Sangeeta</h2>
+            <div class="card-flourish" aria-hidden="true">
+              <span class="flourish-line"></span>
+              <span class="flourish-gem">✦</span>
+              <span class="flourish-line"></span>
+            </div>
+            <p class="card-event-date">Sunday, 31 January 2027 &middot; Chandauka, UP</p>
+            <p class="card-honor-note">Cordially invite you with family to grace our wedding ceremony and bestow your heartfelt blessings.</p>
+            <p class="card-family-blessing">&mdash; Anita &amp; Ram Abhilash Yadav</p>
+          </div>
+        </div>
+
+        <!-- Envelope Lower Pocket (Deep Crimson Brocade with Gold Foil Typography) -->
+        <div class="envelope-pocket-front" aria-hidden="true">
+          <div class="pocket-gold-trim"></div>
+          <div class="pocket-face-content">
+            <span class="pocket-kankotri-label script">Royal Wedding Invitation</span>
+            <h3 class="pocket-couple-name">Brijesh <span class="pocket-amp">&amp;</span> Sangeeta</h3>
+            <div class="pocket-divider">
+              <span class="pocket-date-text">31 January 2027 &middot; Chandauka, UP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Triangular Envelope Flap -->
+        <div class="envelope-flap-top" id="envelopeFlap" aria-hidden="true">
+          <div class="flap-triangle">
+            <div class="flap-gold-line"></div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Royal Wax Seal Button -->
+        <button class="royal-wax-seal" id="breakSealBtn" aria-label="Break Wax Seal to Unfold Royal Invitation" type="button">
+          <div class="seal-glow-ring" aria-hidden="true"></div>
+          <div class="seal-body">
+            <!-- Organic Wax Seal Shape with Rich Shading -->
+            <svg class="seal-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <radialGradient id="envGoldGrad" cx="30%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#fff0cc"/>
+                  <stop offset="45%" stop-color="#d4af37"/>
+                  <stop offset="100%" stop-color="#916110"/>
+                </radialGradient>
+                <radialGradient id="waxRedGrad" cx="35%" cy="30%" r="65%">
+                  <stop offset="0%" stop-color="#d12c47"/>
+                  <stop offset="35%" stop-color="#941627"/>
+                  <stop offset="75%" stop-color="#5a0916"/>
+                  <stop offset="100%" stop-color="#2c0309"/>
+                </radialGradient>
+                <filter id="waxShadowFilter" x="-15%" y="-15%" width="130%" height="130%">
+                  <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#140104" flood-opacity="0.8"/>
+                </filter>
+              </defs>
+              <path d="M50 3 C64 3, 73 8, 81 14 C89 20, 96 29, 97 40 C98 52, 95 64, 89 74 C83 84, 73 92, 60 96 C48 99, 36 97, 25 91 C15 85, 8 75, 4 63 C1 52, 2 40, 7 29 C12 18, 22 9, 34 5 C40 3, 45 3, 50 3 Z" fill="url(#waxRedGrad)" filter="url(#waxShadowFilter)"/>
+            </svg>
+            
+            <!-- Metallic Gold Debossed Monogram Emblem -->
+            <div class="seal-inner-stamp">
+              <div class="seal-crown" aria-hidden="true">
+                <svg width="22" height="13" viewBox="0 0 24 14" fill="currentColor">
+                  <path d="M2 13h20v-2H2v2zm1.5-4l3.5-3 5 4 5-4 3.5 3v-1l-3.5-3-5 4-5-4-3.5 3v1zM2 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                </svg>
+              </div>
+              <span class="seal-monogram">B&amp;S</span>
+              <div class="seal-bead-border" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="seal-caption">
+            <span class="seal-caption-title">Break Seal to Open</span>
+            <span class="seal-caption-sub">Tap to unfold invitation</span>
+          </div>
+        </button>
+
+      </div>
+
+      <!-- Quick skip link below envelope -->
+      <div class="envelope-skip-wrap">
+        <button class="envelope-skip" id="skipEnvelopeBtn" type="button">
+          Enter site directly &rarr;
+        </button>
+      </div>
+
     </div>
-    <p class="envelope-sub script">Shubh Vivah Nimantran</p>
-    <h2 class="envelope-title">Brijesh <span class="amp">&amp;</span> Sangeeta</h2>
-    <p class="envelope-date">Sunday, 31 January 2027 &middot; Chandauka, UP</p>
-    <div class="envelope-seal-btn-wrap">
-      <button class="envelope-seal-btn" id="breakSealBtn" aria-label="Open Royal Invitation">
-        <span class="seal-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 2C11.3 4.8 9 7.2 9 9.8a3 3 0 0 0 6 0C15 7.2 12.7 4.8 12 2zm-7.5 12c0 3.86 3.36 7 7.5 7s7.5-3.14 7.5-7H4.5zm0-2h15c.55 0 1 .45 1 1s-.45 1-1 1h-15c-.55 0-1-.45-1-1s.45-1 1-1z"/>
-          </svg>
-        </span>
-        <span class="seal-text">Unfold Royal Invitation</span>
-      </button>
-    </div>
-    <button class="envelope-skip" id="skipEnvelopeBtn">Enter site directly &rarr;</button>
   </div>
 </div>
 
@@ -1811,6 +1907,6 @@
   </div>
 </nav>
 
-<script src="script.js?v=31"></script>
+<script src="script.js?v=32"></script>
 </body>
 </html>

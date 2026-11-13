@@ -1431,20 +1431,22 @@ body.has-envelope {
   touch-action: none;
 }
 
+/* ── Royal Wax Seal & Banarasi Envelope Opening Experience ─────────── */
+
 .royal-envelope-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: radial-gradient(circle at center, #420b16 0%, #20040a 100%);
+  background: radial-gradient(ellipse at center, #26050b 0%, #120104 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 1.25rem;
   opacity: 1;
   visibility: visible;
   touch-action: none;
   overscroll-behavior: contain;
-  transition: opacity 0.8s var(--ease), visibility 0.8s var(--ease);
+  transition: opacity 0.85s var(--ease), visibility 0.85s var(--ease);
 }
 .royal-envelope-overlay.is-hidden {
   opacity: 0;
@@ -1452,129 +1454,544 @@ body.has-envelope {
   pointer-events: none;
 }
 
-.envelope-card {
+.envelope-scene {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  background: var(--cream);
-  border: 1px solid var(--gold);
-  box-shadow: 0 35px 80px -20px rgba(0, 0, 0, 0.75), 0 0 0 8px rgba(176, 134, 58, 0.18);
-  padding: clamp(2.4rem, 6vw, 3.8rem) clamp(1.6rem, 5vw, 2.6rem);
-  text-align: center;
-  transform: translateY(0) scale(1);
+  max-width: 480px;
+  perspective: 1200px;
+}
+
+.envelope-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 460px;
+  height: 460px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.14) 0%, rgba(139, 21, 40, 0.08) 45%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.envelope-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
   transition: transform 0.8s var(--ease);
 }
-.royal-envelope-overlay.is-hidden .envelope-card {
-  transform: translateY(30px) scale(0.96);
+
+/* Banarasi Brocade Outer Envelope */
+.banarasi-envelope {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  background: radial-gradient(circle at 50% 30%, #520b17 0%, #38050e 65%, #220207 100%);
+  border-radius: 6px;
+  border: 1px solid rgba(220, 192, 138, 0.4);
+  box-shadow: 
+    0 35px 80px -15px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(220, 192, 138, 0.25),
+    inset 0 0 35px rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+  animation: envelopeGentleFloat 5s ease-in-out infinite alternate;
 }
 
-.envelope-card::before {
-  content: "";
+@keyframes envelopeGentleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+/* Envelope Gold Filigree Corners */
+.env-filigree {
   position: absolute;
-  inset: 7px;
-  border: 1px solid var(--gold-line);
+  width: 38px;
+  height: 38px;
   pointer-events: none;
+  z-index: 6;
+  opacity: 0.85;
 }
+.env-filigree--tl { top: 8px; left: 8px; }
+.env-filigree--tr { top: 8px; right: 8px; }
+.env-filigree--bl { bottom: 8px; left: 8px; }
+.env-filigree--br { bottom: 8px; right: 8px; }
 
-.envelope-stamp {
-  width: 66px;
-  height: 66px;
-  margin: 0 auto 1.4rem;
-  background: radial-gradient(circle, #7d1e2d 0%, #4a0c16 100%);
-  border: 2px solid var(--gold);
-  border-radius: 50%;
+/* Inner Royal Letter Card */
+.envelope-inner-card {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 14px;
+  bottom: 22px;
+  background: #fffdf8;
+  border: 1px solid rgba(176, 134, 58, 0.55);
+  border-radius: 4px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 0 2px rgba(220, 192, 138, 0.4);
+  text-align: center;
+  padding: 1.4rem 1.2rem;
+  transform: translateY(0);
+  transition: transform 0.85s cubic-bezier(0.2, 0.8, 0.25, 1.15), box-shadow 0.85s ease;
+}
+
+.card-inner-frame {
   position: relative;
-}
-.envelope-stamp__om {
-  font-family: var(--hindi);
-  color: var(--gold-light);
-  font-size: 1.25rem;
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-}
-
-.envelope-sub {
-  font-size: 1.35rem;
-  color: var(--gold);
-  margin-bottom: 0.3rem;
-}
-.envelope-title {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  color: var(--maroon);
-  font-family: var(--display);
-  font-weight: 400;
-  margin-bottom: 0.6rem;
-  letter-spacing: 0.02em;
-}
-.envelope-title .amp {
-  font-family: var(--display);
-  font-style: italic;
-  color: var(--gold);
-}
-.envelope-date {
-  font-size: 0.76rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 2rem;
-}
-
-.envelope-seal-btn-wrap {
-  margin: 1.4rem auto 1.6rem;
-}
-.envelope-seal-btn {
-  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(176, 134, 58, 0.3);
+  padding: 1.1rem 0.8rem;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  background: linear-gradient(135deg, #7d1e2d 0%, #5c1220 50%, #420b16 100%);
-  color: #fff9ef;
-  border: 1.5px solid var(--gold);
-  padding: 0.95rem 2.2rem;
-  border-radius: 999px;
-  cursor: pointer;
-  box-shadow: 0 10px 24px -6px rgba(61, 10, 21, 0.6), 0 0 0 3px rgba(176, 134, 58, 0.25);
-  transition: all 0.3s var(--ease);
 }
-.envelope-seal-btn:hover {
-  background: linear-gradient(135deg, #902334 0%, #6d1727 50%, #520f1c 100%);
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 14px 30px -6px rgba(61, 10, 21, 0.7), 0 0 0 4px rgba(176, 134, 58, 0.4);
+
+.card-inner-frame::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(176, 134, 58, 0.15);
+  pointer-events: none;
 }
-.seal-icon {
+
+.card-auspicious {
+  margin-bottom: 0.25rem;
+}
+.card-om {
+  font-family: var(--hindi);
+  color: var(--gold);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.card-sub-head {
   font-size: 1.25rem;
-  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 0.15rem;
+  line-height: 1.2;
 }
-.seal-text {
-  font-size: 0.82rem;
-  letter-spacing: 0.16em;
+
+.card-couple-title {
+  font-size: clamp(1.85rem, 5vw, 2.35rem);
+  font-family: var(--display);
+  color: var(--maroon);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.4rem;
+  line-height: 1.15;
+}
+.card-couple-title .card-amp {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.9em;
+}
+
+.card-flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 70%;
+  margin: 0.15rem auto 0.45rem;
+}
+.flourish-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+}
+.flourish-gem {
+  color: var(--gold);
+  font-size: 0.65rem;
+}
+
+.card-event-date {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.card-honor-note {
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+  max-width: 320px;
+  line-height: 1.4;
+  margin: 0 auto;
+  font-style: italic;
+}
+.card-family-blessing {
+  font-size: 0.74rem;
+  font-family: var(--display);
+  color: var(--maroon);
+  margin-top: 0.35rem;
+  letter-spacing: 0.05em;
   font-weight: 500;
 }
-.seal-hindi {
-  font-size: 0.88rem;
-  font-family: var(--hindi);
+
+/* Envelope Lower Front Pocket */
+.envelope-pocket-front {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 190px;
+  background: radial-gradient(circle at 50% 100%, #580c19 0%, #3a050f 65%, #240207 100%);
+  border-top: 1.5px solid rgba(220, 192, 138, 0.65);
+  border-radius: 0 0 6px 6px;
+  z-index: 3;
+  box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 1.4rem;
+  pointer-events: none;
+}
+.pocket-gold-trim {
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  border-top: 1px dashed rgba(220, 192, 138, 0.35);
+}
+
+.pocket-face-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.2rem;
+  padding: 0 1rem;
+}
+
+.pocket-kankotri-label {
+  font-size: 1.25rem;
+  color: var(--gold-light);
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.pocket-couple-name {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+  color: #fff9ed;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7), 0 0 12px rgba(220, 192, 138, 0.3);
+}
+.pocket-couple-name .pocket-amp {
+  font-style: italic;
   color: var(--gold-light);
 }
 
+.pocket-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.15rem;
+}
+.pocket-date-text {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.85;
+}
+
+/* 3D Triangular Envelope Flap */
+.envelope-flap-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 165px;
+  z-index: 4;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.flap-triangle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #610e1e 0%, #440813 85%, #34040d 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
+}
+.flap-gold-line {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(10px 4px, calc(100% - 10px) 4px, 50% calc(100% - 8px));
+  border-top: 1px dashed rgba(220, 192, 138, 0.45);
+}
+
+/* 3D Royal Wax Seal Interactive Button */
+.royal-wax-seal {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  outline: none;
+  touch-action: manipulation;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.royal-wax-seal:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+.royal-wax-seal:active {
+  transform: translateX(-50%) scale(0.96);
+}
+
+.seal-glow-ring {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  border: 2px solid rgba(220, 192, 138, 0.55);
+  box-shadow: 0 0 25px rgba(220, 192, 138, 0.45), inset 0 0 15px rgba(220, 192, 138, 0.3);
+  animation: sealRingPulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sealRingPulse {
+  0% { transform: translateX(-50%) scale(0.95); opacity: 0.5; }
+  50% { transform: translateX(-50%) scale(1.22); opacity: 0.9; }
+  100% { transform: translateX(-50%) scale(1.35); opacity: 0; }
+}
+
+.seal-body {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.7));
+}
+
+.seal-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.seal-inner-stamp {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f7e7be;
+  text-shadow: 0 1px 2px rgba(45, 2, 8, 0.9);
+}
+
+.seal-crown {
+  line-height: 1;
+  color: #edd18e;
+  margin-bottom: 1px;
+}
+.seal-crown svg {
+  display: block;
+}
+
+.seal-monogram {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff1cf;
+  line-height: 1.1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75), 0 0 6px rgba(253, 241, 200, 0.4);
+}
+
+.seal-bead-border {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 1px dashed rgba(253, 241, 200, 0.45);
+  pointer-events: none;
+}
+
+/* Wax Seal Action Hint Pill */
+.seal-caption {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(30, 4, 8, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(220, 192, 138, 0.55);
+  padding: 0.45rem 1.15rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.royal-wax-seal:hover .seal-caption {
+  background: rgba(45, 6, 12, 0.95);
+  border-color: rgba(220, 192, 138, 0.85);
+  box-shadow: 0 10px 24px rgba(220, 192, 138, 0.25);
+}
+
+.seal-caption-title {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff7e6;
+  line-height: 1.2;
+}
+
+.seal-caption-sub {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-light);
+  opacity: 0.85;
+}
+
+/* Skip link */
+.envelope-skip-wrap {
+  margin-top: 1.4rem;
+  text-align: center;
+}
 .envelope-skip {
   background: transparent;
   border: none;
-  color: var(--ink-faint);
-  font-size: 0.68rem;
+  color: rgba(253, 249, 242, 0.55);
+  font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 0.4rem;
-  transition: color 0.2s ease;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 .envelope-skip:hover {
-  color: var(--maroon);
+  color: var(--gold-light);
+}
+
+/* ── OPENING ANIMATION STATE ──────────────────────────────────── */
+
+.envelope-container.is-opening .royal-wax-seal {
+  transform: translateX(-50%) scale(1.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.35s ease;
+}
+
+.envelope-container.is-opening .envelope-flap-top {
+  transform: rotateX(175deg);
+  z-index: 1;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-container.is-opening .envelope-inner-card {
+  transform: translateY(-115px) scale(1.04);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  transition: transform 0.9s cubic-bezier(0.2, 0.85, 0.25, 1.2) 0.2s;
+}
+
+.envelope-container.is-opening .banarasi-envelope {
+  animation: none;
+}
+
+/* Mobile Responsiveness for Envelope */
+@media (max-width: 480px) {
+  .banarasi-envelope {
+    height: 330px;
+  }
+  .envelope-flap-top {
+    height: 155px;
+  }
+  .envelope-pocket-front {
+    height: 175px;
+    padding-bottom: 1.1rem;
+  }
+  .pocket-kankotri-label {
+    font-size: 1.1rem;
+  }
+  .pocket-couple-name {
+    font-size: 1.35rem;
+  }
+  .pocket-date-text {
+    font-size: 0.62rem;
+  }
+  .envelope-inner-card {
+    left: 12px;
+    right: 12px;
+    top: 12px;
+    bottom: 18px;
+    padding: 1.1rem 0.8rem;
+  }
+  .card-inner-frame {
+    padding: 0.8rem 0.5rem;
+  }
+  .card-couple-title {
+    font-size: 1.7rem;
+  }
+  .card-event-date {
+    font-size: 0.68rem;
+  }
+  .card-honor-note {
+    font-size: 0.7rem;
+    max-width: 260px;
+  }
+  .royal-wax-seal {
+    top: 110px;
+  }
+  .seal-body {
+    width: 76px;
+    height: 76px;
+  }
+  .seal-monogram {
+    font-size: 0.95rem;
+  }
+  .seal-bead-border {
+    width: 52px;
+    height: 52px;
+  }
+  .seal-caption {
+    padding: 0.38rem 0.9rem;
+    margin-top: 0.65rem;
+  }
+  .seal-caption-title {
+    font-size: 0.72rem;
+  }
+  .envelope-container.is-opening .envelope-inner-card {
+    transform: translateY(-90px) scale(1.03);
+  }
 }
 
 /* ── Attire & Color Guide ───────────────────────────────────── */
