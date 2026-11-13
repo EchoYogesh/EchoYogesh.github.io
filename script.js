@@ -49,9 +49,9 @@ const CONFIG = {
     },
   ],
 
-  // Optional: paste a form endpoint (Formspree, Basin, a Google Apps Script
-  // web app…) to collect replies. Leave "" to fall back to a pre-filled email.
-  rsvpEndpoint: "",
+  // Serverless email endpoint: sends instant email notifications to Brijesh
+  rsvpEndpoint: "https://api.web3forms.com/submit",
+  web3FormsKey: "a75fce27-bd6a-4c98-b010-d1a46313f93d",
   rsvpEmail: "ybrijesh.005@gmail.com",
 
   // Shown on the confirmation card.
@@ -460,40 +460,48 @@ function escapeHtml(str) {
     status.textContent = "Sending…";
 
     try {
-      if (CONFIG.rsvpEndpoint) {
-        const res = await fetch(CONFIG.rsvpEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(reply),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      } else {
-        // Direct seamless in-app sync to Supabase in background (no external email popups)
-        const supabaseRsvpUrl = `${SUPABASE_CONFIG.url}/rest/v1/wedding_rsvps`;
-        fetch(supabaseRsvpUrl, {
-          method: "POST",
-          headers: {
-            "apikey": SUPABASE_CONFIG.anonKey,
-            "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`,
-            "Content-Type": "application/json",
-            "Prefer": "return=minimal"
-          },
-          body: JSON.stringify({
-            names: reply.names,
-            email: reply.email || null,
-            phone: reply.phone || null,
-            attending: reply.attending,
-            events: reply.events,
-            guests: reply.guests,
-            meal: reply.meal || null,
-            diet: reply.diet || null,
-            stay: reply.stay || null,
-            note: reply.note || null
-          })
-        }).catch((e) => console.warn("Supabase RSVP sync notice:", e));
-      }
+      // 1. Submit directly to Web3Forms so Brijesh gets instant email notification on Gmail
+      const formData = new FormData(form);
+      formData.set("access_key", CONFIG.web3FormsKey || "a75fce27-bd6a-4c98-b010-d1a46313f93d");
+      formData.set("subject", `Wedding RSVP: ${reply.names} (${reply.attending === "yes" ? "Attending" : "Declined"})`);
+      formData.set("from_name", "Brijesh & Sangeeta Wedding RSVP");
+      formData.set("guest_count", reply.guests || "1");
+      formData.set("functions_attending", (reply.events || []).map((x) => FIELD_LABELS[x] || x).join(", ") || "None");
+      formData.set("dietary_notes", reply.diet || "None");
+      formData.set("stay_accommodation", reply.stay || "Not specified");
+      formData.set("message_for_couple", reply.note || "None");
 
-      // Configure direct 1-click WhatsApp notification link on the pass
+      // Background POST to Web3Forms (does not block or open external app)
+      fetch(CONFIG.rsvpEndpoint || "https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      }).catch((e) => console.warn("Web3Forms background send notice:", e));
+
+      // 2. Direct seamless in-app sync to Supabase in background
+      const supabaseRsvpUrl = `${SUPABASE_CONFIG.url}/rest/v1/wedding_rsvps`;
+      fetch(supabaseRsvpUrl, {
+        method: "POST",
+        headers: {
+          "apikey": SUPABASE_CONFIG.anonKey,
+          "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          names: reply.names,
+          email: reply.email || null,
+          phone: reply.phone || null,
+          attending: reply.attending,
+          events: reply.events,
+          guests: reply.guests,
+          meal: reply.meal || null,
+          diet: reply.diet || null,
+          stay: reply.stay || null,
+          note: reply.note || null
+        })
+      }).catch((e) => console.warn("Supabase RSVP sync notice:", e));
+
+      // 3. Configure direct 1-click WhatsApp notification link on the pass
       const notifyBtn = $("#notifyHostWaBtn");
       if (notifyBtn) {
         const eventsList = (reply.events || []).map((x) => FIELD_LABELS[x] || x).join(", ");
