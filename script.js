@@ -1618,7 +1618,8 @@ const QRGenerator = (function() {
                 name: file.name.replace(/\.[^/.]+$/, ".webp"),
                 originalSize: file.size,
                 compressedSize: blob.size,
-                dataUrl,
+                blob: blob,
+                dataUrl: dataUrl,
                 savingsPct: savings
               });
             } else {
@@ -1630,7 +1631,8 @@ const QRGenerator = (function() {
                   name: file.name,
                   originalSize: file.size,
                   compressedSize: size,
-                  dataUrl,
+                  blob: jpegBlob || file,
+                  dataUrl: dataUrl,
                   savingsPct: savings
                 });
               }, "image/jpeg", quality);
@@ -1642,6 +1644,7 @@ const QRGenerator = (function() {
             name: file.name,
             originalSize: file.size,
             compressedSize: file.size,
+            blob: file,
             dataUrl: null,
             savingsPct: 0
           });
@@ -1653,6 +1656,7 @@ const QRGenerator = (function() {
           name: file.name,
           originalSize: file.size,
           compressedSize: file.size,
+          blob: file,
           dataUrl: null,
           savingsPct: 0
         });
@@ -1689,6 +1693,22 @@ const QRGenerator = (function() {
     if (compressionLabel) compressionLabel.textContent = "Optimization Complete · Ready for Village Network";
     if (compressionMetric) compressionMetric.textContent = `${formatBytes(totalOrig)} → ${formatBytes(totalComp)} (${savedPct}% reduction · Rapid upload ready)`;
     if (confirmUploadBtn) confirmUploadBtn.disabled = stagedFiles.length === 0;
+    updateDropzoneUI();
+  }
+
+  function updateDropzoneUI() {
+    if (!dropzone) return;
+    const text = dropzone.querySelector(".media-dropzone__text");
+    const hint = dropzone.querySelector(".media-dropzone__hint");
+    if (stagedFiles.length > 0) {
+      dropzone.classList.add("has-files");
+      if (text) text.innerHTML = "<strong>+ Add More Photos &amp; Videos</strong>";
+      if (hint) hint.style.display = "none";
+    } else {
+      dropzone.classList.remove("has-files");
+      if (text) text.innerHTML = "<strong>Click or Tap to Select Photos &amp; Videos</strong>";
+      if (hint) hint.style.display = "block";
+    }
   }
 
   function renderPreviews() {
@@ -1720,6 +1740,7 @@ const QRGenerator = (function() {
         e.stopPropagation();
         stagedFiles.splice(index, 1);
         renderPreviews();
+        updateDropzoneUI();
         if (stagedFiles.length === 0) {
           if (confirmUploadBtn) confirmUploadBtn.disabled = true;
           if (compressionStatus) compressionStatus.style.display = "none";
@@ -1768,14 +1789,37 @@ const QRGenerator = (function() {
     const cleanFileName = `photo_${Date.now()}_${Math.random().toString(36).substr(2, 6)}.${ext}`;
     const storageUrl = `${SUPABASE_CONFIG.url}/storage/v1/object/${SUPABASE_CONFIG.bucket}/${cleanFileName}`;
 
+    let uploadBody = item.blob;
+    if ((!uploadBody || uploadBody.size === 0) && item.dataUrl) {
+      try {
+        const parts = item.dataUrl.split(',');
+        const mime = parts[0].match(/:(.*?);/)[1];
+        const bstr = atob(parts[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        uploadBody = new Blob([u8arr], { type: mime });
+      } catch (convErr) {
+        console.warn("Fallback conversion error:", convErr);
+      }
+    }
+
+    if (!uploadBody || uploadBody.size === 0) {
+      uploadBody = item.file || item;
+    }
+
+    const contentType = (uploadBody && uploadBody.type) || "image/webp";
+
     const uploadRes = await fetch(storageUrl, {
       method: "POST",
       headers: {
         "apikey": SUPABASE_CONFIG.anonKey,
         "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`,
-        "Content-Type": (item.blob && item.blob.type) || "image/webp"
+        "Content-Type": contentType
       },
-      body: item.blob
+      body: uploadBody
     });
 
     if (!uploadRes.ok) {
@@ -1797,7 +1841,7 @@ const QRGenerator = (function() {
       body: JSON.stringify({
         author: authorName,
         media_url: publicUrl,
-        media_type: (item.blob && item.blob.type && item.blob.type.startsWith("video")) ? "video" : "image",
+        media_type: contentType.startsWith("video") ? "video" : "image",
         badge: "Guest Memory",
         caption: `Shared with love by ${authorName}`
       })
