@@ -1737,7 +1737,13 @@ const QRGenerator = (function() {
     });
   }
 
-  // Store in LocalStorage for persistence across turns/visits
+  /* ── Supabase Cloud Media Storage & Cross-Device Sync ───────── */
+  const SUPABASE_CONFIG = {
+    url: "https://jkvlilyevdvnaarfgevd.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprdmxpbHlldmR2bmFhcmZnZXZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1NTAxODIsImV4cCI6MjExMDEyNjE4Mn0.NXmqOOjAZO2BMwzSLktKePHTMutJQZjbM-iDPyJmNwA",
+    bucket: "wedding-photos"
+  };
+
   const STORAGE_KEY = "brijesh_sangeeta_wedding_wall_memories";
 
   function getStoredMemories() {
@@ -1753,51 +1759,182 @@ const QRGenerator = (function() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
     } catch (err) {
-      console.warn("Storage full or unavailable:", err);
+      console.warn("Storage quota warning:", err);
+    }
+  }
+
+  async function uploadToSupabase(item, authorName) {
+    const ext = (item.name && item.name.split('.').pop()) || 'webp';
+    const cleanFileName = `photo_${Date.now()}_${Math.random().toString(36).substr(2, 6)}.${ext}`;
+    const storageUrl = `${SUPABASE_CONFIG.url}/storage/v1/object/${SUPABASE_CONFIG.bucket}/${cleanFileName}`;
+
+    const uploadRes = await fetch(storageUrl, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_CONFIG.anonKey,
+        "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        "Content-Type": (item.blob && item.blob.type) || "image/webp"
+      },
+      body: item.blob
+    });
+
+    if (!uploadRes.ok) {
+      const errText = await uploadRes.text();
+      throw new Error(`Upload error: ${errText}`);
+    }
+
+    const publicUrl = `${SUPABASE_CONFIG.url}/storage/v1/object/public/${SUPABASE_CONFIG.bucket}/${cleanFileName}`;
+
+    const tableUrl = `${SUPABASE_CONFIG.url}/rest/v1/wedding_memories`;
+    await fetch(tableUrl, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_CONFIG.anonKey,
+        "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify({
+        author: authorName,
+        media_url: publicUrl,
+        media_type: (item.blob && item.blob.type && item.blob.type.startsWith("video")) ? "video" : "image",
+        badge: "Guest Memory",
+        caption: `Shared with love by ${authorName}`
+      })
+    });
+
+    return {
+      id: cleanFileName,
+      author: authorName,
+      time: "Just now",
+      dataUrl: publicUrl,
+      media_url: publicUrl,
+      badge: "Guest Memory",
+      title: "Shared by: " + authorName
+    };
+  }
+
+  async function fetchRemoteMemories() {
+    try {
+      const tableUrl = `${SUPABASE_CONFIG.url}/rest/v1/wedding_memories?select=*&order=created_at.desc&limit=60`;
+      const res = await fetch(tableUrl, {
+        headers: {
+          "apikey": SUPABASE_CONFIG.anonKey,
+          "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`
+        }
+      });
+      if (!res.ok) return getStoredMemories();
+      const rows = await res.json();
+      if (!rows || !rows.length) return getStoredMemories();
+
+      return rows.map((r) => {
+        let timeStr = "Wedding Week";
+        if (r.created_at) {
+          try {
+            timeStr = new Date(r.created_at).toLocaleDateString([], {
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+          } catch (_) {}
+        }
+        return {
+          id: r.id,
+          author: r.author || "Guest Family",
+          time: timeStr,
+          dataUrl: r.media_url,
+          media_url: r.media_url,
+          badge: r.badge || "Guest Memory",
+          title: "Shared by: " + (r.author || "Guest"),
+          caption: r.caption || `Uploaded by ${r.author || 'Guest'} at Chandauka`
+        };
+      });
+    } catch (err) {
+      console.warn("Could not fetch Supabase memories:", err);
+      return getStoredMemories();
+    }
+  }
+
+  async function downloadMedia(url, filename = "wedding_memory.webp") {
+    if (!url) return;
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+    } catch (_) {
+      window.open(url, "_blank");
     }
   }
 
   if (confirmUploadBtn) {
-    confirmUploadBtn.addEventListener("click", () => {
+    confirmUploadBtn.addEventListener("click", async () => {
       if (!stagedFiles.length) return;
 
       const authorName = (guestNameInput && guestNameInput.value.trim()) || "Guest Family";
-      const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const currentList = getStoredMemories();
+      const originalBtnText = confirmUploadBtn.innerHTML;
 
-      stagedFiles.forEach((item) => {
-        if (item.dataUrl) {
-          currentList.unshift({
-            id: "m_" + Date.now() + "_" + Math.random().toString(36).substr(2, 4),
-            author: authorName,
-            time: "Today at " + nowStr,
-            dataUrl: item.dataUrl,
-            badge: "Guest Memory"
-          });
+      try {
+        confirmUploadBtn.disabled = true;
+        const uploadedItems = [];
+
+        for (let idx = 0; idx < stagedFiles.length; idx++) {
+          const item = stagedFiles[idx];
+          confirmUploadBtn.innerHTML = `<span>Uploading ${idx + 1} of ${stagedFiles.length} to Cloud...</span>`;
+
+          try {
+            const uploaded = await uploadToSupabase(item, authorName);
+            uploadedItems.push(uploaded);
+          } catch (uploadErr) {
+            console.warn("Cloud upload fallback to local:", uploadErr);
+            uploadedItems.push({
+              id: "local_" + Date.now() + "_" + idx,
+              author: authorName,
+              time: "Just now",
+              dataUrl: item.dataUrl,
+              media_url: item.dataUrl,
+              badge: "Guest Memory",
+              title: "Shared by: " + authorName
+            });
+          }
         }
-      });
 
-      // Keep up to 25 local uploads to stay well within localStorage quota
-      if (currentList.length > 25) currentList.length = 25;
-      saveMemories(currentList);
+        // Cache locally for instant offline display
+        const localList = getStoredMemories();
+        uploadedItems.forEach((u) => localList.unshift(u));
+        if (localList.length > 30) localList.length = 30;
+        saveMemories(localList);
 
-      // Celebration petals
-      if (window.burstPetals) {
-        window.burstPetals(window.innerWidth / 2, window.innerHeight / 2, 45);
+        // Celebration petals
+        if (window.burstPetals) {
+          window.burstPetals(window.innerWidth / 2, window.innerHeight / 2, 45);
+        }
+
+        // Reset form & staging
+        stagedFiles = [];
+        if (fileInput) fileInput.value = "";
+        if (guestNameInput) guestNameInput.value = "";
+        if (compressionStatus) compressionStatus.style.display = "none";
+        if (previewsContainer) previewsContainer.style.display = "none";
+
+        // Close upload modal, refresh and open photo wall
+        closeModal(uploadModal);
+        await renderPhotoWall();
+        openModal(photoWallModal);
+
+      } catch (err) {
+        alert("Upload error. Please try again or use Google Drive link.");
+      } finally {
+        confirmUploadBtn.innerHTML = originalBtnText;
+        confirmUploadBtn.disabled = false;
       }
-
-      // Reset staging
-      stagedFiles = [];
-      if (fileInput) fileInput.value = "";
-      if (guestNameInput) guestNameInput.value = "";
-      if (compressionStatus) compressionStatus.style.display = "none";
-      if (previewsContainer) previewsContainer.style.display = "none";
-      confirmUploadBtn.disabled = true;
-
-      // Close upload and open photo wall
-      closeModal(uploadModal);
-      renderPhotoWall();
-      openModal(photoWallModal);
     });
   }
 
@@ -1812,6 +1949,7 @@ const QRGenerator = (function() {
   const slideshowPrevBtn = $("#slideshowPrevBtn");
   const slideshowNextBtn = $("#slideshowNextBtn");
   const slideshowFullscreenBtn = $("#slideshowFullscreenBtn");
+  const slideshowDownloadBtn = $("#slideshowDownloadBtn");
 
   // Pre-seeded authentic wedding moments
   const DEFAULT_MOMENTS = [
@@ -1862,15 +2000,22 @@ const QRGenerator = (function() {
   let slideshowTimer = null;
   let isSlideshowPlaying = false;
 
-  function getAllMemories() {
-    const userUploads = getStoredMemories();
-    return [...userUploads, ...DEFAULT_MOMENTS];
+  async function getAllMemories() {
+    const remote = await fetchRemoteMemories();
+    return [...remote, ...DEFAULT_MOMENTS];
   }
 
-  function renderPhotoWall() {
+  async function renderPhotoWall() {
     if (!wallGrid) return;
+    wallGrid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #888; font-family: var(--font-body); font-size: 0.9rem;">
+        Loading live memories from Cloud...
+      </div>
+    `;
+
+    const items = await getAllMemories();
+    allSlides = items;
     wallGrid.innerHTML = "";
-    const items = getAllMemories();
 
     items.forEach((item, index) => {
       const card = document.createElement("div");
@@ -1886,7 +2031,6 @@ const QRGenerator = (function() {
         img.loading = "lazy";
         mediaWrap.appendChild(img);
       } else {
-        // SVG moment placeholder
         mediaWrap.style.background = item.svgBg || "var(--crimson-deep)";
         mediaWrap.style.display = "flex";
         mediaWrap.style.alignItems = "center";
@@ -1914,8 +2058,37 @@ const QRGenerator = (function() {
       time.className = "wall-card__time";
       time.textContent = item.caption ? item.caption : (item.time + " · Tap to view in slideshow");
 
+      const footer = document.createElement("div");
+      footer.className = "wall-card__footer";
+
+      const timeSpan = document.createElement("span");
+      timeSpan.style.cssText = "font-size: 0.72rem; color: #888;";
+      timeSpan.textContent = item.time || "";
+      footer.appendChild(timeSpan);
+
+      if (item.dataUrl) {
+        const downloadBtn = document.createElement("button");
+        downloadBtn.className = "wall-card__download-btn";
+        downloadBtn.type = "button";
+        downloadBtn.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download</span>
+        `;
+        downloadBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const cleanName = (item.author || "wedding").replace(/[^a-zA-Z0-9]/g, "_") + "_photo.webp";
+          downloadMedia(item.dataUrl, cleanName);
+        });
+        footer.appendChild(downloadBtn);
+      }
+
       content.appendChild(author);
       content.appendChild(time);
+      content.appendChild(footer);
 
       card.appendChild(mediaWrap);
       card.appendChild(content);
@@ -1924,7 +2097,6 @@ const QRGenerator = (function() {
   }
 
   function startSlideshowAt(index = 0) {
-    allSlides = getAllMemories();
     if (!allSlides.length) return;
     currentSlideIndex = index;
     if (slideshowView) slideshowView.style.display = "block";
@@ -1988,7 +2160,8 @@ const QRGenerator = (function() {
   }
 
   if (startSlideshowBtn) {
-    startSlideshowBtn.addEventListener("click", () => {
+    startSlideshowBtn.addEventListener("click", async () => {
+      allSlides = await getAllMemories();
       startSlideshowAt(0);
     });
   }
@@ -2025,6 +2198,17 @@ const QRGenerator = (function() {
         slideshowView.requestFullscreen().catch((err) => console.warn(err));
       } else {
         document.exitFullscreen().catch((err) => console.warn(err));
+      }
+    });
+  }
+
+  if (slideshowDownloadBtn) {
+    slideshowDownloadBtn.addEventListener("click", () => {
+      if (!allSlides.length || currentSlideIndex < 0 || currentSlideIndex >= allSlides.length) return;
+      const current = allSlides[currentSlideIndex];
+      if (current && current.dataUrl) {
+        const cleanName = (current.author || "wedding").replace(/[^a-zA-Z0-9]/g, "_") + "_slide.webp";
+        downloadMedia(current.dataUrl, cleanName);
       }
     });
   }

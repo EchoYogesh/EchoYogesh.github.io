@@ -3387,6 +3387,39 @@ body.has-envelope {
   margin: 0;
 }
 
+.wall-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(176, 134, 58, 0.18);
+}
+
+.wall-card__download-btn {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--crimson-deep);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(176, 134, 58, 0.4);
+  border-radius: 999px;
+  padding: 0.28rem 0.65rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.wall-card__download-btn:hover {
+  background: var(--crimson);
+  color: #ffffff;
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
 /* Slideshow Screen */
 .slideshow-view {
   position: relative;
