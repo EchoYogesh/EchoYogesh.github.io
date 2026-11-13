@@ -529,11 +529,18 @@ function escapeHtml(str) {
 
       offerCalendar(reply);
       finish(reply);
+      // Reset form state so subsequent submissions start with a fresh, clean form
+      form.reset();
+      eventBoxes.forEach((b) => (b.checked = false));
+      if (details) details.classList.remove("is-dimmed");
       status.textContent = "";
     } catch (err) {
       console.warn("RSVP completed with local pass:", err);
       offerCalendar(reply);
       finish(reply);
+      form.reset();
+      eventBoxes.forEach((b) => (b.checked = false));
+      if (details) details.classList.remove("is-dimmed");
       status.textContent = "";
     } finally {
       form.removeAttribute("aria-busy");
@@ -542,37 +549,19 @@ function escapeHtml(str) {
   });
 
   $("#rsvpAgain").addEventListener("click", () => {
+    form.reset();
+    eventBoxes.forEach((b) => (b.checked = false));
+    if (details) details.classList.remove("is-dimmed");
+    $$(".has-error", form).forEach((el) => el.classList.remove("has-error"));
+    $$("[data-error-for]", form).forEach((el) => (el.textContent = ""));
+    try {
+      localStorage.removeItem("rsvp-brijesh-sangeeta");
+    } catch (_) {}
     done.hidden = true;
     form.hidden = false;
     form.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
-    form.elements.names.focus();
+    if (form.elements.names) form.elements.names.focus();
   });
-
-  // Restore an earlier reply so nobody has to retype it.
-  try {
-    const saved = JSON.parse(localStorage.getItem("rsvp-brijesh-sangeeta") || "null");
-    if (saved && saved.names) {
-      form.elements.names.value = saved.names;
-      if (saved.email) form.elements.email.value = saved.email;
-      if (saved.phone) form.elements.phone.value = saved.phone;
-      if (saved.attending) {
-        const radio = $(`input[name="attending"][value="${saved.attending}"]`, form);
-        if (radio) radio.checked = true;
-        if (saved.attending === "no" && details) details.classList.add("is-dimmed");
-      }
-      (saved.events || []).forEach((value) => {
-        const box = $(`input[name="events"][value="${value}"]`, form);
-        if (box) box.checked = true;
-      });
-      if (saved.guests) form.elements.guests.value = saved.guests;
-      if (saved.meal) form.elements.meal.value = saved.meal;
-      if (saved.diet) form.elements.diet.value = saved.diet;
-      if (saved.stay) form.elements.stay.value = saved.stay;
-      if (saved.note) form.elements.note.value = saved.note;
-    }
-  } catch (_) {
-    /* nothing saved, or storage blocked */
-  }
 
   // 1-Click WhatsApp RSVP link builder
   const whatsappRsvpBtn = $("#whatsappRsvpBtn");
@@ -915,6 +904,7 @@ function escapeHtml(str) {
       travel_open_maps: "गूगल मैप्स में देखें",
       rsvp_submit: "उपस्थिति पुष्टि करें",
       rsvp_edit: "उपस्थिति विवरण बदलें",
+      rsvp_another: "एक और उपस्थिति दर्ज करें",
       weather_eyebrow: "प्रतापगढ़ का मौसम &middot; रियल-टाइम",
       weather_live_tag: "लाइव",
       weather_subtext: "प्रतापगढ़ का वर्तमान मौसम। जनवरी अंत में होने वाले वैवाहिक आयोजनों में दिन में खिली धूप (21°C) तथा शाम को खुशनुमा ठंडक (8°C) रहेगी। शाम को अलाव व गरमा-गरम चाय की व्यवस्था रहेगी!",
@@ -1000,6 +990,7 @@ function escapeHtml(str) {
       travel_open_maps: "Open in Google Maps",
       rsvp_submit: "Confirm RSVP & Get Pass",
       rsvp_edit: "Edit RSVP",
+      rsvp_another: "Submit Another RSVP",
       weather_eyebrow: "Pratapgarh Weather &middot; Real-Time",
       weather_live_tag: "Live",
       weather_subtext: "Real-time conditions in Pratapgarh. For wedding week in late January, expect pleasant sunny afternoons (21°C) and crisp starry village evenings (8°C). Bonfires and hot spiced chai await you!",
