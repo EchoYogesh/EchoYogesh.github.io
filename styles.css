@@ -2948,6 +2948,38 @@ body.has-envelope {
     width: 100%;
     max-width: 100%;
   }
+
+  /* Mobile Wedding Pass Responsiveness */
+  .wedding-pass {
+    padding: 1.6rem 0.95rem;
+    margin-top: 1.2rem;
+    border-radius: 12px;
+  }
+  .wedding-pass__couple {
+    font-size: 1.85rem;
+  }
+  .wedding-pass__guest {
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
+  }
+  .wedding-pass__details {
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+  .wedding-pass__meta {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    padding: 0.85rem 0.95rem;
+  }
+  .wedding-pass__actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.65rem;
+  }
+  .wedding-pass__actions .btn {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ── Desktop hero: the invitation beside the mandap ─────────── */
