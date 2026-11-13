@@ -789,68 +789,57 @@ function escapeHtml(str) {
   requestAnimationFrame(frame);
 })();
 
-/* ── Royal Wax Seal & Envelope Opening Experience ─────────────── */
+/* ── Grand Royal Palace Gateway Entrance ──────────────────────── */
 
-(function royalEnvelope() {
-  const overlay = $("#envelopeOverlay");
-  const container = $("#envelopeContainer");
-  const breakBtn = $("#breakSealBtn");
-  const skipBtn = $("#skipEnvelopeBtn");
+(function royalGateway() {
+  const overlay = $("#gatewayOverlay");
+  const stage = $("#gatewayStage");
   if (!overlay) return;
 
-  // Lock scrolling while envelope is shown
+  // Lock scrolling while gateway is shown
   document.body.classList.add("has-envelope");
 
   let isOpening = false;
 
-  function openEnvelope() {
+  function openGateway() {
     if (isOpening) return;
     isOpening = true;
 
-    if (container) {
-      container.classList.add("is-opening");
+    if (stage) {
+      stage.classList.add("is-opening");
     }
 
-    // Burst celebratory petals from seal center
+    // Burst golden & rose petals outwards as doors part
     if (window.burstPetals) {
-      const rect = breakBtn ? breakBtn.getBoundingClientRect() : null;
+      const rect = stage ? stage.getBoundingClientRect() : null;
       const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
       const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
-      window.burstPetals(x, y, 48);
+      window.burstPetals(x, y, 52);
     }
 
-    // Allow 3D flap fold and card emergence animation to play
+    // Allow 3D palace doors to swing open majestically
     setTimeout(() => {
       document.body.classList.remove("has-envelope");
       overlay.classList.add("is-hidden");
       try {
-        sessionStorage.setItem("royal_envelope_opened", "1");
+        sessionStorage.setItem("royal_gateway_opened", "1");
       } catch (_) {}
-    }, 850);
+    }, 950);
   }
 
-  function skipDirectly() {
-    document.body.classList.remove("has-envelope");
-    overlay.classList.add("is-hidden");
-    try {
-      sessionStorage.setItem("royal_envelope_opened", "1");
-    } catch (_) {}
-  }
-
-  if (breakBtn) breakBtn.addEventListener("click", openEnvelope);
-  if (container) {
-    container.addEventListener("click", openEnvelope);
-    container.addEventListener("keydown", (e) => {
+  if (stage) {
+    stage.addEventListener("click", openGateway);
+    stage.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        openEnvelope();
+        openGateway();
       }
     });
   }
 
   // Check if opened during current session
   try {
-    if (sessionStorage.getItem("royal_envelope_opened") === "1") {
+    if (sessionStorage.getItem("royal_gateway_opened") === "1") {
       document.body.classList.remove("has-envelope");
       overlay.classList.add("is-hidden");
     }
