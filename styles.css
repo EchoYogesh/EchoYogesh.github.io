@@ -1885,11 +1885,12 @@ body.has-envelope {
   background: var(--cream-2);
   border: 1px solid var(--gold-line);
   text-align: center;
-  border-radius: 4px;
+  border-radius: 14px;
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(61, 10, 21, 0.05);
 }
 .whatsapp-rsvp-box p {
   font-family: var(--display);
@@ -2412,7 +2413,8 @@ body.has-envelope {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.65rem;
   padding: 0.85rem 1.6rem;
   border-radius: 999px;
   text-decoration: none;
@@ -2510,13 +2512,16 @@ body.has-envelope {
 }
 
 .royal-btn__text {
-  flex: 1;
   white-space: nowrap;
 }
 
 .royal-btn__arrow {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.15rem;
   font-family: var(--body);
   font-size: 0.95rem;
+  line-height: 1;
   transition: transform 0.3s var(--ease);
 }
 .royal-btn:hover .royal-btn__arrow {
@@ -2687,7 +2692,7 @@ body.has-envelope {
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--gold-line);
   box-shadow: 0 -4px 18px rgba(61, 10, 21, 0.15);
-  padding: 0.45rem 0.8rem;
+  padding: 0.45rem 0.8rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
 }
 .mobile-quickbar__inner {
   display: flex;
@@ -2805,7 +2810,7 @@ body.has-envelope {
   .winter-advisory__weather { border-right: none; border-bottom: 1px solid var(--gold-soft); padding-right: 0; padding-bottom: 1.2rem; }
 
   .mobile-quickbar { display: block; }
-  body { padding-bottom: 3.8rem; }
+  body { padding-bottom: calc(3.8rem + env(safe-area-inset-bottom, 0px)); }
 }
 
 @media (max-width: 620px) {
@@ -3629,6 +3634,16 @@ body.has-envelope {
   height: 58px !important;
   font-size: 1.5rem !important;
   background: rgba(26, 4, 8, 0.8) !important;
+}
+
+.slideshow-view:fullscreen .slideshow-nav--prev,
+.slideshow-view:-webkit-full-screen .slideshow-nav--prev {
+  left: clamp(16px, 4vw, 48px) !important;
+}
+
+.slideshow-view:fullscreen .slideshow-nav--next,
+.slideshow-view:-webkit-full-screen .slideshow-nav--next {
+  right: clamp(16px, 4vw, 48px) !important;
 }
 
 .slideshow-slide {
