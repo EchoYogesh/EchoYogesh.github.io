@@ -1,5 +1,5 @@
 /* ============================================================
-   Brijesh & Sangeeta — wedding invitation
+   Brijesh & Sangeeta · Wedding Invitation
    Countdown · navigation · RSVP form
    ============================================================ */
 
@@ -281,7 +281,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
     if (!form.elements.attending.value) {
       const lastRadio = $$('input[name="attending"]', form).pop();
-      setError(lastRadio, "Let us know either way — we'd love a firm answer.");
+      setError(lastRadio, "Please select whether you will attend so we can prepare.");
       ok = false;
     } else if (attendingYes() && !eventBoxes.some((b) => b.checked)) {
       setError(eventBoxes[0], "Tick at least one function you'll be joining.");
@@ -317,7 +317,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   function summary(reply) {
     if (reply.attending === "no") {
-      return "We'll miss you — thank you for telling us, and we'll raise a glass to you in January.";
+      return "We will deeply miss your presence. Thank you for letting us know, and we seek your warm blessings from afar.";
     }
     const list = reply.events.map((e) => FIELD_LABELS[e]).join(", ");
     const n = Number(reply.guests) || 1;
@@ -345,7 +345,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
           passDetails.textContent = `${eventsList} · ${gCount} ${gCount > 1 ? "Guests" : "Guest"} · Village Chandauka, Pratapgarh, UP`;
         }
         if (googleCalLink) {
-          const gTitle = encodeURIComponent("Brijesh & Sangeeta — Wedding Celebrations");
+          const gTitle = encodeURIComponent("Brijesh & Sangeeta Wedding Celebrations");
           const gDetails = encodeURIComponent("Wedding celebrations of Brijesh Yadav & Sangeeta Yadav.\nVenue: Village Chandauka, Kohandaur, Pratapgarh, UP.\nContacts: +91 7503156003, +91 9540984699");
           const gLocation = encodeURIComponent("Village Chandauka, Kohandaur, Pratapgarh, Uttar Pradesh");
           googleCalLink.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${gTitle}&dates=20270130T093000Z/20270202T173000Z&details=${gDetails}&location=${gLocation}`;
@@ -374,7 +374,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       "PRODID:-//Brijesh and Sangeeta//Wedding//EN",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
-      "X-WR-CALNAME:Brijesh & Sangeeta — Wedding",
+      "X-WR-CALNAME:Brijesh & Sangeeta Wedding",
     ];
 
     CONFIG.events.forEach((ev, i) => {
@@ -384,7 +384,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
         `DTSTAMP:${stamp(new Date())}`,
         `DTSTART:${stamp(ev.start)}`,
         `DTEND:${stamp(ev.end)}`,
-        `SUMMARY:${escapeText(`Brijesh & Sangeeta — ${ev.name}`)}`,
+        `SUMMARY:${escapeText(`Brijesh & Sangeeta: ${ev.name}`)}`,
         `LOCATION:${escapeText(ev.place)}`,
         `DESCRIPTION:${escapeText("Part of Brijesh and Sangeeta's wedding celebrations.")}`,
         "END:VEVENT"
@@ -429,7 +429,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
       } else {
-        const subject = `RSVP — ${reply.names}`;
+        const subject = `Wedding RSVP: ${reply.names}`;
         const body = [
           `Name(s): ${reply.names}`,
           `Email: ${reply.email}`,
@@ -453,7 +453,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       try {
         localStorage.setItem("rsvp-brijesh-sangeeta", JSON.stringify(reply));
       } catch (_) {
-        /* private mode — no matter */
+        /* private mode */
       }
 
       offerCalendar(reply);
@@ -549,7 +549,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
 /* ── Petals ──────────────────────────────────────────────────────
    Flowers drift down the page all the time, and scatter away from
-   a finger or a cursor — touching the page should feel like
+   a finger or a cursor; touching the page should feel like
    touching the flowers on the card.
    ───────────────────────────────────────────────────────────── */
 
@@ -788,7 +788,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       attire_title: "विवाह उत्सव हेतु उपयुक्त पहनावा",
       attire_sub: "उत्सवों की आभा और रंगीन परंपरा को ध्यान में रखते हुए वस्त्रों का चयन करें।",
       vows_eyebrow: "अग्नि साक्षी · वैदिक परंपरा",
-      vows_title: "सप्तपदी — सात पवित्र फेरे एवं प्रतिज्ञाएं",
+      vows_title: "सप्तपदी: सात पवित्र फेरे एवं वैदिक प्रतिज्ञाएं",
       vows_sub: "पवित्र अग्नि के समक्ष ब्रिजेश एवं संगीता सात कदम साथ चलकर जन्म-जन्मांतर के पावन बंधन में बंधेंगे।",
       sched_baraat: "बारात",
       sched_milni: "मिलनी",
@@ -1196,8 +1196,8 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   if (shareBtn) {
     shareBtn.addEventListener("click", async () => {
-      const title = "Brijesh & Sangeeta — Wedding Invitation";
-      const text = "Together with our families, we cordially invite you to celebrate the wedding of Brijesh & Sangeeta Yadav (30 Jan – 2 Feb 2027) at Village Chandauka, Uttar Pradesh. Kindly RSVP and view the functions details here:";
+      const title = "Brijesh & Sangeeta: Wedding Invitation";
+      const text = "Together with our families, we cordially invite you to celebrate the wedding of Brijesh & Sangeeta Yadav (30 Jan - 2 Feb 2027) at Village Chandauka, Uttar Pradesh. Kindly RSVP and view the functions details here:";
       const url = window.location.href;
 
       if (navigator.share) {

@@ -1,5 +1,5 @@
 /* ============================================================
-   Brijesh & Sangeeta — wedding invitation
+   Brijesh & Sangeeta: Wedding Invitation
    Maroon, gold and cream. A mandap, a baraat, a vidai,
    and petals that fall and scatter under a finger.
    Everything is CSS and inline SVG: no photographs.
@@ -1881,35 +1881,50 @@ body.has-envelope {
 .whatsapp-rsvp-box {
   margin-top: 1.4rem;
   margin-bottom: 0.5rem;
-  padding: 1.2rem 1.4rem;
+  padding: 1.4rem clamp(0.75rem, 3vw, 1.4rem);
   background: var(--cream-2);
   border: 1px solid var(--gold-line);
   text-align: center;
-  border-radius: 2px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 .whatsapp-rsvp-box p {
   font-family: var(--display);
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
   color: var(--maroon);
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.85rem;
+  padding: 0 0.4rem;
 }
 .btn--whatsapp {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   background: linear-gradient(135deg, #1b4d3e 0%, #0d3327 100%);
   color: #fff8ed !important;
-  border: 1px solid var(--gold);
-  padding: 0.85rem 1.8rem;
+  border: 1.5px solid var(--gold);
+  padding: 0.82rem clamp(0.9rem, 3vw, 1.8rem);
   font-family: var(--display);
-  font-size: 1rem;
-  letter-spacing: 0.12em;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   box-shadow: 0 8px 20px -8px rgba(27, 77, 62, 0.4);
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 999px;
+  cursor: pointer;
   transition: all 0.3s var(--ease);
+}
+.btn--whatsapp span {
+  display: inline-block;
+  white-space: normal;
+  word-break: normal;
+  text-align: center;
 }
 .btn--whatsapp:hover {
   background: linear-gradient(135deg, #246350 0%, #134636 100%);
@@ -2808,6 +2823,41 @@ body.has-envelope {
   .attire-grid { grid-template-columns: 1fr; }
   .saptapadi-grid { grid-template-columns: 1fr; }
   .wishes-grid { grid-template-columns: 1fr; }
+
+  /* Mobile WhatsApp & Action Buttons Full Width & Fit */
+  .whatsapp-rsvp-box {
+    padding: 1.2rem 0.65rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .whatsapp-rsvp-box p {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+  .btn--whatsapp {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    padding: 0.75rem 0.7rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    box-sizing: border-box;
+  }
+  .btn {
+    white-space: normal;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .blessing-invite-banner__actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .blessing-invite-banner__actions .btn {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* ── Desktop hero: the invitation beside the mandap ─────────── */
