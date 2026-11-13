@@ -1470,11 +1470,25 @@ const QRGenerator = (function() {
     }
   }
 
-  // Modals
+  // Modals & Wall Controls
   const uploadModal = $("#uploadModal");
   const photoWallModal = $("#photoWallModal");
   const modalDriveLink = $("#modalDriveLink");
   if (modalDriveLink) modalDriveLink.href = driveUrl;
+
+  const wallGrid = $("#weddingWallGrid");
+  const slideshowView = $("#slideshowView");
+  const slideshowActiveSlide = $("#slideshowActiveSlide");
+  const slideshowCounter = $("#slideshowCounter");
+  const startSlideshowBtn = $("#startSlideshowBtn");
+  const closeSlideshowBtn = $("#closeSlideshowBtn");
+  const slideshowPlayToggle = $("#slideshowPlayToggle");
+  const slideshowPrevBtn = $("#slideshowPrevBtn");
+  const slideshowNextBtn = $("#slideshowNextBtn");
+  const slideshowFullscreenBtn = $("#slideshowFullscreenBtn");
+  const slideshowDownloadBtn = $("#slideshowDownloadBtn");
+  const slideshowDeleteBtn = $("#slideshowDeleteBtn");
+  const toggleSlideshowVisibilityBtn = $("#toggleSlideshowVisibilityBtn");
 
   function openModal(modal) {
     if (!modal) return;
@@ -1991,18 +2005,6 @@ const QRGenerator = (function() {
   }
 
   /* ── Live Wedding Photo Wall & Slideshow ──────────────────────── */
-  const wallGrid = $("#weddingWallGrid");
-  const slideshowView = $("#slideshowView");
-  const slideshowActiveSlide = $("#slideshowActiveSlide");
-  const slideshowCounter = $("#slideshowCounter");
-  const startSlideshowBtn = $("#startSlideshowBtn");
-  const closeSlideshowBtn = $("#closeSlideshowBtn");
-  const slideshowPlayToggle = $("#slideshowPlayToggle");
-  const slideshowPrevBtn = $("#slideshowPrevBtn");
-  const slideshowNextBtn = $("#slideshowNextBtn");
-  const slideshowFullscreenBtn = $("#slideshowFullscreenBtn");
-  const slideshowDownloadBtn = $("#slideshowDownloadBtn");
-
   // Pre-seeded authentic wedding moments
   const DEFAULT_MOMENTS = [
     {
@@ -2293,7 +2295,6 @@ const QRGenerator = (function() {
     }
 
     // Toggle slideshow delete button for active slide
-    const slideshowDeleteBtn = $("#slideshowDeleteBtn");
     if (slideshowDeleteBtn) {
       slideshowDeleteBtn.style.display = (!String(slide.id).startsWith("seed_")) ? "inline-block" : "none";
     }
@@ -2340,7 +2341,6 @@ const QRGenerator = (function() {
     });
   }
 
-  const toggleSlideshowVisibilityBtn = $("#toggleSlideshowVisibilityBtn");
   if (toggleSlideshowVisibilityBtn) {
     toggleSlideshowVisibilityBtn.addEventListener("click", () => {
       if (!slideshowView) return;
@@ -2356,7 +2356,6 @@ const QRGenerator = (function() {
     });
   }
 
-  const slideshowDeleteBtn = $("#slideshowDeleteBtn");
   if (slideshowDeleteBtn) {
     slideshowDeleteBtn.addEventListener("click", () => {
       if (!allSlides.length) return;
