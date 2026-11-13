@@ -820,8 +820,21 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       memories_heading: "ब्रिजेश एवं संगीता का साझा फोटो एलबम",
       memories_desc: "हल्दी, मंडप, बारात या फेरों के दौरान आपके द्वारा खींची गई सुंदर तस्वीरें और वीडियो हमारे इस साझा परिवार एलबम में अवश्य अपलोड करें!",
       memories_upload_btn: "तस्वीरें एवं वीडियो अपलोड करें",
-      memories_view_btn: "विवाह एलबम देखें",
+      memories_view_btn: "विवाह एलबम एवं लाइव वॉल देखें",
       memories_note: "✦ सभी परिजनों व मित्रों के लिए खुला &middot; अपनी तस्वीरें मूल उच्च गुणवत्ता (Original Resolution) में अपलोड करें।",
+      pwa_save_app: "ऐप सेव करें",
+      upload_modal_title: "विवाह की स्मृतियां साझा करें",
+      upload_modal_sub: "स्मार्ट कंप्रेसर सक्रिय है: आपकी तस्वीरें स्वतः उच्च गुणवत्ता में कंप्रेस होकर शीघ्र अपलोड होंगी।",
+      upload_guest_label: "आपका नाम / परिवार (वैकल्पिक)",
+      upload_dropzone_title: "तस्वीरें या वीडियो चुनने के लिए यहां टैप करें",
+      upload_dropzone_hint: "मोबाइल कैमरा या गैलरी से · एक साथ कई तस्वीरें चुनी जा सकती हैं",
+      compression_status: "तस्वीरों का आकार अनुकूलित हो रहा है...",
+      upload_confirm_btn: "✨ विवाह वॉल में जोड़ें",
+      upload_drive_alt: "गूगल ड्राइव पसंद है? ",
+      upload_drive_link: "सीधे ड्राइव एलबम खोलें →",
+      photowall_title: "विवाह की सजीव स्मृतियां वॉल",
+      slideshow_start: "▶ लाइव स्लाइड शो प्रारंभ करें (प्रोजेक्टर मोड)",
+      wall_upload_btn: "+ अपनी तस्वीरें जोड़ें",
       gifts_eyebrow: "शगुन एवं आशीष",
       gifts_title: "आपका स्नेह और आशीर्वाद ही सर्वोपरि है",
       shagun_title: "शगुन",
@@ -887,8 +900,21 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       memories_heading: "Brijesh & Sangeeta's Shared Album",
       memories_desc: "Whether you took candids at the Tilak, selfies at the Mandap, or energetic videos in the Baraat, please share your memories with us!",
       memories_upload_btn: "Upload Photos & Videos",
-      memories_view_btn: "View Wedding Album",
+      memories_view_btn: "View Live Wedding Wall",
       memories_note: "✦ Open for all guests &middot; Upload your original full-resolution photos directly.",
+      pwa_save_app: "Save App",
+      upload_modal_title: "Upload Wedding Memories",
+      upload_modal_sub: "Built-in smart compression instantly optimizes high-res camera photos for fast, smooth uploads.",
+      upload_guest_label: "Your Name / Family (Optional)",
+      upload_dropzone_title: "Click or Tap to Select Photos & Videos",
+      upload_dropzone_hint: "From phone camera or gallery · Multiple photos supported",
+      compression_status: "Optimizing photos for village network...",
+      upload_confirm_btn: "✨ Add to Live Wedding Wall",
+      upload_drive_alt: "Prefer Google Drive? ",
+      upload_drive_link: "Open Drive album directly →",
+      photowall_title: "Live Wedding Memories Wall",
+      slideshow_start: "▶ Start Slideshow (Projector Mode)",
+      wall_upload_btn: "+ Upload Photos",
       gifts_eyebrow: "Shagun & Blessings",
       gifts_title: "Your blessings are enough",
       shagun_title: "Digital Shagun",
@@ -1425,15 +1451,15 @@ const QRGenerator = (function() {
   return { toSVG };
 })();
 
-(function initMemories() {
+/* ── Memories, Client-Side 4G Image Compressor & Live Photo Wall ── */
+
+(function initMemoriesAndMediaPipeline() {
   const qrBox = $("#memoriesQrBox");
   const uploadBtn = $("#uploadPhotosBtn");
   const viewBtn = $("#viewAlbumBtn");
   const driveUrl = (CONFIG && CONFIG.photoDriveUrl) || "https://photos.app.goo.gl/brijesh-sangeeta-wedding";
 
-  if (uploadBtn) uploadBtn.href = driveUrl;
-  if (viewBtn) viewBtn.href = driveUrl;
-
+  // QR Code Generation
   if (qrBox && typeof QRGenerator !== "undefined") {
     try {
       const seal = qrBox.querySelector(".qr-center-seal");
@@ -1443,6 +1469,633 @@ const QRGenerator = (function() {
       console.warn("QR generator fallback:", err);
     }
   }
+
+  // Modals
+  const uploadModal = $("#uploadModal");
+  const photoWallModal = $("#photoWallModal");
+  const modalDriveLink = $("#modalDriveLink");
+  if (modalDriveLink) modalDriveLink.href = driveUrl;
+
+  function openModal(modal) {
+    if (!modal) return;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(modal) {
+    if (!modal) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (modal === photoWallModal && stopSlideshow) {
+      stopSlideshow();
+    }
+  }
+
+  // Modal triggers & close buttons
+  document.querySelectorAll("[data-close-modal]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.getAttribute("data-close-modal");
+      closeModal(document.getElementById(targetId));
+    });
+  });
+
+  if (uploadBtn) {
+    uploadBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal(uploadModal);
+    });
+  }
+
+  if (viewBtn) {
+    viewBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      renderPhotoWall();
+      openModal(photoWallModal);
+    });
+  }
+
+  const openUploadFromWallBtn = $("#openUploadFromWallBtn");
+  if (openUploadFromWallBtn) {
+    openUploadFromWallBtn.addEventListener("click", () => {
+      closeModal(photoWallModal);
+      openModal(uploadModal);
+    });
+  }
+
+  // Escape key closes open modals
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (uploadModal && uploadModal.classList.contains("is-open")) closeModal(uploadModal);
+      if (photoWallModal && photoWallModal.classList.contains("is-open")) closeModal(photoWallModal);
+    }
+  });
+
+  /* ── Client-Side Smart Image Compressor ──────────────────────── */
+  const dropzone = $("#mediaDropzone");
+  const fileInput = $("#mediaFileInput");
+  const compressionStatus = $("#compressionStatus");
+  const compressionLabel = $("#compressionLabel");
+  const compressionSavingsBadge = $("#compressionSavingsBadge");
+  const compressionBarFill = $("#compressionBarFill");
+  const compressionMetric = $("#compressionMetric");
+  const previewsContainer = $("#mediaPreviews");
+  const confirmUploadBtn = $("#confirmUploadBtn");
+  const guestNameInput = $("#mediaGuestName");
+
+  let stagedFiles = []; // { file, compressedDataUrl, originalSize, compressedSize, name }
+
+  if (dropzone && fileInput) {
+    dropzone.addEventListener("click", () => fileInput.click());
+    dropzone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropzone.classList.add("is-dragover");
+    });
+    dropzone.addEventListener("dragleave", () => {
+      dropzone.classList.remove("is-dragover");
+    });
+    dropzone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropzone.classList.remove("is-dragover");
+      if (e.dataTransfer && e.dataTransfer.files.length) {
+        processFiles(Array.from(e.dataTransfer.files));
+      }
+    });
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files.length) {
+        processFiles(Array.from(fileInput.files));
+      }
+    });
+  }
+
+  function formatBytes(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  }
+
+  async function compressSingleImage(file, maxDimension = 1920, quality = 0.82) {
+    if (!file.type.startsWith("image/")) {
+      return {
+        name: file.name,
+        originalSize: file.size,
+        compressedSize: file.size,
+        dataUrl: null,
+        savingsPct: 0
+      };
+    }
+
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > maxDimension || height > maxDimension) {
+            if (width > height) {
+              height = Math.round((height * maxDimension) / width);
+              width = maxDimension;
+            } else {
+              width = Math.round((width * maxDimension) / height);
+              height = maxDimension;
+            }
+          }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Try WebP first, fallback to JPEG
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const dataUrl = canvas.toDataURL("image/webp", quality);
+              const savings = Math.max(0, Math.round(((file.size - blob.size) / file.size) * 100));
+              resolve({
+                name: file.name.replace(/\.[^/.]+$/, ".webp"),
+                originalSize: file.size,
+                compressedSize: blob.size,
+                dataUrl,
+                savingsPct: savings
+              });
+            } else {
+              canvas.toBlob((jpegBlob) => {
+                const dataUrl = canvas.toDataURL("image/jpeg", quality);
+                const size = jpegBlob ? jpegBlob.size : file.size;
+                const savings = Math.max(0, Math.round(((file.size - size) / file.size) * 100));
+                resolve({
+                  name: file.name,
+                  originalSize: file.size,
+                  compressedSize: size,
+                  dataUrl,
+                  savingsPct: savings
+                });
+              }, "image/jpeg", quality);
+            }
+          }, "image/webp", quality);
+        };
+        img.onerror = () => {
+          resolve({
+            name: file.name,
+            originalSize: file.size,
+            compressedSize: file.size,
+            dataUrl: null,
+            savingsPct: 0
+          });
+        };
+        img.src = e.target.result;
+      };
+      reader.onerror = () => {
+        resolve({
+          name: file.name,
+          originalSize: file.size,
+          compressedSize: file.size,
+          dataUrl: null,
+          savingsPct: 0
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function processFiles(files) {
+    if (!files || !files.length) return;
+    if (compressionStatus) compressionStatus.style.display = "block";
+    if (previewsContainer) previewsContainer.style.display = "grid";
+    if (confirmUploadBtn) confirmUploadBtn.disabled = true;
+
+    let totalOrig = stagedFiles.reduce((acc, f) => acc + f.originalSize, 0);
+    let totalComp = stagedFiles.reduce((acc, f) => acc + f.compressedSize, 0);
+
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      const pct = Math.round(((i + 1) / files.length) * 100);
+      if (compressionBarFill) compressionBarFill.style.width = pct + "%";
+      if (compressionLabel) compressionLabel.textContent = `Optimizing photo ${i + 1} of ${files.length}...`;
+
+      const compressed = await compressSingleImage(f);
+      stagedFiles.push(compressed);
+      totalOrig += compressed.originalSize;
+      totalComp += compressed.compressedSize;
+
+      renderPreviews();
+    }
+
+    const savedPct = totalOrig > 0 ? Math.max(0, Math.round(((totalOrig - totalComp) / totalOrig) * 100)) : 0;
+    if (compressionSavingsBadge) compressionSavingsBadge.textContent = `-${savedPct}% Saved`;
+    if (compressionLabel) compressionLabel.textContent = "Optimization Complete · Ready for Village Network";
+    if (compressionMetric) compressionMetric.textContent = `${formatBytes(totalOrig)} → ${formatBytes(totalComp)} (${savedPct}% reduction · Rapid upload ready)`;
+    if (confirmUploadBtn) confirmUploadBtn.disabled = stagedFiles.length === 0;
+  }
+
+  function renderPreviews() {
+    if (!previewsContainer) return;
+    previewsContainer.innerHTML = "";
+
+    stagedFiles.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "media-preview-item";
+
+      if (item.dataUrl) {
+        const img = document.createElement("img");
+        img.src = item.dataUrl;
+        img.alt = item.name;
+        card.appendChild(img);
+      } else {
+        const placeholder = document.createElement("div");
+        placeholder.style.cssText = "display:flex;align-items:center;justify-content:center;height:100%;color:#c9a961;font-size:0.75rem;";
+        placeholder.textContent = "Video / File";
+        card.appendChild(placeholder);
+      }
+
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "media-preview-remove";
+      removeBtn.type = "button";
+      removeBtn.innerHTML = "&times;";
+      removeBtn.setAttribute("aria-label", "Remove photo");
+      removeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        stagedFiles.splice(index, 1);
+        renderPreviews();
+        if (stagedFiles.length === 0) {
+          if (confirmUploadBtn) confirmUploadBtn.disabled = true;
+          if (compressionStatus) compressionStatus.style.display = "none";
+          if (previewsContainer) previewsContainer.style.display = "none";
+        }
+      });
+      card.appendChild(removeBtn);
+
+      const tag = document.createElement("div");
+      tag.className = "media-preview-tag";
+      tag.textContent = formatBytes(item.compressedSize);
+      card.appendChild(tag);
+
+      previewsContainer.appendChild(card);
+    });
+  }
+
+  // Store in LocalStorage for persistence across turns/visits
+  const STORAGE_KEY = "brijesh_sangeeta_wedding_wall_memories";
+
+  function getStoredMemories() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function saveMemories(list) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    } catch (err) {
+      console.warn("Storage full or unavailable:", err);
+    }
+  }
+
+  if (confirmUploadBtn) {
+    confirmUploadBtn.addEventListener("click", () => {
+      if (!stagedFiles.length) return;
+
+      const authorName = (guestNameInput && guestNameInput.value.trim()) || "Guest Family";
+      const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const currentList = getStoredMemories();
+
+      stagedFiles.forEach((item) => {
+        if (item.dataUrl) {
+          currentList.unshift({
+            id: "m_" + Date.now() + "_" + Math.random().toString(36).substr(2, 4),
+            author: authorName,
+            time: "Today at " + nowStr,
+            dataUrl: item.dataUrl,
+            badge: "Guest Memory"
+          });
+        }
+      });
+
+      // Keep up to 25 local uploads to stay well within localStorage quota
+      if (currentList.length > 25) currentList.length = 25;
+      saveMemories(currentList);
+
+      // Celebration petals
+      if (window.burstPetals) {
+        window.burstPetals(window.innerWidth / 2, window.innerHeight / 2, 45);
+      }
+
+      // Reset staging
+      stagedFiles = [];
+      if (fileInput) fileInput.value = "";
+      if (guestNameInput) guestNameInput.value = "";
+      if (compressionStatus) compressionStatus.style.display = "none";
+      if (previewsContainer) previewsContainer.style.display = "none";
+      confirmUploadBtn.disabled = true;
+
+      // Close upload and open photo wall
+      closeModal(uploadModal);
+      renderPhotoWall();
+      openModal(photoWallModal);
+    });
+  }
+
+  /* ── Live Wedding Photo Wall & Slideshow ──────────────────────── */
+  const wallGrid = $("#weddingWallGrid");
+  const slideshowView = $("#slideshowView");
+  const slideshowActiveSlide = $("#slideshowActiveSlide");
+  const slideshowCounter = $("#slideshowCounter");
+  const startSlideshowBtn = $("#startSlideshowBtn");
+  const closeSlideshowBtn = $("#closeSlideshowBtn");
+  const slideshowPlayToggle = $("#slideshowPlayToggle");
+  const slideshowPrevBtn = $("#slideshowPrevBtn");
+  const slideshowNextBtn = $("#slideshowNextBtn");
+  const slideshowFullscreenBtn = $("#slideshowFullscreenBtn");
+
+  // Pre-seeded authentic wedding moments
+  const DEFAULT_MOMENTS = [
+    {
+      id: "seed_1",
+      badge: "Tilak Ceremony",
+      author: "Yadav Parivaar",
+      time: "Village Chandauka",
+      title: "Shubh Tilak & Sagun",
+      caption: "Sacred blessings, turmeric tilak, and traditional rituals beginning the auspicious wedding week.",
+      svgBg: "linear-gradient(135deg, #781c2b 0%, #420b16 100%)",
+      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#d4af37" stroke-width="2"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="28" fill="#fceda9" font-weight="bold" text-anchor="middle">शुभ तिलक</text></svg>`
+    },
+    {
+      id: "seed_2",
+      badge: "Haldi & Mehndi",
+      author: "Sangeeta's Family",
+      time: "Celebration Venue",
+      title: "Haldi Utsav & Fragrant Mehndi",
+      caption: "Golden marigold flowers, auspicious turmeric, and intricate bridal mehndi surrounded by song and laughter.",
+      svgBg: "linear-gradient(135deg, #996515 0%, #54390b 100%)",
+      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#fceda9" stroke-width="2"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="28" fill="#fceda9" font-weight="bold" text-anchor="middle">हल्दी उत्सव</text></svg>`
+    },
+    {
+      id: "seed_3",
+      badge: "Sangeet & DJ Night",
+      author: "Brijesh's Brothers & Friends",
+      time: "Chandauka",
+      title: "Dholak, Sangeet & Celebration",
+      caption: "Folk wedding songs, energetic dance performances, and family camaraderie under starlight.",
+      svgBg: "linear-gradient(135deg, #48131e 0%, #20040a 100%)",
+      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#d4af37" stroke-width="2"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="28" fill="#fceda9" font-weight="bold" text-anchor="middle">संगीत निशा</text></svg>`
+    },
+    {
+      id: "seed_4",
+      badge: "Shubh Vivah & Baraat",
+      author: "Brijesh & Sangeeta",
+      time: "31 January 2027",
+      title: "The Royal Baraat & Pheras",
+      caption: "The grand Baraat arrival, Jaimala garland exchange, and the sacred seven steps (Saptapadi) around the Agni.",
+      svgBg: "linear-gradient(135deg, #5c1220 0%, #30060e 100%)",
+      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#d4af37" stroke-width="2.5"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="30" fill="#fceda9" font-weight="bold" text-anchor="middle">शुभ विवाह</text></svg>`
+    }
+  ];
+
+  let allSlides = [];
+  let currentSlideIndex = 0;
+  let slideshowTimer = null;
+  let isSlideshowPlaying = false;
+
+  function getAllMemories() {
+    const userUploads = getStoredMemories();
+    return [...userUploads, ...DEFAULT_MOMENTS];
+  }
+
+  function renderPhotoWall() {
+    if (!wallGrid) return;
+    wallGrid.innerHTML = "";
+    const items = getAllMemories();
+
+    items.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "wall-card";
+
+      const mediaWrap = document.createElement("div");
+      mediaWrap.className = "wall-card__media";
+
+      if (item.dataUrl) {
+        const img = document.createElement("img");
+        img.src = item.dataUrl;
+        img.alt = item.author;
+        img.loading = "lazy";
+        mediaWrap.appendChild(img);
+      } else {
+        // SVG moment placeholder
+        mediaWrap.style.background = item.svgBg || "var(--crimson-deep)";
+        mediaWrap.style.display = "flex";
+        mediaWrap.style.alignItems = "center";
+        mediaWrap.style.justifyContent = "center";
+        mediaWrap.innerHTML = item.svgIcon || "";
+      }
+
+      const badge = document.createElement("span");
+      badge.className = "wall-card__badge";
+      badge.textContent = item.badge || "Wedding Moment";
+      mediaWrap.appendChild(badge);
+
+      mediaWrap.addEventListener("click", () => {
+        startSlideshowAt(index);
+      });
+
+      const content = document.createElement("div");
+      content.className = "wall-card__content";
+
+      const author = document.createElement("h4");
+      author.className = "wall-card__author";
+      author.textContent = item.title || ("Shared by: " + item.author);
+
+      const time = document.createElement("p");
+      time.className = "wall-card__time";
+      time.textContent = item.caption ? item.caption : (item.time + " · Tap to view in slideshow");
+
+      content.appendChild(author);
+      content.appendChild(time);
+
+      card.appendChild(mediaWrap);
+      card.appendChild(content);
+      wallGrid.appendChild(card);
+    });
+  }
+
+  function startSlideshowAt(index = 0) {
+    allSlides = getAllMemories();
+    if (!allSlides.length) return;
+    currentSlideIndex = index;
+    if (slideshowView) slideshowView.style.display = "block";
+    showSlide(currentSlideIndex);
+    playSlideshow();
+    if (slideshowView) slideshowView.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function showSlide(index) {
+    if (!allSlides.length || !slideshowActiveSlide) return;
+    if (index < 0) currentSlideIndex = allSlides.length - 1;
+    else if (index >= allSlides.length) currentSlideIndex = 0;
+    else currentSlideIndex = index;
+
+    const slide = allSlides[currentSlideIndex];
+    slideshowActiveSlide.innerHTML = "";
+
+    if (slide.dataUrl) {
+      const img = document.createElement("img");
+      img.src = slide.dataUrl;
+      img.alt = slide.author;
+      slideshowActiveSlide.appendChild(img);
+    } else {
+      const div = document.createElement("div");
+      div.style.cssText = `width:100%;height:100%;background:${slide.svgBg || '#20040a'};display:flex;align-items:center;justify-content:center;`;
+      div.innerHTML = slide.svgIcon || "";
+      slideshowActiveSlide.appendChild(div);
+    }
+
+    const caption = document.createElement("div");
+    caption.className = "slideshow-caption";
+    caption.innerHTML = `
+      <h4>${slide.title || slide.author}</h4>
+      <p>${slide.caption || (slide.badge + " · Shared with love by " + slide.author)}</p>
+    `;
+    slideshowActiveSlide.appendChild(caption);
+
+    if (slideshowCounter) {
+      slideshowCounter.textContent = `${currentSlideIndex + 1} / ${allSlides.length}`;
+    }
+  }
+
+  function playSlideshow() {
+    isSlideshowPlaying = true;
+    if (slideshowPlayToggle) slideshowPlayToggle.textContent = "⏸ Pause";
+    clearInterval(slideshowTimer);
+    slideshowTimer = setInterval(() => {
+      showSlide(currentSlideIndex + 1);
+    }, 5000);
+  }
+
+  function pauseSlideshow() {
+    isSlideshowPlaying = false;
+    if (slideshowPlayToggle) slideshowPlayToggle.textContent = "▶ Resume";
+    clearInterval(slideshowTimer);
+  }
+
+  function stopSlideshow() {
+    pauseSlideshow();
+    if (slideshowView) slideshowView.style.display = "none";
+  }
+
+  if (startSlideshowBtn) {
+    startSlideshowBtn.addEventListener("click", () => {
+      startSlideshowAt(0);
+    });
+  }
+
+  if (closeSlideshowBtn) {
+    closeSlideshowBtn.addEventListener("click", stopSlideshow);
+  }
+
+  if (slideshowPlayToggle) {
+    slideshowPlayToggle.addEventListener("click", () => {
+      if (isSlideshowPlaying) pauseSlideshow();
+      else playSlideshow();
+    });
+  }
+
+  if (slideshowPrevBtn) {
+    slideshowPrevBtn.addEventListener("click", () => {
+      showSlide(currentSlideIndex - 1);
+      if (isSlideshowPlaying) playSlideshow();
+    });
+  }
+
+  if (slideshowNextBtn) {
+    slideshowNextBtn.addEventListener("click", () => {
+      showSlide(currentSlideIndex + 1);
+      if (isSlideshowPlaying) playSlideshow();
+    });
+  }
+
+  if (slideshowFullscreenBtn) {
+    slideshowFullscreenBtn.addEventListener("click", () => {
+      if (!slideshowView) return;
+      if (!document.fullscreenElement) {
+        slideshowView.requestFullscreen().catch((err) => console.warn(err));
+      } else {
+        document.exitFullscreen().catch((err) => console.warn(err));
+      }
+    });
+  }
+})();
+
+/* ── Offline-First PWA Service Worker & Install Prompt ────────── */
+
+(function initPWA() {
+  // 1. Register Service Worker
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js")
+        .then((reg) => {
+          console.log("[PWA] Service Worker active with scope:", reg.scope);
+        })
+        .catch((err) => {
+          console.warn("[PWA] Service Worker registration failed:", err);
+        });
+    });
+  }
+
+  // 2. Offline Status Detection & Toast
+  function updateOnlineStatus() {
+    let toast = document.getElementById("offlineToast");
+    if (!navigator.onLine) {
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "offlineToast";
+        toast.className = "offline-toast";
+        toast.setAttribute("role", "status");
+        toast.innerHTML = `
+          <span class="offline-toast__dot" aria-hidden="true"></span>
+          <span>Offline Mode: Wedding dates, venue map &amp; contacts saved on phone</span>
+        `;
+        document.body.appendChild(toast);
+      }
+      setTimeout(() => toast.classList.add("is-visible"), 100);
+    } else if (toast) {
+      toast.classList.remove("is-visible");
+    }
+  }
+
+  window.addEventListener("online", updateOnlineStatus);
+  window.addEventListener("offline", updateOnlineStatus);
+  if (!navigator.onLine) updateOnlineStatus();
+
+  // 3. PWA Install Prompt handling
+  let deferredPrompt = null;
+  const installBtn = document.getElementById("pwaInstallBtn");
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) {
+      installBtn.style.display = "inline-flex";
+      installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        if (choice && choice.outcome === "accepted") {
+          installBtn.style.display = "none";
+        }
+        deferredPrompt = null;
+      });
+    }
+  });
+
+  window.addEventListener("appinstalled", () => {
+    if (installBtn) installBtn.style.display = "none";
+    deferredPrompt = null;
+  });
 })();
 
 /* ── Live Real-Time Weather in Pratapgarh (Lat: 25.90, Lon: 81.99) ── */
