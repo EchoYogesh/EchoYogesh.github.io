@@ -3454,6 +3454,74 @@ body.has-envelope {
   transform: translateY(-1px);
 }
 
+.wall-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.wall-card__delete-btn {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #922b21;
+  background: rgba(146, 43, 33, 0.08);
+  border: 1px solid rgba(146, 43, 33, 0.3);
+  border-radius: 999px;
+  padding: 0.28rem 0.55rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.wall-card__delete-btn:hover {
+  background: #781c2b;
+  color: #ffffff;
+  border-color: #781c2b;
+}
+
+/* Media Staged Section */
+.media-staged-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.media-staged-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.2rem;
+}
+
+.media-staged-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--crimson-deep);
+}
+
+.media-add-more-btn {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--crimson-deep);
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.media-add-more-btn:hover {
+  background: var(--crimson);
+  color: #fff;
+  border-color: var(--crimson);
+}
+
 /* Slideshow Screen */
 .slideshow-view {
   position: relative;
@@ -3578,16 +3646,56 @@ body.has-envelope {
 }
 
 @media (max-width: 620px) {
+  .royal-modal-overlay {
+    padding: 0.5rem;
+  }
+  .royal-modal {
+    max-height: 94vh;
+    border-radius: 14px;
+  }
+  .royal-modal__header {
+    padding: 1.1rem 1rem 0.75rem;
+  }
+  .royal-modal__title {
+    font-size: 1.3rem;
+  }
+  .royal-modal__sub {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+  .royal-modal__body {
+    padding: 0.9rem 0.8rem;
+    gap: 0.85rem;
+  }
+  .wall-body {
+    padding: 0.85rem 0.65rem;
+    max-height: 80vh;
+  }
   .wall-grid {
     grid-template-columns: 1fr;
+    gap: 0.9rem;
   }
   .slideshow-frame {
-    height: 280px;
+    height: 240px;
   }
   .slideshow-nav {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
+    width: 34px;
+    height: 34px;
+    font-size: 0.95rem;
+  }
+  .slideshow-controls {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.6rem;
+  }
+  .slideshow-ctrl-btn {
+    padding: 0.28rem 0.65rem;
+    font-size: 0.74rem;
+  }
+  .media-previews {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    max-height: 160px;
   }
 }
 

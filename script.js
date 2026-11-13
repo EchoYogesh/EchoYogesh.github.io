@@ -829,11 +829,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       upload_dropzone_title: "तस्वीरें या वीडियो चुनने के लिए यहां टैप करें",
       upload_dropzone_hint: "मोबाइल कैमरा या गैलरी से · एक साथ कई तस्वीरें चुनी जा सकती हैं",
       compression_status: "तस्वीरों का आकार अनुकूलित हो रहा है...",
-      upload_confirm_btn: "✨ विवाह वॉल में जोड़ें",
+      upload_confirm_btn: "विवाह वॉल में जोड़ें",
       upload_drive_alt: "गूगल ड्राइव पसंद है? ",
       upload_drive_link: "सीधे ड्राइव एलबम खोलें →",
       photowall_title: "विवाह की सजीव स्मृतियां वॉल",
-      slideshow_start: "▶ लाइव स्लाइड शो प्रारंभ करें (प्रोजेक्टर मोड)",
+      slideshow_start: "स्लाइड शो (प्रोजेक्टर मोड)",
       wall_upload_btn: "+ अपनी तस्वीरें जोड़ें",
       gifts_eyebrow: "शगुन एवं आशीष",
       gifts_title: "आपका स्नेह और आशीर्वाद ही सर्वोपरि है",
@@ -909,11 +909,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       upload_dropzone_title: "Click or Tap to Select Photos & Videos",
       upload_dropzone_hint: "From phone camera or gallery · Multiple photos supported",
       compression_status: "Optimizing photos for village network...",
-      upload_confirm_btn: "✨ Add to Live Wedding Wall",
+      upload_confirm_btn: "Add to Live Wedding Wall",
       upload_drive_alt: "Prefer Google Drive? ",
       upload_drive_link: "Open Drive album directly →",
       photowall_title: "Live Wedding Memories Wall",
-      slideshow_start: "▶ Start Slideshow (Projector Mode)",
+      slideshow_start: "Slideshow (Projector Mode)",
       wall_upload_btn: "+ Upload Photos",
       gifts_eyebrow: "Shagun & Blessings",
       gifts_title: "Your blessings are enough",
@@ -1509,10 +1509,12 @@ const QRGenerator = (function() {
   }
 
   if (viewBtn) {
-    viewBtn.addEventListener("click", (e) => {
+    viewBtn.addEventListener("click", async (e) => {
       e.preventDefault();
-      renderPhotoWall();
       openModal(photoWallModal);
+      if (slideshowView) slideshowView.style.display = "block";
+      await renderPhotoWall();
+      startSlideshowAt(0);
     });
   }
 
@@ -1535,6 +1537,9 @@ const QRGenerator = (function() {
   /* ── Client-Side Smart Image Compressor ──────────────────────── */
   const dropzone = $("#mediaDropzone");
   const fileInput = $("#mediaFileInput");
+  const mediaStagedSection = $("#mediaStagedSection");
+  const stagedCount = $("#stagedCount");
+  const addMorePhotosBtn = $("#addMorePhotosBtn");
   const compressionStatus = $("#compressionStatus");
   const compressionLabel = $("#compressionLabel");
   const compressionSavingsBadge = $("#compressionSavingsBadge");
@@ -1545,6 +1550,10 @@ const QRGenerator = (function() {
   const guestNameInput = $("#mediaGuestName");
 
   let stagedFiles = []; // { file, compressedDataUrl, originalSize, compressedSize, name }
+
+  if (addMorePhotosBtn && fileInput) {
+    addMorePhotosBtn.addEventListener("click", () => fileInput.click());
+  }
 
   if (dropzone && fileInput) {
     dropzone.addEventListener("click", () => fileInput.click());
@@ -1668,7 +1677,6 @@ const QRGenerator = (function() {
   async function processFiles(files) {
     if (!files || !files.length) return;
     if (compressionStatus) compressionStatus.style.display = "block";
-    if (previewsContainer) previewsContainer.style.display = "grid";
     if (confirmUploadBtn) confirmUploadBtn.disabled = true;
 
     let totalOrig = stagedFiles.reduce((acc, f) => acc + f.originalSize, 0);
@@ -1686,6 +1694,7 @@ const QRGenerator = (function() {
       totalComp += compressed.compressedSize;
 
       renderPreviews();
+      updateDropzoneUI();
     }
 
     const savedPct = totalOrig > 0 ? Math.max(0, Math.round(((totalOrig - totalComp) / totalOrig) * 100)) : 0;
@@ -1698,16 +1707,13 @@ const QRGenerator = (function() {
 
   function updateDropzoneUI() {
     if (!dropzone) return;
-    const text = dropzone.querySelector(".media-dropzone__text");
-    const hint = dropzone.querySelector(".media-dropzone__hint");
     if (stagedFiles.length > 0) {
-      dropzone.classList.add("has-files");
-      if (text) text.innerHTML = "<strong>+ Add More Photos &amp; Videos</strong>";
-      if (hint) hint.style.display = "none";
+      dropzone.style.display = "none";
+      if (mediaStagedSection) mediaStagedSection.style.display = "flex";
+      if (stagedCount) stagedCount.textContent = stagedFiles.length;
     } else {
-      dropzone.classList.remove("has-files");
-      if (text) text.innerHTML = "<strong>Click or Tap to Select Photos &amp; Videos</strong>";
-      if (hint) hint.style.display = "block";
+      dropzone.style.display = "flex";
+      if (mediaStagedSection) mediaStagedSection.style.display = "none";
     }
   }
 
@@ -1966,12 +1972,14 @@ const QRGenerator = (function() {
         if (fileInput) fileInput.value = "";
         if (guestNameInput) guestNameInput.value = "";
         if (compressionStatus) compressionStatus.style.display = "none";
-        if (previewsContainer) previewsContainer.style.display = "none";
+        updateDropzoneUI();
 
         // Close upload modal, refresh and open photo wall
         closeModal(uploadModal);
         await renderPhotoWall();
         openModal(photoWallModal);
+        if (slideshowView) slideshowView.style.display = "block";
+        startSlideshowAt(0);
 
       } catch (err) {
         alert("Upload error. Please try again or use Google Drive link.");
@@ -2049,6 +2057,75 @@ const QRGenerator = (function() {
     return [...remote, ...DEFAULT_MOMENTS];
   }
 
+  async function deletePhoto(item, cardEl) {
+    if (!item) return;
+    const confirmDelete = window.confirm("Delete this photo from the live wedding wall?");
+    if (!confirmDelete) return;
+
+    try {
+      // 1. Delete from Supabase Database
+      if (item.id && !String(item.id).startsWith("seed_")) {
+        const isUUID = /^[0-9a-fA-F-]{36}$/.test(String(item.id));
+        const filter = isUUID ? `id=eq.${item.id}` : `media_url=eq.${encodeURIComponent(item.media_url || item.dataUrl)}`;
+        await fetch(`${SUPABASE_CONFIG.url}/rest/v1/wedding_memories?${filter}`, {
+          method: "DELETE",
+          headers: {
+            "apikey": SUPABASE_CONFIG.anonKey,
+            "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`
+          }
+        }).catch((e) => console.warn("Supabase DB delete error:", e));
+
+        // 2. Delete from Supabase Storage bucket
+        const targetUrl = item.media_url || item.dataUrl;
+        if (targetUrl) {
+          const pathMatch = targetUrl.match(/wedding-photos\/(.+)$/);
+          if (pathMatch && pathMatch[1]) {
+            await fetch(`${SUPABASE_CONFIG.url}/storage/v1/object/${SUPABASE_CONFIG.bucket}/${pathMatch[1]}`, {
+              method: "DELETE",
+              headers: {
+                "apikey": SUPABASE_CONFIG.anonKey,
+                "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`
+              }
+            }).catch((e) => console.warn("Supabase storage delete error:", e));
+          }
+        }
+      }
+
+      // 3. Remove from localStorage cache
+      const stored = getStoredMemories();
+      const updated = stored.filter((s) => s.id !== item.id && s.dataUrl !== item.dataUrl && s.media_url !== item.media_url);
+      saveMemories(updated);
+
+      // 4. Remove from allSlides array
+      const slideIdx = allSlides.findIndex((s) => s.id === item.id || (item.dataUrl && s.dataUrl === item.dataUrl));
+      if (slideIdx !== -1) {
+        allSlides.splice(slideIdx, 1);
+      }
+
+      // 5. Remove card from UI with smooth fade
+      if (cardEl) {
+        cardEl.style.transition = "all 0.3s ease";
+        cardEl.style.opacity = "0";
+        cardEl.style.transform = "scale(0.85)";
+        setTimeout(() => {
+          if (cardEl.parentNode) cardEl.parentNode.removeChild(cardEl);
+        }, 300);
+      }
+
+      // 6. Update slideshow view
+      if (allSlides.length > 0) {
+        if (currentSlideIndex >= allSlides.length) currentSlideIndex = 0;
+        showSlide(currentSlideIndex);
+      } else {
+        if (slideshowView) slideshowView.style.display = "none";
+      }
+
+    } catch (err) {
+      console.error("Error deleting photo:", err);
+      alert("Could not delete photo. Please try again.");
+    }
+  }
+
   async function renderPhotoWall() {
     if (!wallGrid) return;
     wallGrid.innerHTML = `
@@ -2073,6 +2150,10 @@ const QRGenerator = (function() {
         img.src = item.dataUrl;
         img.alt = item.author;
         img.loading = "lazy";
+        img.onerror = () => {
+          // Gracefully hide any broken / corrupted / dead images
+          card.style.display = "none";
+        };
         mediaWrap.appendChild(img);
       } else {
         mediaWrap.style.background = item.svgBg || "var(--crimson-deep)";
@@ -2110,6 +2191,9 @@ const QRGenerator = (function() {
       timeSpan.textContent = item.time || "";
       footer.appendChild(timeSpan);
 
+      const actions = document.createElement("div");
+      actions.className = "wall-card__actions";
+
       if (item.dataUrl) {
         const downloadBtn = document.createElement("button");
         downloadBtn.className = "wall-card__download-btn";
@@ -2127,8 +2211,30 @@ const QRGenerator = (function() {
           const cleanName = (item.author || "wedding").replace(/[^a-zA-Z0-9]/g, "_") + "_photo.webp";
           downloadMedia(item.dataUrl, cleanName);
         });
-        footer.appendChild(downloadBtn);
+        actions.appendChild(downloadBtn);
+
+        // Delete button for user-uploaded photos
+        if (!String(item.id).startsWith("seed_")) {
+          const deleteBtn = document.createElement("button");
+          deleteBtn.className = "wall-card__delete-btn";
+          deleteBtn.type = "button";
+          deleteBtn.setAttribute("title", "Delete photo");
+          deleteBtn.innerHTML = `
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Delete</span>
+          `;
+          deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            deletePhoto(item, card);
+          });
+          actions.appendChild(deleteBtn);
+        }
       }
+
+      footer.appendChild(actions);
 
       content.appendChild(author);
       content.appendChild(time);
@@ -2162,6 +2268,10 @@ const QRGenerator = (function() {
       const img = document.createElement("img");
       img.src = slide.dataUrl;
       img.alt = slide.author;
+      img.onerror = () => {
+        // Skip corrupted image to next slide
+        setTimeout(() => showSlide(currentSlideIndex + 1), 600);
+      };
       slideshowActiveSlide.appendChild(img);
     } else {
       const div = document.createElement("div");
@@ -2181,11 +2291,17 @@ const QRGenerator = (function() {
     if (slideshowCounter) {
       slideshowCounter.textContent = `${currentSlideIndex + 1} / ${allSlides.length}`;
     }
+
+    // Toggle slideshow delete button for active slide
+    const slideshowDeleteBtn = $("#slideshowDeleteBtn");
+    if (slideshowDeleteBtn) {
+      slideshowDeleteBtn.style.display = (!String(slide.id).startsWith("seed_")) ? "inline-block" : "none";
+    }
   }
 
   function playSlideshow() {
     isSlideshowPlaying = true;
-    if (slideshowPlayToggle) slideshowPlayToggle.textContent = "⏸ Pause";
+    if (slideshowPlayToggle) slideshowPlayToggle.textContent = "Pause";
     clearInterval(slideshowTimer);
     slideshowTimer = setInterval(() => {
       showSlide(currentSlideIndex + 1);
@@ -2194,7 +2310,7 @@ const QRGenerator = (function() {
 
   function pauseSlideshow() {
     isSlideshowPlaying = false;
-    if (slideshowPlayToggle) slideshowPlayToggle.textContent = "▶ Resume";
+    if (slideshowPlayToggle) slideshowPlayToggle.textContent = "Resume";
     clearInterval(slideshowTimer);
   }
 
@@ -2205,7 +2321,10 @@ const QRGenerator = (function() {
 
   if (startSlideshowBtn) {
     startSlideshowBtn.addEventListener("click", async () => {
-      allSlides = await getAllMemories();
+      if (!allSlides.length) allSlides = await getAllMemories();
+      if (slideshowView) slideshowView.style.display = "block";
+      const toggleBtn = $("#toggleSlideshowVisibilityBtn");
+      if (toggleBtn) toggleBtn.textContent = "Hide Player";
       startSlideshowAt(0);
     });
   }
@@ -2218,6 +2337,31 @@ const QRGenerator = (function() {
     slideshowPlayToggle.addEventListener("click", () => {
       if (isSlideshowPlaying) pauseSlideshow();
       else playSlideshow();
+    });
+  }
+
+  const toggleSlideshowVisibilityBtn = $("#toggleSlideshowVisibilityBtn");
+  if (toggleSlideshowVisibilityBtn) {
+    toggleSlideshowVisibilityBtn.addEventListener("click", () => {
+      if (!slideshowView) return;
+      if (slideshowView.style.display === "none") {
+        slideshowView.style.display = "block";
+        toggleSlideshowVisibilityBtn.textContent = "Hide Player";
+        startSlideshowAt(currentSlideIndex || 0);
+      } else {
+        pauseSlideshow();
+        slideshowView.style.display = "none";
+        toggleSlideshowVisibilityBtn.textContent = "Show Player";
+      }
+    });
+  }
+
+  const slideshowDeleteBtn = $("#slideshowDeleteBtn");
+  if (slideshowDeleteBtn) {
+    slideshowDeleteBtn.addEventListener("click", () => {
+      if (!allSlides.length) return;
+      const current = allSlides[currentSlideIndex];
+      if (current) deletePhoto(current);
     });
   }
 
