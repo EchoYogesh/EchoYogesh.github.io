@@ -64,6 +64,19 @@ const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/**
+ * Robust HTML escaping helper to neutralize XSS in dynamic templates.
+ */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 /* ── Countdown ───────────────────────────────────────────────── */
 
 (function countdown() {
@@ -1149,12 +1162,16 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       const card = document.createElement("article");
       card.className = "wish-card";
       const isHindi = /[\u0900-\u097F]/.test(item.text);
+      const safeTag = escapeHtml(item.tag || "✦ Blessings");
+      const safeText = escapeHtml(item.text);
+      const safeAuthor = escapeHtml(item.author);
+      const safeRelation = escapeHtml(item.relation || item.date || "");
       card.innerHTML = `
-        <div class="wish-card__stamp">${item.tag || "✦ Blessings"}</div>
-        <p class="wish-card__text"${isHindi ? ' lang="hi"' : ""}>“${item.text}”</p>
+        <div class="wish-card__stamp">${safeTag}</div>
+        <p class="wish-card__text"${isHindi ? ' lang="hi"' : ""}>“${safeText}”</p>
         <div class="wish-card__author">
-          <span class="wish-card__name">${item.author}</span>
-          <span class="wish-card__relation">${item.relation || item.date || ""}</span>
+          <span class="wish-card__name">${safeAuthor}</span>
+          <span class="wish-card__relation">${safeRelation}</span>
         </div>
       `;
       grid.appendChild(card);
@@ -1698,19 +1715,57 @@ const QRGenerator = (function() {
     });
   }
 
+  const ALLOWED_MEDIA_EXTS = new Set(["jpg", "jpeg", "png", "webp", "heic", "heif", "mp4", "mov", "webm", "m4v"]);
+  const BLOCKED_MEDIA_EXTS = new Set([
+    "bat", "cmd", "exe", "msi", "scr", "sh", "bash", "php", "phtml",
+    "pl", "py", "js", "mjs", "vbs", "ps1", "svg", "html", "htm", "dll",
+    "jar", "app", "apk", "com", "bin"
+  ]);
+  const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024; // 50MB max
+
   async function processFiles(files) {
     if (!files || !files.length) return;
+
+    // Strict client-side security filtering against executables, scripts, SVGs & oversize files
+    const validFiles = [];
+    let blockedCount = 0;
+
+    for (const f of files) {
+      const ext = (f.name ? f.name.split('.').pop() : '').toLowerCase();
+      const isMimeAllowed = f.type ? (f.type.startsWith("image/") || f.type.startsWith("video/")) : true;
+      const isSvg = ext === "svg" || f.type === "image/svg+xml";
+
+      if (BLOCKED_MEDIA_EXTS.has(ext) || isSvg || !ALLOWED_MEDIA_EXTS.has(ext) || !isMimeAllowed) {
+        blockedCount++;
+        continue;
+      }
+      if (f.size > MAX_FILE_SIZE_BYTES) {
+        blockedCount++;
+        continue;
+      }
+      validFiles.push(f);
+    }
+
+    if (blockedCount > 0) {
+      alert("Security Notice: Only standard wedding photos & videos (JPG, PNG, WebP, MP4) under 50MB are permitted. Unsupported or executable files were ignored.");
+    }
+
+    if (!validFiles.length) {
+      if (confirmUploadBtn) confirmUploadBtn.disabled = stagedFiles.length === 0;
+      return;
+    }
+
     if (compressionStatus) compressionStatus.style.display = "block";
     if (confirmUploadBtn) confirmUploadBtn.disabled = true;
 
     let totalOrig = stagedFiles.reduce((acc, f) => acc + f.originalSize, 0);
     let totalComp = stagedFiles.reduce((acc, f) => acc + f.compressedSize, 0);
 
-    for (let i = 0; i < files.length; i++) {
-      const f = files[i];
-      const pct = Math.round(((i + 1) / files.length) * 100);
+    for (let i = 0; i < validFiles.length; i++) {
+      const f = validFiles[i];
+      const pct = Math.round(((i + 1) / validFiles.length) * 100);
       if (compressionBarFill) compressionBarFill.style.width = pct + "%";
-      if (compressionLabel) compressionLabel.textContent = `Optimizing photo ${i + 1} of ${files.length}...`;
+      if (compressionLabel) compressionLabel.textContent = `Optimizing photo ${i + 1} of ${validFiles.length}...`;
 
       const compressed = await compressSingleImage(f);
       stagedFiles.push(compressed);
@@ -1815,7 +1870,8 @@ const QRGenerator = (function() {
   }
 
   async function uploadToSupabase(item, authorName) {
-    const ext = (item.name && item.name.split('.').pop()) || 'webp';
+    const rawExt = ((item.name && item.name.split('.').pop()) || 'webp').toLowerCase();
+    const ext = ALLOWED_MEDIA_EXTS.has(rawExt) ? rawExt : 'webp';
     const cleanFileName = `photo_${Date.now()}_${Math.random().toString(36).substr(2, 6)}.${ext}`;
     const storageUrl = `${SUPABASE_CONFIG.url}/storage/v1/object/${SUPABASE_CONFIG.bucket}/${cleanFileName}`;
 
@@ -1877,6 +1933,8 @@ const QRGenerator = (function() {
       })
     });
 
+    memoriesCache = null; // Invalidate cache so newly uploaded photo displays immediately
+
     return {
       id: cleanFileName,
       author: authorName,
@@ -1888,7 +1946,15 @@ const QRGenerator = (function() {
     };
   }
 
-  async function fetchRemoteMemories() {
+  let memoriesCache = null;
+  let memoriesCacheExpiry = 0;
+  const MEMORIES_CACHE_TTL_MS = 45000; // 45s cache to handle high concurrency
+
+  async function fetchRemoteMemories(forceRefresh = false) {
+    const now = Date.now();
+    if (!forceRefresh && memoriesCache && now < memoriesCacheExpiry) {
+      return memoriesCache;
+    }
     try {
       const tableUrl = `${SUPABASE_CONFIG.url}/rest/v1/wedding_memories?select=*&order=created_at.desc&limit=60`;
       const res = await fetch(tableUrl, {
@@ -1901,7 +1967,7 @@ const QRGenerator = (function() {
       const rows = await res.json();
       if (!rows || !rows.length) return getStoredMemories();
 
-      return rows.map((r) => {
+      const parsed = rows.map((r) => {
         let timeStr = "Wedding Week";
         if (r.created_at) {
           try {
@@ -1924,6 +1990,10 @@ const QRGenerator = (function() {
           caption: r.caption || `Uploaded by ${r.author || 'Guest'} at Chandauka`
         };
       });
+
+      memoriesCache = parsed;
+      memoriesCacheExpiry = Date.now() + MEMORIES_CACHE_TTL_MS;
+      return parsed;
     } catch (err) {
       console.warn("Could not fetch Supabase memories:", err);
       return getStoredMemories();
@@ -2104,6 +2174,7 @@ const QRGenerator = (function() {
       }
 
       // 3. Remove from localStorage cache
+      memoriesCache = null;
       const stored = getStoredMemories();
       const updated = stored.filter((s) => s.id !== item.id && s.dataUrl !== item.dataUrl && s.media_url !== item.media_url);
       saveMemories(updated);
@@ -2294,10 +2365,12 @@ const QRGenerator = (function() {
 
     const caption = document.createElement("div");
     caption.className = "slideshow-caption";
-    caption.innerHTML = `
-      <h4>${slide.title || slide.author}</h4>
-      <p>${slide.caption || (slide.badge + " · Shared with love by " + slide.author)}</p>
-    `;
+    const capTitle = document.createElement("h4");
+    capTitle.textContent = slide.title || ("Shared by: " + (slide.author || "Guest"));
+    const capDesc = document.createElement("p");
+    capDesc.textContent = slide.caption || ((slide.badge || "Guest Memory") + " · Shared with love by " + (slide.author || "Guest"));
+    caption.appendChild(capTitle);
+    caption.appendChild(capDesc);
     slideshowActiveSlide.appendChild(caption);
 
     if (slideshowCounter) {
