@@ -2015,7 +2015,7 @@ const QRGenerator = (function() {
       title: "Shubh Tilak & Sagun",
       caption: "Sacred blessings, turmeric tilak, and traditional rituals beginning the auspicious wedding week.",
       svgBg: "linear-gradient(135deg, #781c2b 0%, #420b16 100%)",
-      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#d4af37" stroke-width="2"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="28" fill="#fceda9" font-weight="bold" text-anchor="middle">शुभ तिलक</text></svg>`
+      svgIcon: `<svg width="120" height="120" viewBox="0 0 160 160" fill="none"><circle cx="80" cy="80" r="68" stroke="#d4af37" stroke-width="2.5" stroke-dasharray="2 4"/><circle cx="80" cy="80" r="62" stroke="#d4af37" stroke-width="1.2"/><text x="80" y="87" font-family="'Noto Serif Devanagari',serif" font-size="21" fill="#fceda9" font-weight="600" text-anchor="middle">शुभ तिलक</text></svg>`
     },
     {
       id: "seed_2",
@@ -2025,7 +2025,7 @@ const QRGenerator = (function() {
       title: "Haldi Utsav & Fragrant Mehndi",
       caption: "Golden marigold flowers, auspicious turmeric, and intricate bridal mehndi surrounded by song and laughter.",
       svgBg: "linear-gradient(135deg, #996515 0%, #54390b 100%)",
-      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#fceda9" stroke-width="2"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="28" fill="#fceda9" font-weight="bold" text-anchor="middle">हल्दी उत्सव</text></svg>`
+      svgIcon: `<svg width="120" height="120" viewBox="0 0 160 160" fill="none"><circle cx="80" cy="80" r="68" stroke="#fceda9" stroke-width="2.5" stroke-dasharray="2 4"/><circle cx="80" cy="80" r="62" stroke="#fceda9" stroke-width="1.2"/><text x="80" y="87" font-family="'Noto Serif Devanagari',serif" font-size="21" fill="#fceda9" font-weight="600" text-anchor="middle">हल्दी उत्सव</text></svg>`
     },
     {
       id: "seed_3",
@@ -2035,7 +2035,7 @@ const QRGenerator = (function() {
       title: "Dholak, Sangeet & Celebration",
       caption: "Folk wedding songs, energetic dance performances, and family camaraderie under starlight.",
       svgBg: "linear-gradient(135deg, #48131e 0%, #20040a 100%)",
-      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#d4af37" stroke-width="2"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="28" fill="#fceda9" font-weight="bold" text-anchor="middle">संगीत निशा</text></svg>`
+      svgIcon: `<svg width="120" height="120" viewBox="0 0 160 160" fill="none"><circle cx="80" cy="80" r="68" stroke="#d4af37" stroke-width="2.5" stroke-dasharray="2 4"/><circle cx="80" cy="80" r="62" stroke="#d4af37" stroke-width="1.2"/><text x="80" y="87" font-family="'Noto Serif Devanagari',serif" font-size="20" fill="#fceda9" font-weight="600" text-anchor="middle">संगीत निशा</text></svg>`
     },
     {
       id: "seed_4",
@@ -2045,7 +2045,7 @@ const QRGenerator = (function() {
       title: "The Royal Baraat & Pheras",
       caption: "The grand Baraat arrival, Jaimala garland exchange, and the sacred seven steps (Saptapadi) around the Agni.",
       svgBg: "linear-gradient(135deg, #5c1220 0%, #30060e 100%)",
-      svgIcon: `<svg width="70" height="70" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" stroke="#d4af37" stroke-width="2.5"/><text x="50" y="58" font-family="'Noto Serif Devanagari',serif" font-size="30" fill="#fceda9" font-weight="bold" text-anchor="middle">शुभ विवाह</text></svg>`
+      svgIcon: `<svg width="120" height="120" viewBox="0 0 160 160" fill="none"><circle cx="80" cy="80" r="68" stroke="#d4af37" stroke-width="2.5" stroke-dasharray="2 4"/><circle cx="80" cy="80" r="62" stroke="#d4af37" stroke-width="1.5"/><text x="80" y="87" font-family="'Noto Serif Devanagari',serif" font-size="22" fill="#fceda9" font-weight="600" text-anchor="middle">शुभ विवाह</text></svg>`
     }
   ];
 
@@ -2386,6 +2386,10 @@ const QRGenerator = (function() {
       } else {
         document.exitFullscreen().catch((err) => console.warn(err));
       }
+    });
+
+    document.addEventListener("fullscreenchange", () => {
+      slideshowFullscreenBtn.textContent = document.fullscreenElement ? "Exit Fullscreen" : "Fullscreen";
     });
   }
 
