@@ -463,13 +463,23 @@ function escapeHtml(str) {
       // 1. Submit directly to Web3Forms so Brijesh gets instant email notification on Gmail
       const formData = new FormData(form);
       formData.set("access_key", CONFIG.web3FormsKey || "a75fce27-bd6a-4c98-b010-d1a46313f93d");
-      formData.set("subject", `Wedding RSVP: ${reply.names} (${reply.attending === "yes" ? "Attending" : "Declined"})`);
       formData.set("from_name", "Brijesh & Sangeeta Wedding RSVP");
-      formData.set("guest_count", reply.guests || "1");
-      formData.set("functions_attending", (reply.events || []).map((x) => FIELD_LABELS[x] || x).join(", ") || "None");
-      formData.set("dietary_notes", reply.diet || "None");
-      formData.set("stay_accommodation", reply.stay || "Not specified");
-      formData.set("message_for_couple", reply.note || "None");
+      formData.set("name", reply.names);
+      formData.set("email", reply.email);
+      formData.set("phone", reply.phone || "Not provided");
+      formData.set("subject", `Wedding RSVP: ${reply.names} (${reply.attending === "yes" ? "Attending" : "Declined"})`);
+      formData.set("attending", reply.attending === "yes" ? "YES (Attending)" : "NO (Regretfully Declining)");
+      formData.set("guest_count", reply.attending === "yes" ? (reply.guests || "1") : "0");
+      formData.set("functions_attending", reply.attending === "yes"
+        ? ((reply.events || []).map((x) => FIELD_LABELS[x] || x).join(", ") || "None")
+        : "Will not be attending"
+      );
+      formData.set("dietary_notes", reply.attending === "yes" ? (reply.diet || "None") : "N/A");
+      formData.set("stay_accommodation", reply.attending === "yes" ? (reply.stay || "Not specified") : "N/A");
+      formData.set("message", reply.attending === "yes"
+        ? (reply.note ? `Note from guest: ${reply.note}` : `Attending with ${reply.guests || 1} guest(s). Looking forward to the wedding!`)
+        : (reply.note ? `Regretfully declining. Message for couple: ${reply.note}` : "Regretfully declining the invitation. Sending warmest blessings to Brijesh & Sangeeta from afar.")
+      );
 
       // Background POST to Web3Forms (does not block or open external app)
       fetch(CONFIG.rsvpEndpoint || "https://api.web3forms.com/submit", {
