@@ -2595,9 +2595,36 @@ body.has-envelope {
 
 /* ── Digital Shagun & Share ─────────────────────────────────── */
 
+.shagun-blessing-box {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(220, 192, 138, 0.4);
+  border-radius: 12px;
+  padding: clamp(1.8rem, 4vw, 2.4rem) clamp(1.2rem, 3vw, 2.2rem);
+  margin: 1.8rem auto 1.5rem;
+  max-width: 720px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+.shagun-blessing-quote {
+  font-family: var(--display);
+  font-size: clamp(1.05rem, 2.5vw, 1.22rem);
+  font-style: italic;
+  line-height: 1.7;
+  color: #fff4db;
+  margin: 0 0 1.2rem;
+}
+.shagun-blessing-signoff {
+  font-size: 0.92rem;
+  color: var(--gold-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
 .shagun-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(220, 192, 138, 0.3);
+  border-radius: 12px;
   padding: clamp(1.6rem, 4vw, 2.2rem) clamp(1rem, 3vw, 2rem);
   margin-top: 2rem;
   text-align: center;
@@ -2611,6 +2638,7 @@ body.has-envelope {
   position: absolute;
   inset: 6px;
   border: 1px solid rgba(220, 192, 138, 0.15);
+  border-radius: 8px;
   pointer-events: none;
 }
 .shagun-card__title {
