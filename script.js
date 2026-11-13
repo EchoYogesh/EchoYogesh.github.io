@@ -829,6 +829,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       weather_eyebrow: "प्रतापगढ़ का मौसम &middot; रियल-टाइम",
       weather_live_tag: "लाइव",
       weather_subtext: "प्रतापगढ़ का वर्तमान मौसम। जनवरी अंत में होने वाले वैवाहिक आयोजनों में दिन में खिली धूप (21°C) तथा शाम को खुशनुमा ठंडक (8°C) रहेगी। शाम को अलाव व गरमा-गरम चाय की व्यवस्था रहेगी!",
+      family_eyebrow: "परिवार एवं स्नेही स्वजन",
+      family_elders_label: "अग्रज एवं भ्रातृवृंद (दर्शनाभिलाषी)",
+      family_friends_label: "स्नेही स्वजन व मित्र",
+      family_kids_label: "बाल मनुहार (भतीजे एवं भांजे-भांजी)",
       gifts_lede: "आपका पावन आगमन ही हमारे लिए सबसे बड़ा उपहार है। यदि आप फिर भी कुछ भेंट करना चाहें, तो नए जीवन के प्रारंभ हेतु आपका स्नेहपूर्वक शगुन हमें अनुगृहीत करेगा।"
     },
     en: {
@@ -857,6 +861,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       sched_sindoor: "Sindoor & Mangalsutra",
       sched_dinner: "Dinner",
       sched_vidai: "Vidaai",
+      family_eyebrow: "With the Blessings of Our Family",
+      family_elders_label: "Elder Brothers & Brothers",
+      family_friends_label: "Friends & Well-Wishers",
+      family_kids_label: "Our Little Blessings (Nieces & Nephews)",
       wishes_eyebrow: "Heartfelt Blessings",
       wishes_title: "Blessings for the Couple",
       wishes_sub: "Sacred blessings and heartfelt wishes from our beloved family for Brijesh and Sangeeta as they embark on this sacred journey together.",
@@ -1001,7 +1009,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     });
   });
 
-  const WISHES_STORAGE_KEY = "wishes-brijesh-sangeeta-v4";
+  const WISHES_STORAGE_KEY = "wishes-brijesh-sangeeta-v5";
 
   const INITIAL_WISHES_EN = [
     {
@@ -1019,18 +1027,25 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       date: "Family Blessings",
     },
     {
-      author: "Yogesh & Dharmendra",
-      relation: "Friends & Brothers",
-      tag: "✦ Heartiest Congratulations",
-      text: "Bhaiya and Bhabhi, warmest congratulations on your wedding! The tents are pitched, the dhol is ready, and we cannot wait to dance our hearts out and celebrate at Chandauka!",
-      date: "Friends & Brothers",
+      author: "J.P. Bhaiya, Abhishek, Ajeet, Vineet, Satya Prakash & Amit",
+      relation: "Elder Brothers & Brothers",
+      tag: "✦ Eternal Blessings",
+      text: "Dearest Brijesh and Sangeeta, may your married life blossom with deep happiness, prosperity, and togetherness. As brothers, we are always by your side to celebrate every milestone of this beautiful new journey!",
+      date: "Brothers' Blessings",
     },
     {
-      author: "Anmol, Abhimanyu, Anaika, Aisha & Shanvi",
-      relation: "Nephews & Nieces",
+      author: "Yogesh & Dharmendra",
+      relation: "Friends & Well-Wishers",
+      tag: "✦ Heartiest Congratulations",
+      text: "Brijesh and Sangeeta Bhabhi, heartiest congratulations! The Baraat is going to be unforgettable, the dhol is waiting, and we can't wait to dance our hearts out and celebrate together in Chandauka!",
+      date: "Friends",
+    },
+    {
+      author: "Anmol, Abhimanyu, Krishna, Avyansh, Anaika, Aisha, Shanvi, Sudha & Aditi",
+      relation: "Nieces & Nephews (Bal-Gopal)",
       tag: "✦ Best Wishes Forever",
       text: "Heartiest congratulations to our dearest Chacha-Chachi and Mamu-Mami! Wishing you a lifetime of adventures, boundless laughter, and all the happiness in the world!",
-      date: "Nephews & Nieces",
+      date: "Nieces & Nephews",
     },
   ];
 
@@ -1050,17 +1065,24 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       date: "माता-पिता (वधू पक्ष)",
     },
     {
-      author: "योगेश एवं धर्मेन्द्र",
-      relation: "मित्र एवं भाई",
-      tag: "✦ ढेरों बधाइयां",
-      text: "ब्रिजेश भैया और संगीता भाभी, विवाह के इस पावन अवसर पर ढेरों बधाइयां! बारात में ढोल-नगाड़ों की थाप पर खूब जश्न मनेगा और हम सब दिल खोलकर नाचेंगे!",
-      date: "मित्र एवं भाई",
+      author: "जे.पी. भैया, अभिषेक, अजीत, विनीत, सत्य प्रकाश एवं अमित",
+      relation: "अग्रज एवं भ्रातृवृंद",
+      tag: "✦ अग्रज स्नेह व आशीर्वाद",
+      text: "प्रिय ब्रिजेश और संगीता, आप दोनों का दांपत्य जीवन सदैव प्रेम, सौहार्द और खुशहाली से महकता रहे। भाइयों का स्नेह और आशीर्वाद हर कदम पर तुम दोनों के साथ है। नए जीवन की हार्दिक शुभकामनाएं!",
+      date: "पारिवारिक आशीर्वाद",
     },
     {
-      author: "अनमोल, अभिमन्यु, अनायका, आयशा एवं शान्वी",
-      relation: "भतीजे एवं भांजे-भांजी",
+      author: "योगेश एवं धर्मेन्द्र",
+      relation: "मित्र",
+      tag: "✦ ढेरों बधाइयां",
+      text: "ब्रिजेश और संगीता भाभी, विवाह के इस शुभ अवसर पर दिल से बहुत-बहुत बधाई! बारात में ढोल-नगाड़ों की धुन पर जमकर जश्न मनेगा और हम दोस्त मिलकर चन्दौका में यादगार महफ़िल सजाएंगे!",
+      date: "मित्र",
+    },
+    {
+      author: "अनमोल, अभिमन्यु, कृष्णा, अव्यांश, अनायका, आयशा, शान्वी, सुधा एवं अदिति",
+      relation: "बाल मनुहार (भतीजे एवं भांजे-भांजी)",
       tag: "✦ हार्दिक शुभकामनाएं",
-      text: "चाचा-चाची और मामा-मामी को विवाह की हार्दिक शुभकामनाएं! आप दोनों की प्यारी जोड़ी हमेशा सलामत रहे और आपके जीवन में सदा खुशियां और प्यार बना रहे!",
+      text: "चाचा-चाची और मामा-मामी को विवाह की ढेरों शुभकामनाएं! आप दोनों की प्यारी जोड़ी हमेशा मुस्कुराती रहे, और हम सब बच्चे शादी में खूब मस्ती और धमाल मचाएंगे!",
       date: "भतीजे एवं भांजे-भांजी",
     },
   ];
@@ -1536,4 +1558,45 @@ const QRGenerator = (function() {
   });
 
   fetchWeather();
+})();
+
+/* ── Family & Well-Wishers Bilingual Names Sync ─────────────── */
+
+(function initFamilyNames() {
+  const FAMILY_NAMES = {
+    en: {
+      elders: ["J.P. Bhaiya", "Abhishek", "Ajeet", "Vineet", "Satya Prakash", "Amit"],
+      friends: ["Yogesh", "Dharmendra"],
+      kids: ["Anmol", "Abhimanyu", "Krishna", "Avyansh", "Anaika", "Aisha", "Shanvi", "Sudha", "Aditi"]
+    },
+    hi: {
+      elders: ["जे.पी. भैया", "अभिषेक", "अजीत", "विनीत", "सत्य प्रकाश", "अमित"],
+      friends: ["योगेश", "धर्मेन्द्र"],
+      kids: ["अनमोल", "अभिमन्यु", "कृष्णा", "अव्यांश", "अनायका", "आयशा", "शान्वी", "सुधा", "अदिति"]
+    }
+  };
+
+  function updateFamily(lang) {
+    const activeLang = lang || (window.getCurrentLang ? window.getCurrentLang() : "en");
+    const data = FAMILY_NAMES[activeLang] || FAMILY_NAMES.en;
+
+    const render = (arr) => arr.map((n) => `<span>${n}</span>`).join(" <i>&middot;</i> ");
+
+    const eldersEl = document.getElementById("familyEldersNames");
+    const friendsEl = document.getElementById("familyFriendsNames");
+    const kidsEl = document.getElementById("familyKidsNames");
+
+    if (eldersEl) eldersEl.innerHTML = render(data.elders);
+    if (friendsEl) friendsEl.innerHTML = render(data.friends);
+    if (kidsEl) kidsEl.innerHTML = render(data.kids);
+  }
+
+  window.addEventListener("weddingLangChange", (e) => {
+    updateFamily(e.detail && e.detail.lang);
+  });
+
+  const initialLang = window.getCurrentLang ? window.getCurrentLang() : "en";
+  if (initialLang === "hi") {
+    updateFamily("hi");
+  }
 })();
