@@ -1940,6 +1940,7 @@ body.has-envelope {
   padding: 2.2rem clamp(1.2rem, 4vw, 2.4rem);
   background: #fffdf8;
   border: 2px solid var(--gold);
+  border-radius: 14px;
   box-shadow: 0 12px 36px -12px rgba(61, 10, 21, 0.35);
   position: relative;
   text-align: center;
@@ -1949,7 +1950,26 @@ body.has-envelope {
   position: absolute;
   inset: 6px;
   border: 1px solid var(--gold-line);
+  border-radius: 10px;
   pointer-events: none;
+}
+.wedding-pass__header {
+  margin-bottom: 0.8rem;
+}
+.wedding-pass__couple {
+  font-family: var(--script);
+  font-size: 2.2rem;
+  color: var(--maroon);
+  line-height: 1.1;
+  margin: 0 0 0.2rem;
+}
+.wedding-pass__sub {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin: 0;
+  font-weight: 500;
 }
 .wedding-pass__badge {
   display: inline-block;
@@ -1959,7 +1979,9 @@ body.has-envelope {
   background: var(--maroon);
   color: var(--cream);
   padding: 0.28rem 0.85rem;
-  margin-bottom: 1rem;
+  border-radius: 999px;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 .wedding-pass__guest {
   font-family: var(--display);
@@ -1972,8 +1994,43 @@ body.has-envelope {
   font-family: var(--display);
   font-size: 1.15rem;
   color: var(--ink-soft);
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.2rem;
   line-height: 1.6;
+}
+.wedding-pass__meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.8rem;
+  margin: 1.2rem auto 1.4rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--cream-2);
+  border: 1px solid var(--gold-line);
+  border-radius: 8px;
+  text-align: left;
+}
+.wedding-pass__meta-item {
+  display: flex;
+  flex-direction: column;
+}
+.wedding-pass__meta-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+.wedding-pass__meta-val {
+  font-size: 0.82rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.wedding-pass__footer-note {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--gold);
+  margin: 0 0 1.4rem;
 }
 .wedding-pass__actions {
   display: flex;
@@ -3844,20 +3901,146 @@ body.has-envelope {
 }
 
 @media print {
-  .nav, .countdown, .rsvp, .hero__actions, .btn, body::after, .petals, .royal-envelope-overlay, .mobile-quickbar, .wishes-form, .nav__actions { display: none !important; }
-  body { background: #fff; color: #000; }
-  .hero, .section--cream, .section--cream-2 { background: #fff !important; }
-  .section--ink, .footer { background: #fff !important; color: #000 !important; }
-  .section--ink h2, .schedule h3, .footer__mark { color: #000 !important; }
-  .section--ink .s-sub,
-  .schedule li p:last-child,
-  .schedule__note,
-  .lede,
-  .contacts__group a,
-  .contacts__place,
-  .footer__date,
-  .footer__small { color: #333 !important; }
-  .reveal { opacity: 1; transform: none; }
-  .section { padding: 1.2rem 0; }
-  .baraat, .couple, .vidai { opacity: 1; }
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  /* ── 1-Page Official Royal Wedding Guest Pass Print ─────────── */
+  body.printing-pass,
+  body:has(#rsvpDone:not([hidden])) {
+    background: #ffffff !important;
+    color: #2b060d !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.printing-pass header,
+  body.printing-pass nav,
+  body.printing-pass footer,
+  body.printing-pass .royal-envelope-overlay,
+  body.printing-pass .mobile-quickbar,
+  body.printing-pass #hero,
+  body.printing-pass #countdown,
+  body.printing-pass #invitation,
+  body.printing-pass #functions,
+  body.printing-pass #attire,
+  body.printing-pass #saptapadi,
+  body.printing-pass #travel,
+  body.printing-pass #wishes,
+  body.printing-pass #gifts,
+  body.printing-pass #memories,
+  body.printing-pass #faq,
+  body.printing-pass .footer,
+  body.printing-pass .petals,
+  body.printing-pass .s-head,
+  body.printing-pass .rsvp__form,
+  body.printing-pass .whatsapp-rsvp-box,
+  body.printing-pass .rsvp__status,
+  body.printing-pass .rsvp__fineprint,
+  body.printing-pass .rsvp__done > svg,
+  body.printing-pass .rsvp__done > h3,
+  body.printing-pass .rsvp__done > p,
+  body.printing-pass .rsvp__done-actions,
+  body.printing-pass .wedding-pass__actions,
+  body.printing-pass .btn,
+  body.printing-pass .royal-modal-overlay,
+  body:has(#rsvpDone:not([hidden])) header,
+  body:has(#rsvpDone:not([hidden])) nav,
+  body:has(#rsvpDone:not([hidden])) footer,
+  body:has(#rsvpDone:not([hidden])) .royal-envelope-overlay,
+  body:has(#rsvpDone:not([hidden])) .mobile-quickbar,
+  body:has(#rsvpDone:not([hidden])) #hero,
+  body:has(#rsvpDone:not([hidden])) #countdown,
+  body:has(#rsvpDone:not([hidden])) #invitation,
+  body:has(#rsvpDone:not([hidden])) #functions,
+  body:has(#rsvpDone:not([hidden])) #attire,
+  body:has(#rsvpDone:not([hidden])) #saptapadi,
+  body:has(#rsvpDone:not([hidden])) #travel,
+  body:has(#rsvpDone:not([hidden])) #wishes,
+  body:has(#rsvpDone:not([hidden])) #gifts,
+  body:has(#rsvpDone:not([hidden])) #memories,
+  body:has(#rsvpDone:not([hidden])) #faq,
+  body:has(#rsvpDone:not([hidden])) .footer,
+  body:has(#rsvpDone:not([hidden])) .petals,
+  body:has(#rsvpDone:not([hidden])) .s-head,
+  body:has(#rsvpDone:not([hidden])) .rsvp__form,
+  body:has(#rsvpDone:not([hidden])) .whatsapp-rsvp-box,
+  body:has(#rsvpDone:not([hidden])) .rsvp__status,
+  body:has(#rsvpDone:not([hidden])) .rsvp__fineprint,
+  body:has(#rsvpDone:not([hidden])) .rsvp__done > svg,
+  body:has(#rsvpDone:not([hidden])) .rsvp__done > h3,
+  body:has(#rsvpDone:not([hidden])) .rsvp__done > p,
+  body:has(#rsvpDone:not([hidden])) .rsvp__done-actions,
+  body:has(#rsvpDone:not([hidden])) .wedding-pass__actions,
+  body:has(#rsvpDone:not([hidden])) .btn,
+  body:has(#rsvpDone:not([hidden])) .royal-modal-overlay {
+    display: none !important;
+  }
+
+  body.printing-pass #rsvp,
+  body.printing-pass .rsvp,
+  body.printing-pass .wrap,
+  body.printing-pass .rsvp__done,
+  body:has(#rsvpDone:not([hidden])) #rsvp,
+  body:has(#rsvpDone:not([hidden])) .rsvp,
+  body:has(#rsvpDone:not([hidden])) .wrap,
+  body:has(#rsvpDone:not([hidden])) .rsvp__done {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  body.printing-pass #weddingPassCard,
+  body:has(#rsvpDone:not([hidden])) #weddingPassCard {
+    display: block !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    margin: 20mm auto 0 !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    padding: 2.2rem 2.4rem !important;
+    background: #fffdf8 !important;
+    border: 3px double #b0863a !important;
+    border-radius: 14px !important;
+    box-shadow: none !important;
+    text-align: center !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+  }
+
+  body.printing-pass #weddingPassCard::before,
+  body:has(#rsvpDone:not([hidden])) #weddingPassCard::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 6px !important;
+    border: 1px solid rgba(176, 134, 58, 0.45) !important;
+    border-radius: 10px !important;
+    pointer-events: none !important;
+  }
+
+  body.printing-pass .wedding-pass__meta,
+  body:has(#rsvpDone:not([hidden])) .wedding-pass__meta {
+    background: #fdfaf3 !important;
+    border: 1px solid rgba(176, 134, 58, 0.35) !important;
+  }
+
+  /* General fallback print when pass is not active */
+  body:not(.printing-pass):not(:has(#rsvpDone:not([hidden]))) .nav,
+  body:not(.printing-pass):not(:has(#rsvpDone:not([hidden]))) .countdown,
+  body:not(.printing-pass):not(:has(#rsvpDone:not([hidden]))) .btn,
+  body:not(.printing-pass):not(:has(#rsvpDone:not([hidden]))) .petals,
+  body:not(.printing-pass):not(:has(#rsvpDone:not([hidden]))) .royal-envelope-overlay,
+  body:not(.printing-pass):not(:has(#rsvpDone:not([hidden]))) .mobile-quickbar {
+    display: none !important;
+  }
 }

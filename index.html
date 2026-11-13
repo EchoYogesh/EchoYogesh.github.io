@@ -1302,11 +1302,33 @@
         <p id="rsvpDoneText">We can't wait to see you in January.</p>
 
         <div class="wedding-pass" id="weddingPassCard">
-          <span class="wedding-pass__badge">Official Digital Guest Pass</span>
+          <div class="wedding-pass__header">
+            <h3 class="wedding-pass__couple">Brijesh &amp; Sangeeta</h3>
+            <p class="wedding-pass__sub">Wedding Celebrations &middot; Village Chandauka</p>
+          </div>
+          <span class="wedding-pass__badge">Official Guest Pass</span>
           <h4 class="wedding-pass__guest" id="passGuestName">Guest Name</h4>
           <p class="wedding-pass__details" id="passDetails">Village Chandauka &middot; 30 Jan – 2 Feb 2027</p>
+
+          <div class="wedding-pass__meta">
+            <div class="wedding-pass__meta-item">
+              <span class="wedding-pass__meta-label">Venue</span>
+              <span class="wedding-pass__meta-val">Yadav Family Home, Village Chandauka, Kohandaur, Pratapgarh, UP</span>
+            </div>
+            <div class="wedding-pass__meta-item">
+              <span class="wedding-pass__meta-label">Hosts</span>
+              <span class="wedding-pass__meta-val">Anita &amp; Ram Abhilash Yadav</span>
+            </div>
+            <div class="wedding-pass__meta-item">
+              <span class="wedding-pass__meta-label">Helpline</span>
+              <span class="wedding-pass__meta-val">+91 7503156003 &middot; +91 9540984699</span>
+            </div>
+          </div>
+
+          <p class="wedding-pass__footer-note">“We eagerly await your gracious presence to bless the newlyweds.”</p>
+
           <div class="wedding-pass__actions">
-            <button class="btn btn--solid" type="button" onclick="window.print()">Print / Save Pass</button>
+            <button class="btn btn--solid" type="button" id="printPassBtn" onclick="printWeddingPass()">Print / Save Pass (1-Page)</button>
             <a class="btn btn--line" id="googleCalendarLink" href="#" target="_blank" rel="noopener">Google Calendar</a>
           </div>
         </div>
@@ -1781,6 +1803,6 @@
   </div>
 </nav>
 
-<script src="script.js?v=25"></script>
+<script src="script.js?v=26"></script>
 </body>
 </html>

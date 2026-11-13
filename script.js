@@ -375,6 +375,25 @@ function escapeHtml(str) {
     done.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
   }
 
+  window.printWeddingPass = function () {
+    document.body.classList.add("printing-pass");
+    setTimeout(() => {
+      window.print();
+    }, 50);
+  };
+
+  window.addEventListener("beforeprint", () => {
+    const passCard = document.getElementById("weddingPassCard");
+    const rsvpDone = document.getElementById("rsvpDone");
+    if (rsvpDone && !rsvpDone.hidden && passCard && !passCard.hidden) {
+      document.body.classList.add("printing-pass");
+    }
+  });
+
+  window.addEventListener("afterprint", () => {
+    document.body.classList.remove("printing-pass");
+  });
+
   const stamp = (d) =>
     new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
   const escapeText = (t) => String(t).replace(/([,;\\])/g, "\\$1").replace(/\n/g, "\\n");
