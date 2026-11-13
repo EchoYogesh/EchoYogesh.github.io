@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Karla:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="styles.css?v=14" />
+<link rel="stylesheet" href="styles.css?v=15" />
 </head>
 
 <body>
@@ -37,7 +37,7 @@
 <!-- Royal Wax Seal & Envelope Opening Experience -->
 <div class="royal-envelope-overlay" id="envelopeOverlay" aria-modal="true" role="dialog" aria-label="Royal Wedding Invitation Envelope">
   <div class="envelope-scene">
-    <div class="envelope-container" id="envelopeContainer">
+    <div class="envelope-container" id="envelopeContainer" role="button" tabindex="0" aria-label="Tap to open royal wedding invitation envelope">
       
       <!-- Background Ambient Glow -->
       <div class="envelope-ambient-glow" aria-hidden="true"></div>
@@ -82,11 +82,8 @@
         <div class="envelope-pocket-front" aria-hidden="true">
           <div class="pocket-gold-trim"></div>
           <div class="pocket-face-content">
-            <span class="pocket-kankotri-label script">Royal Wedding Invitation</span>
             <h3 class="pocket-couple-name">Brijesh <span class="pocket-amp">&amp;</span> Sangeeta</h3>
-            <div class="pocket-divider">
-              <span class="pocket-date-text">31 January 2027 &middot; Chandauka, UP</span>
-            </div>
+            <p class="pocket-date-text">31 January 2027 &middot; Chandauka, UP</p>
           </div>
         </div>
 
@@ -97,8 +94,8 @@
           </div>
         </div>
 
-        <!-- 3D Interactive Royal Wax Seal Button -->
-        <button class="royal-wax-seal" id="breakSealBtn" aria-label="Break Wax Seal to Unfold Royal Invitation" type="button">
+        <!-- 3D Interactive Royal Wax Seal -->
+        <div class="royal-wax-seal" id="breakSealBtn" aria-label="Break Wax Seal to Open Invitation">
           <div class="seal-glow-ring" aria-hidden="true"></div>
           <div class="seal-body">
             <!-- Organic Wax Seal Shape with Rich Shading -->
@@ -133,21 +130,12 @@
               <div class="seal-bead-border" aria-hidden="true"></div>
             </div>
           </div>
-
-          <div class="seal-caption">
-            <span class="seal-caption-title">Break Seal to Open</span>
-            <span class="seal-caption-sub">Tap to unfold invitation</span>
-          </div>
-        </button>
+        </div>
 
       </div>
 
-      <!-- Quick skip link below envelope -->
-      <div class="envelope-skip-wrap">
-        <button class="envelope-skip" id="skipEnvelopeBtn" type="button">
-          Enter site directly &rarr;
-        </button>
-      </div>
+      <!-- Refined minimal tap whisper -->
+      <p class="envelope-whisper" aria-hidden="true">Tap seal to open invitation</p>
 
     </div>
   </div>
@@ -1907,6 +1895,6 @@
   </div>
 </nav>
 
-<script src="script.js?v=32"></script>
+<script src="script.js?v=33"></script>
 </body>
 </html>

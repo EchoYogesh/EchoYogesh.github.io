@@ -838,7 +838,15 @@ function escapeHtml(str) {
   }
 
   if (breakBtn) breakBtn.addEventListener("click", openEnvelope);
-  if (skipBtn) skipBtn.addEventListener("click", skipDirectly);
+  if (container) {
+    container.addEventListener("click", openEnvelope);
+    container.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openEnvelope();
+      }
+    });
+  }
 
   // Check if opened during current session
   try {
