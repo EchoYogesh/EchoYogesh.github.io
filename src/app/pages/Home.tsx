@@ -24,9 +24,9 @@ export function Home() {
         (selectedFilter === 'Fintech & Banking' && project.slug.includes('fintech')) ||
         (selectedFilter === 'Performance & Load' && project.slug.includes('performance')) ||
         (selectedFilter === 'E-Commerce & SaaS' &&
-          (project.slug.includes('saas') || project.slug.includes('wines'))) ||
+          (project.slug.includes('saas') || project.slug.includes('retail') || project.slug.includes('ecommerce'))) ||
         (selectedFilter === 'Healthcare & HR' &&
-          (project.slug.includes('huma') || project.slug.includes('hr-tech')))
+          (project.slug.includes('health') || project.slug.includes('workforce') || project.slug.includes('tech')))
 
       const q = searchQuery.toLowerCase().trim()
       const matchesSearch =
