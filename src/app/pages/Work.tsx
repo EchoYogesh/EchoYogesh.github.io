@@ -71,17 +71,33 @@ export function Work() {
         </div>
       </div>
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2">
-        <Reveal>
-          <div className="image-frame h-[240px] sm:h-[300px] w-full rounded-[24px] overflow-hidden border border-line-strong/60 shadow-lg" style={{ background: project.tint }}>
-            <img src={project.cover} alt={`${project.title} overview`} className="size-full object-cover object-top transition-transform duration-700 hover:scale-[1.04]" />
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <div className="image-frame h-[240px] sm:h-[300px] w-full rounded-[24px] overflow-hidden border border-line-strong/60 shadow-lg" style={{ background: project.tint }}>
-            <img src={project.cover} alt={`${project.title} focus`} className="size-full object-cover object-center transition-transform duration-700 hover:scale-[1.04]" />
-          </div>
-        </Reveal>
+      {/* Engineering Impact & Deliverables Highlights (Replacing duplicate images) */}
+      <div className="mt-16 rounded-[28px] border border-line-strong/80 bg-surface/80 p-7 sm:p-10 shadow-lg backdrop-blur-md">
+        <div className="max-w-2xl">
+          <span className="font-mono text-[12px] font-medium tracking-wider text-[#c26138] uppercase">
+            Architecture Deliverables & Outcomes
+          </span>
+          <h3 className="font-display mt-2 text-[24px] sm:text-[30px] leading-tight text-fg">
+            Technical milestones achieved
+          </h3>
+          <p className="mt-2 text-[14.5px] text-muted leading-relaxed">
+            Concrete engineering deliverables and verified testing implementations shipped for this platform.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-3.5 sm:grid-cols-2">
+          {project.deliverables.map((item, idx) => (
+            <div
+              key={idx}
+              className="flex items-start gap-3 rounded-[18px] border border-line bg-surface-2/40 p-4 transition-colors hover:border-fg/40 hover:bg-surface-2/80"
+            >
+              <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[#c26138]/10 text-[11px] font-semibold text-[#c26138]">
+                ✓
+              </span>
+              <p className="text-[13.5px] sm:text-[14px] font-medium text-fg/90 leading-snug">{item}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <Link to={`/work/${next.slug}`} className="group mt-32 block border-t border-line pt-10">
