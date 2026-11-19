@@ -9,4 +9,9 @@ if (fs.existsSync(distDir)) {
     fs.copyFileSync(indexHtml, notFoundHtml)
     console.log('✓ Created 404.html for GitHub Pages SPA routing fallback')
   }
+
+  // Ensure .nojekyll exists so GitHub Pages serves all assets directly
+  const noJekyll = path.join(distDir, '.nojekyll')
+  fs.writeFileSync(noJekyll, '')
+  console.log('✓ Created .nojekyll for GitHub Pages asset resolution')
 }
