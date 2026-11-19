@@ -22,14 +22,27 @@ export function Footer() {
     e.preventDefault()
     setState('sending')
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(form),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: site.web3formsKey,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          from_name: 'Yogesh Prajapati Portfolio',
+          subject: `Portfolio Inquiry from ${form.name}`,
+        }),
       })
-      const body = (await response.json()) as { error?: string }
-      if (!response.ok) throw new Error(body.error ?? 'Could not submit. Try again.')
+      const data = (await response.json()) as { success?: boolean; message?: string }
+      if (!data.success) {
+        throw new Error(data.message || 'Could not submit. Try again.')
+      }
       setState('done')
+      setForm({ name: '', email: '', message: '' })
     } catch (error) {
       setState('error')
       setError(error instanceof Error ? error.message : 'Could not submit. Try again.')
@@ -156,7 +169,17 @@ export function Footer() {
                   <span>{state === 'sending' ? 'Transmitting message...' : 'Send Message'}</span>
                 </button>
 
-                {state === 'error' && <p className="text-[13px] text-[#c26138]">{error}</p>}
+                {state === 'error' && (
+                  <div className="flex flex-col gap-1.5 rounded-xl border border-[#c26138]/20 bg-[#c26138]/5 p-3">
+                    <p className="text-[13px] text-[#c26138]">{error}</p>
+                    <a
+                      href={`mailto:${site.email}?subject=${encodeURIComponent(`Portfolio Inquiry from ${form.name || 'Visitor'}`)}&body=${encodeURIComponent(`${form.message}\n\nFrom: ${form.name} (${form.email})`)}`}
+                      className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-fg underline underline-offset-4 hover:text-[#c26138]"
+                    >
+                      <Mail className="size-3.5" /> Click here to send directly via your email app
+                    </a>
+                  </div>
+                )}
               </form>
             )}
           </Reveal>
