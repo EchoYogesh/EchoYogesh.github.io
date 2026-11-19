@@ -32,10 +32,10 @@ export function Work() {
         initial={{ opacity: 0, y: 30, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1.1, delay: 0.2, ease }}
-        className="mt-10 overflow-hidden rounded-[28px] border border-line-strong/60 shadow-xl max-h-[420px] sm:max-h-[480px]"
+        className="mt-10 w-full h-[260px] sm:h-[380px] md:h-[460px] overflow-hidden rounded-[28px] border border-line-strong/60 shadow-xl"
         style={{ background: project.tint }}
       >
-        <Parallax src={project.cover} alt={project.title} className="aspect-[16/10] sm:aspect-[16/9] max-h-[420px] sm:max-h-[480px]" strength={5} />
+        <Parallax src={project.cover} alt={project.title} className="size-full" strength={5} />
       </motion.div>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[320px_1fr] lg:gap-24">
